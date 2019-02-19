@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">LoginRanchera</string>
+    <string name="ranchera">Ranchera</string>
+    <string name="iniciar_sesion">Iniciar Sesion</string>
+    <string name="recordarme">Recordarme</string>
+    <string name="olvide">¿Olvide usuario y/o contraseña?</string>
+    <string name="ingrese_correo">Ingrese su correo registrado <b>en Ranchera</b></string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>
