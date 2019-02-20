@@ -8,4 +8,6 @@
     <color name="colorCustomGrey2">#888888</color>
     <color name="colorAlmostWhite">#E4E4E4</color>
     <color name="colorGreen">#52D355</color>
+    <color name="DefaultBlue">#1C53EC</color>
+    <color name="white">#FFFFFF</color>
 </resources>

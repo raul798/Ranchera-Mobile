@@ -13,14 +13,18 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="FlujoClientes_Productos"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:supportsRtl="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ConsultarCliente"/>
+        <activity android:name=".Productos" />
         <activity android:name=".DashBoardActivity" />
         <activity android:name=".ForgotActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
