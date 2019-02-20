@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Ranchera</string>
-    <string name="ranchera">Ranchera</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="recordarme">Recordarme</string>
     <string name="olvide"><u>¿Olvide usuario y/o contraseña?</u></string>
@@ -10,11 +9,42 @@
     <string name="tab_text_2">Ordenes</string>
     <string name="tab_text_3">Consultar Cliente</string>
     <string name="tab_text_4">Productos</string>
-    <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="ayuda"><u>Ayuda</u></string>
     <string name="cancelar"><u>Cancelar</u></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_consultar_clientes">ConsultarClientes</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="resumen">Resumen</string>
+    <string name="ordenes">Órdenes</string>
+    <string name="consultar_clientes">Clientes</string>
+    <string name="productos">Productos</string>
+    <string name="ranchera">Ranchera</string>
+    <string name="search_clientes">Buscar cliente</string>
+    <string name="search_productos">Buscar productos</string>
+    <string-array name="test_clientes">
+        <item>Raúl Herrera</item>
+        <item>Natalia</item>
+        <item>Xavier</item>
+        <item>Dante</item>
+        <item>Raul1</item>
+        <item>Raul2</item>
+        <item>Raul3</item>
+        <item>Raul4</item>
+        <item>Raul5</item>
+        <item>Raul6</item>
+        <item>Raul7</item>
+    </string-array>
+
+
+    <string name="title_activity_seleccionar_producto">SeleccionarProducto</string>
+    <string name="title_activity_resumen_orden">ResumenOrden</string>
+    <string name="title_activity_confirmacion_orden">ConfirmacionOrden</string>
 </resources>

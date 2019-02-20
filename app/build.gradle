@@ -3,8 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "comx.example.xavie.loginranchera"
-        minSdkVersion 15
+        applicationId "ado.edu.pucmm.rancherasystem"
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -19,12 +19,20 @@ android {
 }
 
 dependencies {
+    //local library
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //android and support library
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
+
+    //third party library
+    implementation 'com.github.gcacace:signature-pad:1.2.1'
     implementation 'com.github.razerdp:AnimatedPieView:1.2.4'
+
+    //test library
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'

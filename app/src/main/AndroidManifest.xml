@@ -1,5 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mobile.tomadeordenes">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/ranchera"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".ConfirmacionOrden"
+            android:label="Ranchera"
+            android:parentActivityName=".ResumenOrden"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobile.tomadeordenes.ResumenOrden" />
+        </activity>
+        <activity
+            android:name=".ResumenOrden"
+            android:label="Ranchera"
+            android:parentActivityName=".SeleccionarProducto"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobile.tomadeordenes.SeleccionarProducto" />
+        </activity>
+        <activity
+            android:name=".SeleccionarProducto"
+            android:label="Ranchera"
+            android:parentActivityName=".ConsultarClientes"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobile.tomadeordenes.ConsultarClientes" />
+        </activity>
+        <activity
+            android:name=".ConsultarClientes"
+            android:label="@string/ranchera"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.mobile.tomadeordenes.MainActivity" />
+        </activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="comx.example.xavie.loginranchera">
 
     <application
