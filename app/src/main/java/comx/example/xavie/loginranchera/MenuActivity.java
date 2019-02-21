@@ -1,5 +1,6 @@
 package comx.example.xavie.loginranchera;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -118,6 +119,19 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+                return inflater.inflate(R.layout.fragment_resumen_page, container, false);
+            }
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                return inflater.inflate(R.layout.fragment_ordenes_page, container, false);
+            }
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+                return inflater.inflate(R.layout.fragment_consultar_cliente_page, container, false);
+            }
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 4) {
+                return inflater.inflate(R.layout.fragment_productos_page, container, false);
+            }
+
             View rootView = inflater.inflate(R.layout.fragment_menu, container, false);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
@@ -145,7 +159,13 @@ public class MenuActivity extends AppCompatActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
+    }
+
+    public void helpMe(View view) {
+        Intent helpIntent = new Intent(this, SupportActivity.class);
+        //login logic
+        startActivity(helpIntent);
     }
 }
