@@ -11,14 +11,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class ResumenOrden extends AppCompatActivity
+import com.github.gcacace.signaturepad.views.SignaturePad;
+
+public class ConfirmacionOrdenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private Button finishButton;
+    private ImageView finishCircle;
+    private ImageView uninishCircle;
+    private TextView finishText;
+    private ImageView endStatusCircleComplete;
+    private ImageView endStatusCircleIncomplete;
+    private SignaturePad mSignaturePad;
+    private TextView signatureText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resumen_orden);
+        setContentView(R.layout.activity_confirmacion_orden);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -30,6 +44,42 @@ public class ResumenOrden extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //set button unabled
+        finishButton = (Button) findViewById(R.id.finish_button);
+        finishButton.setEnabled(false);
+        finishButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+
+        finishCircle = (ImageView) findViewById(R.id.confirmation_circle);
+        finishCircle.setVisibility(View.INVISIBLE);
+
+        finishText = (TextView) findViewById(R.id.confirmation_text);
+        signatureText = (TextView) findViewById(R.id.firme_text);
+        finishText.setVisibility(View.INVISIBLE);
+
+        endStatusCircleComplete = (ImageView) findViewById(R.id.confirmation_final_circle);
+        endStatusCircleIncomplete = (ImageView) findViewById(R.id.confirmacion_confirmacion_circle);
+        endStatusCircleComplete.setVisibility(View.INVISIBLE);
+
+        mSignaturePad = (SignaturePad) findViewById(R.id.signature_pad);
+        mSignaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
+
+            @Override
+            public void onStartSigning() {
+                //Event triggered when the pad is touched
+            }
+
+            @Override
+            public void onSigned() {
+                finishButton.setEnabled(true);
+                finishButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+            }
+
+            @Override
+            public void onClear() {
+                //Event triggered when the pad is cleared
+            }
+        });
     }
 
     @Override
@@ -45,7 +95,7 @@ public class ResumenOrden extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.resumen_orden, menu);
+        getMenuInflater().inflate(R.menu.confirmacion_orden, menu);
         return true;
     }
 
@@ -74,6 +124,7 @@ public class ResumenOrden extends AppCompatActivity
         if (id == R.id.nav_resumen) {
             Intent testIntent = new Intent(this, MainActivity.class);
             startActivity(testIntent);
+
         } else if (id == R.id.nav_productos) {
 
         } else if (id == R.id.nav_consultar_cliente) {
@@ -87,15 +138,15 @@ public class ResumenOrden extends AppCompatActivity
         return true;
     }
 
-    public void toSelectProducto(View view) {
+    public void finishOrder(View view) {
 
-        Intent intent = new Intent(this, SeleccionarProducto.class);
-        startActivity(intent);
+        finishCircle.setVisibility(View.VISIBLE);
+        finishText.setVisibility(View.VISIBLE);
+        endStatusCircleComplete.setVisibility(View.VISIBLE);
+        endStatusCircleIncomplete.setVisibility(View.INVISIBLE);
+        mSignaturePad.setVisibility(View.INVISIBLE);
+        finishButton.setVisibility(View.INVISIBLE);
+        signatureText.setVisibility(View.INVISIBLE);
     }
 
-    public void toConfirmacion(View view) {
-
-        Intent intent = new Intent(this, ConfirmacionOrden.class);
-        startActivity(intent);
-    }
 }

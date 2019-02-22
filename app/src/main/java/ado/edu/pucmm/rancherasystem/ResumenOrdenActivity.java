@@ -12,13 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class SeleccionarProducto extends AppCompatActivity
+public class ResumenOrdenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seleccionar_producto);
+        setContentView(R.layout.activity_resumen_orden);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -45,23 +45,25 @@ public class SeleccionarProducto extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.seleccionar_producto, menu);
+        getMenuInflater().inflate(R.menu.resumen_orden, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
         if (id == R.id.helpButton) {
-
             Intent testIntent = new Intent(this, MainActivity.class);
             startActivity(testIntent);
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -85,15 +87,15 @@ public class SeleccionarProducto extends AppCompatActivity
         return true;
     }
 
-    public void toConsultarClientes(View view) {
+    public void toSelectProducto(View view) {
 
-        Intent intent = new Intent(this, ConsultarClientes.class);
+        Intent intent = new Intent(this, ProductoOrdenActivity.class);
         startActivity(intent);
     }
 
-    public void toOrderResumen(View view) {
+    public void toConfirmacion(View view) {
 
-        Intent intent = new Intent(this, ResumenOrden.class);
+        Intent intent = new Intent(this, ConfirmacionOrdenActivity.class);
         startActivity(intent);
     }
 }

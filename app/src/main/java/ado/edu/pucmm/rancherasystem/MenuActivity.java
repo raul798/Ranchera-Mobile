@@ -3,7 +3,6 @@ package ado.edu.pucmm.rancherasystem;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -61,7 +60,7 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuActivity.this, ConsultarClientes.class));
+                startActivity(new Intent(MenuActivity.this, ClientesOrdenActivity.class));
             }
         });
 

@@ -34,34 +34,34 @@
             android:label="@string/title_activity_menu"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".ConfirmacionOrden"
+            android:name=".ConfirmacionOrdenActivity"
             android:label="Ranchera"
-            android:parentActivityName=".ResumenOrden"
+            android:parentActivityName=".ResumenOrdenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ResumenOrden" />
+                android:value=".ResumenOrdenActivity" />
         </activity>
         <activity
-            android:name=".ResumenOrden"
+            android:name=".ResumenOrdenActivity"
             android:label="Ranchera"
-            android:parentActivityName=".SeleccionarProducto"
+            android:parentActivityName=".ProductoOrdenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SeleccionarProducto" />
+                android:value=".ProductoOrdenActivity" />
         </activity>
         <activity
-            android:name=".SeleccionarProducto"
+            android:name=".ProductoOrdenActivity"
             android:label="Ranchera"
-            android:parentActivityName=".ConsultarClientes"
+            android:parentActivityName=".ClientesOrdenActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ConsultarClientes" />
+                android:value=".ClientesOrdenActivity" />
         </activity>
         <activity
-            android:name=".ConsultarClientes"
+            android:name=".ClientesOrdenActivity"
             android:label="@string/ranchera"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
