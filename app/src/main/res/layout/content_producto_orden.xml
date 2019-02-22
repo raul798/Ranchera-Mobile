@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ProductoOrdenActivity"
-    tools:showIn="@layout/app_bar_seleccionar_producto">
+    tools:showIn="@layout/app_bar_producto_orden">
 
     <ImageView
         android:id="@+id/fourth_minus"
@@ -559,21 +559,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.225" />
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:itemTextColor="@color/colorWhite"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@color/colorWhite"
-        app:menu="@menu/navigation" />
 
     <ImageView
         android:id="@+id/producto_resumen_circle"

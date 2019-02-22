@@ -20,6 +20,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_consultar_clientes" />
+    <include layout="@layout/content_clientes_orden" />
 
 </android.support.design.widget.CoordinatorLayout>

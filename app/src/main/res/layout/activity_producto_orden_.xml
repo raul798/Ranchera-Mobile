@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_consultar_clientes"
+        layout="@layout/app_bar_producto_orden"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_consultar_clientes"
-        app:menu="@menu/activity_consultar_clientes_drawer" />
+        app:headerLayout="@layout/nav_header_producto_orden"
+        app:menu="@menu/activity_seleccionar_producto_drawer" />
 
 </android.support.v4.widget.DrawerLayout>

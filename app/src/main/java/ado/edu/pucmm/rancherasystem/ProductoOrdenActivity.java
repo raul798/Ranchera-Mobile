@@ -18,7 +18,7 @@ public class ProductoOrdenActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seleccionar_producto);
+        setContentView(R.layout.activity_producto_orden_);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
