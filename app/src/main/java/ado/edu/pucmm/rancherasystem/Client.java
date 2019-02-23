@@ -32,27 +32,32 @@ public class Client {
     @ColumnInfo(name = "address")
     private String address;
 
-    public Client(@NonNull String name, @NonNull int phoneNumber, @NonNull String email, @NonNull String address){
+    public Client(@NonNull int id,@NonNull String name, @NonNull int phoneNumber, @NonNull String email, @NonNull String address){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
+        this.id = id;
     }
 
     //getters
-    public String getmName() {
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public int getmPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getmEmail() {
+    public String getEmail() {
         return email;
     }
 
-    public String getmAddress() {
+    public String getAddress() {
         return address;
     }
 }

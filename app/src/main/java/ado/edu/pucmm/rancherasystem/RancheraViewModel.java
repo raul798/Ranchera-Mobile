@@ -17,4 +17,6 @@ public class RancheraViewModel extends AndroidViewModel {
     }
 
     LiveData<List<Client>> getAllClients() { return allClients; }
+
+    public void insert(Client client) { RancheraRepository.insert(client); }
 }

@@ -16,7 +16,7 @@ public abstract class RancheraRoomDatabase extends RoomDatabase {
             synchronized (RancheraRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            RancheraRoomDatabase.class, "word_database")
+                            RancheraRoomDatabase.class, "ranchera_database")
                             .build();
                 }
             }

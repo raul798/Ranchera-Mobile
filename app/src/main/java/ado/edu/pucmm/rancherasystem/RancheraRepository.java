@@ -20,7 +20,7 @@ public class RancheraRepository {
         return allClients;
     }
 
-    public void insert (Client client) {
+    public static void insert(Client client) {
         new insertAsyncTask(clientDao).execute(client);
     }
 
