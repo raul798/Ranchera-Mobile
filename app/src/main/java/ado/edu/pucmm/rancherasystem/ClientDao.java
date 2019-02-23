@@ -11,6 +11,7 @@ import java.util.List;
 @Dao
 public interface ClientDao {
 
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Client client);
 
