@@ -29,6 +29,8 @@
     <string name="ranchera">Ranchera</string>
     <string name="search_clientes">Buscar cliente</string>
     <string name="search_productos">Buscar productos</string>
+
+    <!--
     <string-array name="test_clientes">
         <item>Raúl Herrera</item>
         <item>Natalia</item>
@@ -42,6 +44,7 @@
         <item>Raul6</item>
         <item>Raul7</item>
     </string-array>
+    -->
 
 
     <string name="title_activity_seleccionar_producto">SeleccionarProducto</string>

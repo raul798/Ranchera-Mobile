@@ -16,9 +16,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ClientesOrdenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private AutoCompleteTextView autoCompleteTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +40,32 @@ public class ClientesOrdenActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String[] clientes = getResources().getStringArray(R.array.test_clientes);
+       // String[] clientes = getResources().getStringArray(R.array.test_clientes);
 
-        AutoCompleteTextView editText = findViewById(R.id.search_cliente);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
-        editText.setAdapter(adapter);
+        autoCompleteTextView = findViewById(R.id.autoCompleteTextView);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
+       // editText.setAdapter(adapter);
 
+
+        //Test names for the database
+        /*
+        RancheraDB rancheraDB = new RancheraDB(getApplicationContext());
+        rancheraDB.create(new Client("Raul Test", "809-123-4567", "raul.test@email.com", "Test Address #10"));
+        rancheraDB.create(new Client("Natalia Test", "829-123-4567", "natalia.test@email.com", "Test Address #20"));
+        rancheraDB.create(new Client("Kelvin Test", "849-123-4567", "kelvin.test@email.com", "Test Address #30"));
+        rancheraDB.create(new Client("Dante Test", "809-111-4567", "dante.test@email.com", "Test Address #40"));
+        rancheraDB.create(new Client("Edmundy Test", "829-111-4567", "edmundy.test@email.com", "Test Address #50"));
+        */
+
+        loadData();
+
+        //rancheraDB.create(new Client("Raul2 Test", "809-321-4567", "raul2.test@email.com", "Test Address #15"));
+        //rancheraDB.create(new Client("Natalia2 Test", "829-321-4567", "natalia2.test@email.com", "Test Address #25"));
+        //rancheraDB.create(new Client("Kelvin2 Test", "849-321-4567", "kelvin2.test@email.com", "Test Address #35"));
+        //rancheraDB.create(new Client("Dante2 Test", "809-222-4567", "dante2.test@email.com", "Test Address #45"));
+        //rancheraDB.create(new Client("Edmundy2 Test", "829-222-4567", "edmundy2.test@email.com", "Test Address #55"));
+
+        /*
         final TextView nameTextView = (TextView)findViewById(R.id.name_clientes_text);
         final TextView phoneTextView = (TextView)findViewById(R.id.phone_clientes_text);
         final TextView emailTextView = (TextView)findViewById(R.id.email_clientes_text);
@@ -53,9 +77,20 @@ public class ClientesOrdenActivity extends AppCompatActivity
                 phoneTextView.setText("809-123-4567");
                 emailTextView.setText(selection + "@email.com");
                 addressTextView.setText("Test address #50");
+
             }
+
         });
+        */
     }
+
+    private void loadData() {
+        List<Client> clients = new ArrayList<Client>();
+        ClientSearchAdapter clientSearchAdapter = new ClientSearchAdapter(getApplicationContext(), clients);
+        autoCompleteTextView.setThreshold(1);
+        autoCompleteTextView.setAdapter(clientSearchAdapter);
+    }
+
 
     @Override
     public void onBackPressed() {

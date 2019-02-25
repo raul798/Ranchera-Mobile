@@ -5,59 +5,46 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import java.io.Serializable;
 
 
 @Entity(tableName = "client_table")
-public class Client {
+public class Client implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    @NonNull
-    @ColumnInfo(name = "id_client")
     private int id;
-
-    @NonNull
-    @ColumnInfo(name = "name")
     private String name;
-
-    @NonNull
-    @ColumnInfo(name = "phoneNumber")
-    private int phoneNumber;
-
-    @NonNull
-    @ColumnInfo(name = "email")
-
+    private String phoneNumber;
     private String email;
-
-    @NonNull
-    @ColumnInfo(name = "address")
     private String address;
 
-    public Client(@NonNull int id,@NonNull String name, @NonNull int phoneNumber, @NonNull String email, @NonNull String address){
+    public Client(String name, String phoneNumber, String email, String address){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-        this.id = id;
+    }
+
+    public Client() {
+
     }
 
     //getters
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPhoneNumber() {
+    public int getId() { return id; }
+    public String getName() { return name; }
+    public String getPhoneNumber() {
         return phoneNumber;
     }
-
     public String getEmail() {
         return email;
     }
-
     public String getAddress() {
         return address;
     }
+
+    //setters
+    public void setId(int id) { this.id = id; }
+    public void setName(String name) { this.name = name; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setEmail(String email) { this.email = email; }
+    public void setAddress(String address) { this.address = address; }
 }

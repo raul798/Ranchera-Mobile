@@ -681,7 +681,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:completionThreshold="1"
-        android:dropDownAnchor="@id/text_view_clientes"
+        android:dropDownAnchor="@id/text_view_productos"
         android:dropDownVerticalOffset="0dp"
         android:hint="@string/search_productos"
         android:imeOptions="actionNext"
