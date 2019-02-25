@@ -1,5 +1,6 @@
 package ado.edu.pucmm.rancherasystem;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,12 +17,31 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 
+import ado.edu.pucmm.rancherasystem.db.Client;
+import ado.edu.pucmm.rancherasystem.db.RancheraDB;
+
 public class ConsultarClientes extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String DATABASE_NAME = "ranchera_database";
+    private RancheraDB db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        db = Room.databaseBuilder(getApplicationContext(),
+                RancheraDB.class, DATABASE_NAME)
+                .build();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Client client = new Client(1,"Raúl","809-888-8888",
+                        "PUCMM edificio de ingeniería y ciencias","habichuelon@gmail.com");
+            }
+        }) .start();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_clientes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
