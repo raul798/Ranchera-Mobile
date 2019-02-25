@@ -17,34 +17,32 @@ public class Client implements Serializable {
     private String email;
     private String address;
 
-    public Client(String name, String phoneNumber, String email, String address){
+    public Client(@NonNull int id, @NonNull String name, @NonNull int phoneNumber, @NonNull String email, @NonNull String address){
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
-    }
-
-    public Client() {
-
+        this.id = id;
     }
 
     //getters
-    public int getId() { return id; }
-    public String getName() { return name; }
-    public String getPhoneNumber() {
+    public String getName() {
+        return name;
+    }
+
+    public int getPhoneNumber() {
         return phoneNumber;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getAddress() {
         return address;
     }
 
-    //setters
-    public void setId(int id) { this.id = id; }
-    public void setName(String name) { this.name = name; }
-    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
-    public void setEmail(String email) { this.email = email; }
-    public void setAddress(String address) { this.address = address; }
+    public int getId() {
+        return id;
+    }
 }
