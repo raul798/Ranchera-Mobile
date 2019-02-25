@@ -16,6 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.RancheraDB;
@@ -30,6 +34,7 @@ public class ConsultarClientes extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        /*
         db = Room.databaseBuilder(getApplicationContext(),
                 RancheraDB.class, DATABASE_NAME)
                 .build();
@@ -41,6 +46,7 @@ public class ConsultarClientes extends AppCompatActivity
                         "PUCMM edificio de ingeniería y ciencias","habichuelon@gmail.com");
             }
         }) .start();
+        */
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_clientes);
@@ -56,12 +62,18 @@ public class ConsultarClientes extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        String[] clientes = getResources().getStringArray(R.array.test_clientes);
+        //String[] clientes = getResources().getStringArray(R.array.test_clientes);
 
-        AutoCompleteTextView editText = findViewById(R.id.search_cliente);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, clientes);
-        editText.setAdapter(adapter);
+        AutoCompleteTextView clientAutoComplete = findViewById(R.id.search_cliente);
+        List<Client> storeOffers = new ArrayList<Client>();
+        ClientSearchAdapter adapter = new ClientSearchAdapter(this,
+                R.layout.client_search_dropdown, storeOffers);
+        clientAutoComplete.setAdapter(adapter);
+        clientAutoComplete.setOnItemClickListener(onItemClickListener);
+        //List<Client> adapter = new List<String>(this, android.R.layout.simple_list_item_1, clientes);
+        //editText.setAdapter(adapter);
 
+        /*
         final TextView nameTextView = (TextView)findViewById(R.id.name_clientes_text);
         final TextView phoneTextView = (TextView)findViewById(R.id.phone_clientes_text);
         final TextView emailTextView = (TextView)findViewById(R.id.email_clientes_text);
@@ -75,7 +87,20 @@ public class ConsultarClientes extends AppCompatActivity
                 addressTextView.setText("Test address #50");
             }
         });
+        */
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener =
+            new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    Toast.makeText(ConsultarClientes.this,
+                            "Clicked item from auto completion list "
+                                    + adapterView.getItemAtPosition(i)
+                            , Toast.LENGTH_SHORT).show();
+                }
+            };
 
     @Override
     public void onBackPressed() {

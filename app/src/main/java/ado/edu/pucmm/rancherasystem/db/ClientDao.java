@@ -14,16 +14,19 @@ public interface ClientDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Client client);
 
-    @Query("DELETE FROM client_table")
+    @Query("DELETE FROM Client")
     void deleteAll();
 
-    @Query("select * from client_table where id = :id")
+    @Query("select * from Client where id = :id")
     Client searchClientByID(int id);
 
-    @Query("select * from client_table where name = :name")
+    @Query("select * from Client where name = :name")
     Client searchClientByName(String name);
 
-    @Query("SELECT * from client_table ORDER BY id ASC")
+    @Query("SELECT * from Client ORDER BY id ASC")
     LiveData<List<Client>> getAllClients();
+
+    @Query("SELECT * FROM Client WHERE name like :clientName ")
+    List<Client> getClients(String clientName);
 
 }
