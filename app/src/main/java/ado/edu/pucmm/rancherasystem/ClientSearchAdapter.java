@@ -15,7 +15,7 @@ import java.util.List;
 import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
 
-public class ClientSearchAdapter extends ArrayAdapter {
+public class ClientSearchAdapter extends ArrayAdapter<Client> {
     private List<Client> dataList;
     private Context mContext;
     private int itemLayout;
@@ -39,6 +39,11 @@ public class ClientSearchAdapter extends ArrayAdapter {
     @Override
     public Client getItem(int position) {
         return dataList.get(position);
+    }
+
+    @Override
+    public int getPosition(Client item) {
+        return super.getPosition(item);
     }
 
     @Override
