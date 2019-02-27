@@ -45,10 +45,10 @@ public class RancheraDatabaseRepo {
     }
 
 
-    public List<Client> getClient(Context context, String storeStr) {
+    public List<Client> getClient(Context context, String clientStr) {
         if (clientDao == null) {
             clientDao = RancheraDatabaseRepo.getRancheraDB(context).clientDao();
         }
-        return clientDao.getClients(storeStr+"%");
+        return clientDao.getClients(clientStr+"%");
     }
 }

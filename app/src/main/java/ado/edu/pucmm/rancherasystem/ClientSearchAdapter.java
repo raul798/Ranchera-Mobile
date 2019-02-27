@@ -24,9 +24,9 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
 
     private ClientSearchAdapter.ListFilter listFilter = new ClientSearchAdapter.ListFilter();
 
-    public ClientSearchAdapter(Context context, int resource, List<Client> storeDataLst) {
-        super(context, resource, storeDataLst);
-        dataList = storeDataLst;
+    public ClientSearchAdapter(Context context, int resource, List<Client> clientDataList) {
+        super(context, resource, clientDataList);
+        dataList = clientDataList;
         mContext = context;
         itemLayout = resource;
     }
@@ -50,8 +50,7 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
     public View getView(int position, View view, @NonNull ViewGroup parent) {
 
         if (view == null) {
-            view = LayoutInflater.from(parent.getContext())
-                    .inflate(itemLayout, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
         }
 
         TextView strName = (TextView) view.findViewById(R.id.textViewClientName);
@@ -59,6 +58,8 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
 
         return view;
     }
+
+
 
     @NonNull
     @Override
@@ -68,6 +69,7 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
 
     public class ListFilter extends Filter {
         private Object lock = new Object();
+
 
         @Override
         protected FilterResults performFiltering(CharSequence prefix) {
