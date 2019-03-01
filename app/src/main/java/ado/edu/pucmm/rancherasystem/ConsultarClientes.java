@@ -27,6 +27,11 @@ import ado.edu.pucmm.rancherasystem.db.RancheraDB;
 public class ConsultarClientes extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String DATABASE_NAME = "ranchera_database";
+    private RancheraDB db;
+    private List<Client> clients;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,21 +49,27 @@ public class ConsultarClientes extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         AutoCompleteTextView clientAutoComplete = findViewById(R.id.search_cliente);
-        List<Client> client = new ArrayList<Client>();
+        clients = new ArrayList<Client>();
         ClientSearchAdapter adapter = new ClientSearchAdapter(this,
-                R.layout.client_search_dropdown, client);
+                R.layout.client_search_dropdown, clients);
         clientAutoComplete.setAdapter(adapter);
         clientAutoComplete.setOnItemClickListener(onItemClickListener);
+    }
+
+    private void setText(int resourceId, String text){
+        ((TextView)findViewById(resourceId)).setText(text);
     }
 
     private AdapterView.OnItemClickListener onItemClickListener =
             new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Toast.makeText(ConsultarClientes.this,
-                            "Clicked item from auto completion list "
-                                    + adapterView.getItemAtPosition(i)
-                            , Toast.LENGTH_SHORT).show();
+                    Client client = ( Client) adapterView.getItemAtPosition(i);
+                    setText(R.id.name_clientes_text, client.getName());
+                    setText(R.id.phone_clientes_text, client.getPhoneNumber());
+                    setText(R.id.email_clientes_text, client.getEmail());
+                    setText(R.id.address_clientes_text, client.getAddress());
+                    Toast.makeText(ConsultarClientes.this, "", Toast.LENGTH_SHORT).show();
                 }
             };
 

@@ -62,10 +62,8 @@ public class Client {
         this.email = email;
     }
 
-    /*
     @Override
     public String toString() {
-        return getName();
+        return String.format("%s - %d", name, id);
     }
-    */
 }
