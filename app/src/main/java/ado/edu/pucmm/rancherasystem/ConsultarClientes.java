@@ -21,8 +21,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
 import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.RancheraDB;
+import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
 
 public class ConsultarClientes extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

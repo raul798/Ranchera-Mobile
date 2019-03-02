@@ -20,6 +20,7 @@ public interface ClientDao {
     @Query("select * from Client where id = :id")
     Client searchClientByID(int id);
 
+
     @Query("select * from Client where name = :name")
     Client searchClientByName(String name);
 

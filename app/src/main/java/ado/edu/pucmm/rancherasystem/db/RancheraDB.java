@@ -9,6 +9,7 @@ import android.content.Context;
 public abstract class RancheraDB extends RoomDatabase {
 
     public abstract ClientDao clientDao();
+    public abstract ProductDao productDao();
 
     private static volatile RancheraDB INSTANCE;
 

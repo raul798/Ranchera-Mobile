@@ -11,9 +11,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import ado.edu.pucmm.rancherasystem.adapters.ProductSearchAdapter;
+import ado.edu.pucmm.rancherasystem.db.Product;
+import ado.edu.pucmm.rancherasystem.db.RancheraDB;
 
 public class SeleccionarProducto extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final String DATABASE_NAME = "ranchera_database";
+    private RancheraDB db;
+    private List<Product> products;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +45,33 @@ public class SeleccionarProducto extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        AutoCompleteTextView productAutoComplete = findViewById(R.id.search_producto);
+        products = new ArrayList<Product>();
+        ProductSearchAdapter adapter = new ProductSearchAdapter(this,
+                R.layout.product_search_dropdown, products);
+        productAutoComplete.setAdapter(adapter);
+        productAutoComplete.setOnItemClickListener(onItemClickListener);
     }
+
+    private void setText(int resourceId, String text){
+        ((TextView)findViewById(resourceId)).setText(text);
+    }
+
+    private AdapterView.OnItemClickListener onItemClickListener =
+            new AdapterView.OnItemClickListener(){
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Product product = (Product) adapterView.getItemAtPosition(i);
+                    //setText(R.id.name_clientes_text, client.getName());
+                    //setText(R.id.phone_clientes_text, client.getPhoneNumber());
+                    //setText(R.id.email_clientes_text, client.getEmail());
+                    //setText(R.id.address_clientes_text, client.getAddress());
+                    Toast.makeText(SeleccionarProducto.this, "", Toast.LENGTH_SHORT).show();
+                }
+            };
+
+
 
     @Override
     public void onBackPressed() {

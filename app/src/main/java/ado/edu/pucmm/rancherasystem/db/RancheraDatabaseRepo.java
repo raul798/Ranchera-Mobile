@@ -12,6 +12,7 @@ import java.util.List;
 public class RancheraDatabaseRepo {
     private static RancheraDB rancheraDB;
     private ClientDao clientDao;
+    private ProductDao productDao;
     private static final Object LOCK = new Object();
 
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback(){
@@ -22,12 +23,24 @@ public class RancheraDatabaseRepo {
             //delete existing data
             db.execSQL("Delete From Client");
 
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("name", "Raul Test");
-            contentValues.put("phoneNumber", "809-123-4567");
-            contentValues.put("email", "raul.test@email.com");
-            contentValues.put("address", "Test address #10");
-            db.insert("Client", OnConflictStrategy.IGNORE, contentValues);
+            ContentValues contentValuesClients = new ContentValues();
+            contentValuesClients.put("name", "Raul Test");
+            contentValuesClients.put("phoneNumber", "809-123-4567");
+            contentValuesClients.put("email", "raul.test@email.com");
+            contentValuesClients.put("address", "Test address #10");
+            db.insert("Client", OnConflictStrategy.IGNORE, contentValuesClients);
+
+/*
+            db.execSQL("Delete From Product");
+
+            ContentValues contentValuesProduct = new ContentValues();
+            contentValuesProduct.put("name", "Product#0001");
+            contentValuesProduct.put("quantity", 40);
+            contentValuesProduct.put("price", 500);
+            contentValuesProduct.put("description", "Producto de testing");
+            db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
+            */
+
         }
     };
 
@@ -50,5 +63,12 @@ public class RancheraDatabaseRepo {
             clientDao = RancheraDatabaseRepo.getRancheraDB(context).clientDao();
         }
         return clientDao.getClients(clientStr+"%");
+    }
+
+    public List<Product> getProduct(Context context, String productStr) {
+        if (productDao == null) {
+            productDao = RancheraDatabaseRepo.getRancheraDB(context).productDao();
+        }
+        return productDao.getProducts(productStr+"%");
     }
 }
