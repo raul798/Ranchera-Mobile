@@ -1,7 +1,12 @@
 package ado.edu.pucmm.rancherasystem;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,9 +24,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.adapters.ProductSearchAdapter;
 import ado.edu.pucmm.rancherasystem.db.Product;
 import ado.edu.pucmm.rancherasystem.db.RancheraDB;
+import ado.edu.pucmm.rancherasystem.viewmodels.ProductViewModel;
 
 public class SeleccionarProducto extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -29,6 +36,8 @@ public class SeleccionarProducto extends AppCompatActivity
     private static final String DATABASE_NAME = "ranchera_database";
     private RancheraDB db;
     private List<Product> products;
+    private AutoCompleteTextView productAutoComplete;
+    private ProductViewModel productViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +45,25 @@ public class SeleccionarProducto extends AppCompatActivity
         setContentView(R.layout.activity_seleccionar_producto);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final ProductRecyclerViewAdapter recylerAdapter = new ProductRecyclerViewAdapter(this);
+        recyclerView.setAdapter(recylerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //live data for recyclerView
+
+        productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
+
+        productViewModel.getAllProducts().observe(this, new Observer<List<Product>>() {
+            @Override
+            public void onChanged(@Nullable final List<Product> products) {
+                // Update the cached copy of the words in the adapter.
+                recylerAdapter.setProducts(products);
+            }
+
+        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -46,7 +74,7 @@ public class SeleccionarProducto extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        AutoCompleteTextView productAutoComplete = findViewById(R.id.search_producto);
+        productAutoComplete = findViewById(R.id.search_producto);
         products = new ArrayList<Product>();
         ProductSearchAdapter adapter = new ProductSearchAdapter(this,
                 R.layout.product_search_dropdown, products);
@@ -62,12 +90,13 @@ public class SeleccionarProducto extends AppCompatActivity
             new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    //Product product = (Product) adapterView.getItemAtPosition(i);
+                    Product product = (Product) adapterView.getItemAtPosition(i);
+                    productViewModel.insert(product);
                     //setText(R.id.name_clientes_text, client.getName());
                     //setText(R.id.phone_clientes_text, client.getPhoneNumber());
                     //setText(R.id.email_clientes_text, client.getEmail());
                     //setText(R.id.address_clientes_text, client.getAddress());
-                    Toast.makeText(SeleccionarProducto.this, "", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SeleccionarProducto.this, "", Toast.LENGTH_SHORT).show();
                 }
             };
 

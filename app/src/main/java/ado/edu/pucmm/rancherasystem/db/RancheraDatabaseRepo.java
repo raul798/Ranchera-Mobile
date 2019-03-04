@@ -1,11 +1,14 @@
 package ado.edu.pucmm.rancherasystem.db;
 
+import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
 import android.content.Context;
+import android.os.AsyncTask;
 
 import java.util.List;
 
@@ -14,6 +17,7 @@ public class RancheraDatabaseRepo {
     private ClientDao clientDao;
     private ProductDao productDao;
     private static final Object LOCK = new Object();
+    private LiveData<List<Product>> allProducts;
 
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback(){
         public void onCreate (SupportSQLiteDatabase db){
@@ -37,12 +41,28 @@ public class RancheraDatabaseRepo {
             contentValuesProduct.put("name", "Product#0001");
             contentValuesProduct.put("quantity", 40);
             contentValuesProduct.put("price", 500);
-            contentValuesProduct.put("description", "Producto de testing");
+            contentValuesProduct.put("description", "Producto de testing 1");
+            db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
+
+            contentValuesProduct = new ContentValues();
+            contentValuesProduct.put("name", "Product#0002");
+            contentValuesProduct.put("quantity", 30);
+            contentValuesProduct.put("price", 1000);
+            contentValuesProduct.put("description", "Producto de testing 2");
             db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
 
 
         }
     };
+
+    public RancheraDatabaseRepo(Application application) {
+        RancheraDB db = RancheraDB.getDatabase(application);
+        productDao = db.productDao();
+        allProducts = productDao.getAllProducts();
+    }
+
+    public RancheraDatabaseRepo() {
+    }
 
     public synchronized static RancheraDB getRancheraDB(Context context){
         if(rancheraDB == null) {
@@ -57,6 +77,9 @@ public class RancheraDatabaseRepo {
         return rancheraDB;
     }
 
+    public LiveData<List<Product>> getAllProducts() {
+        return allProducts;
+    }
 
     public List<Client> getClient(Context context, String clientStr) {
         if (clientDao == null) {
@@ -70,5 +93,24 @@ public class RancheraDatabaseRepo {
             productDao = RancheraDatabaseRepo.getRancheraDB(context).productDao();
         }
         return productDao.getProducts(productStr+"%");
+    }
+
+    public void insert (Product product) {
+        new insertAsyncTask(productDao).execute(product);
+    }
+
+    private static class insertAsyncTask extends AsyncTask<Product, Void, Void> {
+
+        private ProductDao asyncTaskDao;
+
+        insertAsyncTask(ProductDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Product... params) {
+            asyncTaskDao.insert(params[0]);
+            return null;
+        }
     }
 }
