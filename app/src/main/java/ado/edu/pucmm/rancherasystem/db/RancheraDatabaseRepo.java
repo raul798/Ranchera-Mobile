@@ -30,7 +30,7 @@ public class RancheraDatabaseRepo {
             contentValuesClients.put("address", "Test address #10");
             db.insert("Client", OnConflictStrategy.IGNORE, contentValuesClients);
 
-/*
+
             db.execSQL("Delete From Product");
 
             ContentValues contentValuesProduct = new ContentValues();
@@ -39,7 +39,7 @@ public class RancheraDatabaseRepo {
             contentValuesProduct.put("price", 500);
             contentValuesProduct.put("description", "Producto de testing");
             db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
-            */
+
 
         }
     };

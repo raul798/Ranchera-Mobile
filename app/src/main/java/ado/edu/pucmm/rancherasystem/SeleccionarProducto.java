@@ -62,7 +62,7 @@ public class SeleccionarProducto extends AppCompatActivity
             new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Product product = (Product) adapterView.getItemAtPosition(i);
+                    //Product product = (Product) adapterView.getItemAtPosition(i);
                     //setText(R.id.name_clientes_text, client.getName());
                     //setText(R.id.phone_clientes_text, client.getPhoneNumber());
                     //setText(R.id.email_clientes_text, client.getEmail());
