@@ -38,6 +38,7 @@ public class SeleccionarProducto extends AppCompatActivity
     private List<Product> products;
     private AutoCompleteTextView productAutoComplete;
     private ProductViewModel productViewModel;
+    private ProductRecyclerViewAdapter recylerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class SeleccionarProducto extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final ProductRecyclerViewAdapter recylerAdapter = new ProductRecyclerViewAdapter(this);
+        recylerAdapter = new ProductRecyclerViewAdapter(this);
         recyclerView.setAdapter(recylerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -59,7 +60,6 @@ public class SeleccionarProducto extends AppCompatActivity
             @Override
             public void onChanged(@Nullable final List<Product> products) {
                 // Update the cached copy of the words in the adapter.
-                recylerAdapter.setProducts(products);
             }
 
         });
@@ -91,12 +91,9 @@ public class SeleccionarProducto extends AppCompatActivity
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Product product = (Product) adapterView.getItemAtPosition(i);
-                    productViewModel.insert(product);
-                    //setText(R.id.name_clientes_text, client.getName());
-                    //setText(R.id.phone_clientes_text, client.getPhoneNumber());
-                    //setText(R.id.email_clientes_text, client.getEmail());
-                    //setText(R.id.address_clientes_text, client.getAddress());
-                    //Toast.makeText(SeleccionarProducto.this, "", Toast.LENGTH_SHORT).show();
+                   // productViewModel.insert(product);
+                    products.add(product);
+                    recylerAdapter.setProducts(products);
                 }
             };
 
