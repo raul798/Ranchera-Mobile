@@ -37,6 +37,7 @@ public class SeleccionarProducto extends AppCompatActivity
     private static final String DATABASE_NAME = "ranchera_database";
     private RancheraDB db;
     private List<Product> products;
+    private int amount;
     private AutoCompleteTextView productAutoComplete;
     private ProductViewModel productViewModel;
     private ProductRecyclerViewAdapter recylerAdapter;
@@ -173,5 +174,15 @@ public class SeleccionarProducto extends AppCompatActivity
 
         Intent intent = new Intent(this, ResumenOrden.class);
         startActivity(intent);
+    }
+
+    public void onClickPlusButton(View view){
+        int amount = recylerAdapter.getAmount();
+        recylerAdapter.setAmount(++amount);
+    }
+
+    public void onClickMinusButton(View view){
+        int amount = recylerAdapter.getAmount();
+        recylerAdapter.setAmount(--amount);
     }
 }
