@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.adapters.ProductSearchAdapter;
@@ -92,8 +93,18 @@ public class SeleccionarProducto extends AppCompatActivity
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Product product = (Product) adapterView.getItemAtPosition(i);
                    // productViewModel.insert(product);
-                    products.add(product);
-                    recylerAdapter.setProducts(products);
+
+                    boolean isThere = false;
+                    for (Product product1 : products) {
+                        if(product1.getName().equals(product.getName())){
+                            isThere = true;
+                        }
+                    }
+
+                    if(!isThere) {
+                        products.add(product);
+                        recylerAdapter.setProducts(products);
+                    }
                 }
             };
 
