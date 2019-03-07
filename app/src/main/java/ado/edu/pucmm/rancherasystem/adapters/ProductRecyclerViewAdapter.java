@@ -28,14 +28,13 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
     private final LayoutInflater inflater;
     private List<Product> products; // Cached copy of products
-    private int amount;
+    private List<Integer> amounts;
 
     public ProductRecyclerViewAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.recyclerview_product, parent, false);
-        amount = 100;
         return new ProductViewHolder(itemView);
     }
 
@@ -43,8 +42,9 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         if (products != null) {
             Product current = products.get(position);
+            int currentAmount = amounts.get(position);
             holder.productItemView.setText(current.getName());
-            holder.productQuantityView.setText(String.valueOf(amount));
+            holder.productQuantityView.setText(String.valueOf(currentAmount));
         } else {
             // Covers the case of data not being ready yet.
             holder.productItemView.setText("No Product");
@@ -56,8 +56,14 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         notifyDataSetChanged();
     }
 
+    public void setAmounts(List<Integer> amounts){
+        this.amounts = amounts;
+        notifyDataSetChanged();
+    }
+
     public void setAmount(int amount){
-        this.amount = amount;
+        int current = getItemCount();
+        amounts.set(--current,amount);
         notifyDataSetChanged();
     }
 
@@ -71,7 +77,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     }
 
     public int getAmount(){
-        return amount;
+        int current = getItemCount();
+        return amounts.get(--current);
     }
-
 }

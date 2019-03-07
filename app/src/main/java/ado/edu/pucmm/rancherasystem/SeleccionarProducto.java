@@ -37,7 +37,8 @@ public class SeleccionarProducto extends AppCompatActivity
     private static final String DATABASE_NAME = "ranchera_database";
     private RancheraDB db;
     private List<Product> products;
-    private int amount;
+    private List<Integer> amounts;
+    //private int amount;
     private AutoCompleteTextView productAutoComplete;
     private ProductViewModel productViewModel;
     private ProductRecyclerViewAdapter recylerAdapter;
@@ -78,6 +79,7 @@ public class SeleccionarProducto extends AppCompatActivity
 
         productAutoComplete = findViewById(R.id.search_producto);
         products = new ArrayList<Product>();
+        amounts = new ArrayList<Integer>();
         ProductSearchAdapter adapter = new ProductSearchAdapter(this,
                 R.layout.product_search_dropdown, products);
         productAutoComplete.setAdapter(adapter);
@@ -104,7 +106,9 @@ public class SeleccionarProducto extends AppCompatActivity
 
                     if(!isThere) {
                         products.add(product);
+                        amounts.add(100);
                         recylerAdapter.setProducts(products);
+                        recylerAdapter.setAmounts(amounts);
                     }
                 }
             };
