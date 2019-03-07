@@ -43,6 +43,7 @@ public class SeleccionarProducto extends AppCompatActivity
     private AutoCompleteTextView productAutoComplete;
     private ProductViewModel productViewModel;
     private ProductRecyclerViewAdapter recylerAdapter;
+    final static int PRESET_AMOUNT = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class SeleccionarProducto extends AppCompatActivity
 
                     if(!isThere) {
                         products.add(product);
-                        amounts.add(100);
+                        amounts.add(PRESET_AMOUNT);
                         recylerAdapter.setProducts(products);
                         recylerAdapter.setAmounts(amounts);
                     }
@@ -180,17 +181,5 @@ public class SeleccionarProducto extends AppCompatActivity
         Intent intent = new Intent(this, ResumenOrden.class);
         startActivity(intent);
     }
-
-    public void onClickPlusButton(View view){
-        int amount = recylerAdapter.getAmount();
-        recylerAdapter.setAmount(++amount);
-    }
-
-    public void onClickMinusButton(View view){
-        int amount = recylerAdapter.getAmount();
-        recylerAdapter.setAmount(--amount);
-
-    }
-
 
 }
