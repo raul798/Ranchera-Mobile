@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -188,5 +189,8 @@ public class SeleccionarProducto extends AppCompatActivity
     public void onClickMinusButton(View view){
         int amount = recylerAdapter.getAmount();
         recylerAdapter.setAmount(--amount);
+
     }
+
+
 }

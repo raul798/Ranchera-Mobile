@@ -1,10 +1,12 @@
 package ado.edu.pucmm.rancherasystem.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,12 +20,31 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     class ProductViewHolder extends RecyclerView.ViewHolder {
         private final TextView productItemView;
         private final TextView productQuantityView;
+        private final DetailsAdapterListener onClickListener;
+        private final Button plusButton;
+        private final Button minusButton;
 
         private ProductViewHolder(View itemView) {
             super(itemView);
+            plusButton = itemView.findViewById(R.id.bttn_plus);
+            minusButton = itemView.findViewById(R.id.bttn_minus);
+            onClickListener = new DetailsAdapterListener();
             productItemView = itemView.findViewById(R.id.textRecyclerProduct);
             productQuantityView = itemView.findViewById(R.id.quantityView);
+            plusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onClickPlus(v, getAdapterPosition());
+                }
+            });
+            minusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickListener.onClickMinus(v, getAdapterPosition());
+                }
+            });
         }
+
     }
 
     private final LayoutInflater inflater;
@@ -45,6 +66,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             int currentAmount = amounts.get(position);
             holder.productItemView.setText(current.getName());
             holder.productQuantityView.setText(String.valueOf(currentAmount));
+
         } else {
             // Covers the case of data not being ready yet.
             holder.productItemView.setText("No Product");
@@ -80,4 +102,20 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         int current = getItemCount();
         return amounts.get(--current);
     }
+
+    public class DetailsAdapterListener {
+
+        void onClickPlus(View view, int position){
+            int current = amounts.get(position);
+            amounts.set(position,++current);
+            notifyDataSetChanged();
+        }
+
+        void onClickMinus(View view, int position){
+            int current = amounts.get(position);
+            amounts.set(position,--current);
+            notifyDataSetChanged();
+        }
+    }
+
 }

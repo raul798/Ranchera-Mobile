@@ -23,8 +23,7 @@
         android:text="+"
         android:textSize="22sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/textRecyclerProduct"
-        android:onClick="onClickPlusButton"/>
+        app:layout_constraintTop_toTopOf="@id/textRecyclerProduct" />
 
     <Button
         android:id="@+id/bttn_minus"
@@ -38,8 +37,7 @@
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bttn_plus"
-        app:layout_constraintTop_toTopOf="@id/textRecyclerProduct"
-        android:onClick="onClickMinusButton"/>
+        app:layout_constraintTop_toTopOf="@id/textRecyclerProduct" />
 
     <TextView
         android:id="@+id/quantityView"
