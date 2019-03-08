@@ -29,7 +29,7 @@
         android:text="+"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/productNameRecyclerView"
+        app:layout_constraintStart_toEndOf="@+id/bttn_minus"
         app:layout_constraintTop_toTopOf="parent" />
         <!--app:layout_constraintTop_toTopOf="@id/productNameRecyclerView" />-->
 
@@ -44,7 +44,7 @@
         android:text="-"
         android:textColor="@color/white"
         android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/bttn_plus"
+        app:layout_constraintStart_toEndOf="@+id/productNameRecyclerView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
