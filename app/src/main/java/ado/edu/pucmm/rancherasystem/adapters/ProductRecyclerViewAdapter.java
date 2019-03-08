@@ -1,7 +1,6 @@
 package ado.edu.pucmm.rancherasystem.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.db.Product;
@@ -20,6 +18,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     class ProductViewHolder extends RecyclerView.ViewHolder {
         private final TextView productItemView;
         private final TextView productQuantityView;
+        private final TextView productPriceView;
         private final DetailsAdapterListener onClickListener;
         private final Button plusButton;
         private final Button minusButton;
@@ -28,8 +27,9 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             super(itemView);
             plusButton = itemView.findViewById(R.id.bttn_plus);
             minusButton = itemView.findViewById(R.id.bttn_minus);
+            productPriceView = itemView.findViewById(R.id.productPriceRecyclerView);
             onClickListener = new DetailsAdapterListener();
-            productItemView = itemView.findViewById(R.id.textRecyclerProduct);
+            productItemView = itemView.findViewById(R.id.productNameRecyclerView);
             productQuantityView = itemView.findViewById(R.id.quantityView);
             plusButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -63,9 +63,11 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         if (products != null) {
             Product current = products.get(position);
+            String priceString = "Price: $" + String.valueOf(current.getPrice());
             int currentAmount = amounts.get(position);
             holder.productItemView.setText(current.getName());
             holder.productQuantityView.setText(String.valueOf(currentAmount));
+            holder.productPriceView.setText(priceString);
 
         } else {
             // Covers the case of data not being ready yet.
