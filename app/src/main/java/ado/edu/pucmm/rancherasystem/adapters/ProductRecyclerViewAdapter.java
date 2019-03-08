@@ -19,6 +19,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         private final TextView productItemView;
         private final TextView productQuantityView;
         private final TextView productPriceView;
+        private final TextView productStockView;
         private final DetailsAdapterListener onClickListener;
         private final Button plusButton;
         private final Button minusButton;
@@ -28,6 +29,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
             plusButton = itemView.findViewById(R.id.bttn_plus);
             minusButton = itemView.findViewById(R.id.bttn_minus);
             productPriceView = itemView.findViewById(R.id.productPriceRecyclerView);
+            productStockView = itemView.findViewById(R.id.productStockRecyclerView);
             onClickListener = new DetailsAdapterListener();
             productItemView = itemView.findViewById(R.id.productNameRecyclerView);
             productQuantityView = itemView.findViewById(R.id.quantityView);
@@ -64,10 +66,12 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         if (products != null) {
             Product current = products.get(position);
             String priceString = "Price: $" + String.valueOf(current.getPrice());
+            String stockString = "Stock: " + String.valueOf(current.getQuantity());
             int currentAmount = amounts.get(position);
             holder.productItemView.setText(current.getName());
             holder.productQuantityView.setText(String.valueOf(currentAmount));
             holder.productPriceView.setText(priceString);
+            holder.productStockView.setText(stockString);
 
         } else {
             // Covers the case of data not being ready yet.
