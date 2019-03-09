@@ -11,28 +11,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity android:name=".ListOfBills"></activity>
+        <activity
+            android:name=".MainActivity"
             android:label="FlujoClientes_Productos"
             android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true">
+            android:supportsRtl="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ConsultarCliente"/>
+        <activity android:name=".ConsultarCliente" />
         <activity android:name=".Productos" />
         <activity android:name=".DashBoardActivity" />
-        <activity android:name=".ForgotActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ForgotActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SupportActivity" />
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_menu"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ConfirmacionOrden"
             android:label="Ranchera"
@@ -70,4 +72,5 @@
                 android:value=".MainActivity" />
         </activity>
     </application>
+
 </manifest>

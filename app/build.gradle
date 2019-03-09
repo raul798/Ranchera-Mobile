@@ -9,7 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-       /* vectorDrawables.usesupportlibrary = true*/
+        /* vectorDrawables.usesupportlibrary = true*/
     }
     buildTypes {
         release {
@@ -28,7 +28,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
-    /*implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'*/
+
 
     //third party library
     implementation 'com.github.gcacace:signature-pad:1.2.1'
@@ -38,9 +38,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-<<<<<<< HEAD
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
-=======
 
     // Room components
     implementation "android.arch.persistence.room:runtime:$rootProject.roomVersion"
@@ -50,7 +48,5 @@ dependencies {
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.archLifecycleVersion"
->>>>>>> ft/order
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
 }
-
-   
