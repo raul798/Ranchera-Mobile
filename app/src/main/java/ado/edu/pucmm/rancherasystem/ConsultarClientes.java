@@ -1,5 +1,7 @@
 package ado.edu.pucmm.rancherasystem;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,8 +25,11 @@ import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
 import ado.edu.pucmm.rancherasystem.db.Client;
+import ado.edu.pucmm.rancherasystem.db.Factura;
+import ado.edu.pucmm.rancherasystem.db.FacturaViewModel;
 import ado.edu.pucmm.rancherasystem.db.RancheraDB;
 import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
+import ado.edu.pucmm.rancherasystem.viewmodels.ProductViewModel;
 
 public class ConsultarClientes extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -32,6 +37,8 @@ public class ConsultarClientes extends AppCompatActivity
     private static final String DATABASE_NAME = "ranchera_database";
     private RancheraDB db;
     private List<Client> clients;
+    private FacturaViewModel facturaViewModel;
+    private Client client;
 
 
     @Override
@@ -56,6 +63,8 @@ public class ConsultarClientes extends AppCompatActivity
                 R.layout.client_search_dropdown, clients);
         clientAutoComplete.setAdapter(adapter);
         clientAutoComplete.setOnItemClickListener(onItemClickListener);
+
+        facturaViewModel = ViewModelProviders.of(this).get(FacturaViewModel.class);
     }
 
     private void setText(int resourceId, String text){
@@ -66,7 +75,7 @@ public class ConsultarClientes extends AppCompatActivity
             new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Client client = ( Client) adapterView.getItemAtPosition(i);
+                    client = ( Client) adapterView.getItemAtPosition(i);
                     setText(R.id.name_clientes_text, client.getName());
                     setText(R.id.phone_clientes_text, client.getPhoneNumber());
                     setText(R.id.email_clientes_text, client.getEmail());
@@ -134,6 +143,8 @@ public class ConsultarClientes extends AppCompatActivity
     public void toProductSelection(View view) {
 
         Intent intent = new Intent(this, SeleccionarProducto.class);
+        Factura factura = new Factura("Pending", 57);
+        facturaViewModel.insert(factura);
         startActivity(intent);
     }
 

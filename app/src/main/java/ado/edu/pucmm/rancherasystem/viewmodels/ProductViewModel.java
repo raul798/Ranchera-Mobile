@@ -8,6 +8,7 @@ import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.db.Product;
 import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
+
 public class ProductViewModel extends AndroidViewModel {
 
     private RancheraDatabaseRepo repository;
