@@ -6,37 +6,34 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class FacturaViewModel extends AndroidViewModel {
-    private String TAG = this.getClass().getSimpleName();
+    //private String TAG = this.getClass().getSimpleName();
     private FacturaDao facturaDao;
     private RancheraDB rancheraDB;
+    private RancheraDatabaseRepo repository;
 
     public FacturaViewModel(Application application) {
         super(application);
         rancheraDB = RancheraDB.getDatabase(application);
         facturaDao = rancheraDB.facturaDao();
+        repository = new RancheraDatabaseRepo(application);
     }
 
     public void insert(Factura factura) {
         new InsertAsyncTask(facturaDao).execute(factura);
     }
 
-    @Override
-    protected void onCleared() {
-        super.onCleared();
-        Log.i(TAG, "ViewModel Destroyed");
-    }
 
     private class InsertAsyncTask extends AsyncTask<Factura, Void, Void> {
 
-        FacturaDao checkDao;
+        FacturaDao billDao;
 
-        public InsertAsyncTask(FacturaDao checkDao) {
-            this.checkDao = checkDao;
+        InsertAsyncTask(FacturaDao dao) {
+            billDao = dao;
         }
 
         @Override
         protected Void doInBackground(Factura... facturas) {
-            checkDao.insert(facturas[0]);
+            billDao.insert(facturas[0]);
             return null;
         }
     }

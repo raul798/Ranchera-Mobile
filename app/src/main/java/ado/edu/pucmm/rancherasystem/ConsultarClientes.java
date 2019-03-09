@@ -39,6 +39,8 @@ public class ConsultarClientes extends AppCompatActivity
     private List<Client> clients;
     private FacturaViewModel facturaViewModel;
     private Client client;
+    private Factura factura;
+    private int cnt = 0;
 
 
     @Override
@@ -142,9 +144,12 @@ public class ConsultarClientes extends AppCompatActivity
 
     public void toProductSelection(View view) {
 
-        Intent intent = new Intent(this, SeleccionarProducto.class);
-        Factura factura = new Factura("Pending", 57);
+        //57 is test number change for the id of the client
+        factura = new Factura("Pending", 57);
         facturaViewModel.insert(factura);
+        Toast.makeText(view.getContext(),String.valueOf(factura.getId()), Toast.LENGTH_SHORT).show();
+
+        Intent intent = new Intent(this, SeleccionarProducto.class);
         startActivity(intent);
     }
 

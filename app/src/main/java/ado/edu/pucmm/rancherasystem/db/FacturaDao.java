@@ -13,7 +13,6 @@ public interface FacturaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Factura factura);
 
-
     @Query("DELETE FROM Factura")
     void deleteAll();
 

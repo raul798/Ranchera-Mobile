@@ -15,7 +15,7 @@ public class Factura {
     @NonNull
     private String descripcion;
 
-    public Factura(@NonNull String descripcion, @NonNull int id_client) {
+    public Factura(String descripcion, Integer id_client) {
         this.descripcion = descripcion;
         this.id_client = id_client;
     }

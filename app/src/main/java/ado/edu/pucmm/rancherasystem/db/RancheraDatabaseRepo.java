@@ -98,6 +98,7 @@ public class RancheraDatabaseRepo {
         new insertAsyncTask(productDao).execute(product);
     }
 
+
     private static class insertAsyncTask extends AsyncTask<Product, Void, Void> {
 
         private ProductDao asyncTaskDao;
@@ -112,4 +113,5 @@ public class RancheraDatabaseRepo {
             return null;
         }
     }
+
 }
