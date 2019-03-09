@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import ado.edu.pucmm.rancherasystem.ConsultarClientes;
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.db.Product;
 
@@ -52,6 +54,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     private final LayoutInflater inflater;
     private List<Product> products; // Cached copy of products
     private List<Integer> amounts;
+    private List<Integer> max;
 
     public ProductRecyclerViewAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
@@ -65,9 +68,11 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         if (products != null) {
             Product current = products.get(position);
-            String priceString = "Price: $" + String.valueOf(current.getPrice());
-            String stockString = "Stock: " + String.valueOf(current.getQuantity());
+            int stock = current.getQuantity();
+            String priceString = "Precio: $" + String.valueOf(current.getPrice());
+            String stockString = "En inventario: " + String.valueOf(stock);
             int currentAmount = amounts.get(position);
+            max.set(position,stock);
             holder.productItemView.setText(current.getName());
             holder.productQuantityView.setText(String.valueOf(currentAmount));
             holder.productPriceView.setText(priceString);
@@ -89,10 +94,8 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         notifyDataSetChanged();
     }
 
-    public void setAmount(int amount){
-        int current = getItemCount();
-        amounts.set(--current,amount);
-        notifyDataSetChanged();
+    public void setMax(List<Integer> max){
+        this.max = max;
     }
 
     // getItemCount() is called many times, and when it is first called,
@@ -104,25 +107,26 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
         else return 0;
     }
 
-    public int getAmount(){
-        int current = getItemCount();
-        return amounts.get(--current);
-    }
-
     public class DetailsAdapterListener {
 
         void onClickPlus(View view, int position){
             int current = amounts.get(position);
-            amounts.set(position,++current);
-            notifyDataSetChanged();
+            int stock = max.get(position);
+            if (current < stock) {
+                amounts.set(position, ++current);
+                notifyDataSetChanged();
+            }
+            else{
+                Toast.makeText(view.getContext(),"Excede cantidad en inventario", Toast.LENGTH_SHORT).show();
+            }
         }
 
         void onClickMinus(View view, int position){
             int current = amounts.get(position);
             if(current > 0) {
                 amounts.set(position, --current);
+                notifyDataSetChanged();
             }
-            notifyDataSetChanged();
         }
     }
 

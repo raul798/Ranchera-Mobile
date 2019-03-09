@@ -39,6 +39,7 @@ public class SeleccionarProducto extends AppCompatActivity
     private RancheraDB db;
     private List<Product> products;
     private List<Integer> amounts;
+    private List<Integer> max;
     //private int amount;
     private AutoCompleteTextView productAutoComplete;
     private ProductViewModel productViewModel;
@@ -82,6 +83,7 @@ public class SeleccionarProducto extends AppCompatActivity
         productAutoComplete = findViewById(R.id.search_producto);
         products = new ArrayList<Product>();
         amounts = new ArrayList<Integer>();
+        max = new ArrayList<Integer>();
         ProductSearchAdapter adapter = new ProductSearchAdapter(this,
                 R.layout.product_search_dropdown, products);
         productAutoComplete.setAdapter(adapter);
@@ -109,8 +111,10 @@ public class SeleccionarProducto extends AppCompatActivity
                     if(!isThere) {
                         products.add(product);
                         amounts.add(PRESET_AMOUNT);
+                        max.add(PRESET_AMOUNT);
                         recylerAdapter.setProducts(products);
                         recylerAdapter.setAmounts(amounts);
+                        recylerAdapter.setMax(max);
                     }
                 }
             };
