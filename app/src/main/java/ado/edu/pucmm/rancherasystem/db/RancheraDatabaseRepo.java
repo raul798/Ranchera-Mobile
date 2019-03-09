@@ -16,6 +16,8 @@ public class RancheraDatabaseRepo {
     private static RancheraDB rancheraDB;
     private ClientDao clientDao;
     private ProductDao productDao;
+    private FacturaDao facturaDao;
+    private DetalleDao detalleDao;
     private static final Object LOCK = new Object();
     private LiveData<List<Product>> allProducts;
 
@@ -34,7 +36,6 @@ public class RancheraDatabaseRepo {
             contentValuesClients.put("address", "Test address #10");
             db.insert("Client", OnConflictStrategy.IGNORE, contentValuesClients);
 
-
             db.execSQL("Delete From Product");
 
             ContentValues contentValuesProduct = new ContentValues();
@@ -50,8 +51,6 @@ public class RancheraDatabaseRepo {
             contentValuesProduct.put("price", 1000);
             contentValuesProduct.put("description", "Producto de testing 2");
             db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
-
-
         }
     };
 
