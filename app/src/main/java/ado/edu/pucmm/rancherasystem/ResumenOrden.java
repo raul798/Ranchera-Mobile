@@ -51,6 +51,7 @@ public class ResumenOrden extends AppCompatActivity
             bill_id = extras.getInt("bill_id");
         }
 
+        //Natalia aiuda
         //Arreglar: crashea al hacer getBill p getSingleClient
         //factura = rancheraDatabaseRepo.getBill(this, bill_id);
         //client = rancheraDatabaseRepo.getSingleClient(this, factura.getId_client());

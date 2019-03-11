@@ -97,6 +97,8 @@ public class RancheraDatabaseRepo {
         new insertAsyncTask(productDao).execute(product);
     }
 
+
+    //Natalia aiuda
     public Factura getBill(Context context, int factura_id) {
         if (facturaDao == null) {
             facturaDao = RancheraDatabaseRepo.getRancheraDB(context).facturaDao();
@@ -104,6 +106,7 @@ public class RancheraDatabaseRepo {
         return facturaDao.searchFacturaByID(factura_id);
     }
 
+    //Natalia aiuda
     public Client getSingleClient(Context context, int client_id) {
         if (clientDao == null) {
             clientDao = RancheraDatabaseRepo.getRancheraDB(context).clientDao();
