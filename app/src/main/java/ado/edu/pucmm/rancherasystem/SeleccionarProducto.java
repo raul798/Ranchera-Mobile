@@ -28,8 +28,13 @@ import java.util.ListIterator;
 
 import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.adapters.ProductSearchAdapter;
+import ado.edu.pucmm.rancherasystem.db.Bill;
+import ado.edu.pucmm.rancherasystem.db.Detalle;
+import ado.edu.pucmm.rancherasystem.db.Factura;
 import ado.edu.pucmm.rancherasystem.db.Product;
 import ado.edu.pucmm.rancherasystem.db.RancheraDB;
+import ado.edu.pucmm.rancherasystem.viewmodels.DetalleViewModel;
+import ado.edu.pucmm.rancherasystem.viewmodels.FacturaViewModel;
 import ado.edu.pucmm.rancherasystem.viewmodels.ProductViewModel;
 
 public class SeleccionarProducto extends AppCompatActivity
@@ -44,6 +49,9 @@ public class SeleccionarProducto extends AppCompatActivity
     private AutoCompleteTextView productAutoComplete;
     private ProductViewModel productViewModel;
     private ProductRecyclerViewAdapter recylerAdapter;
+    private int bill_id;
+    private Detalle detalle;
+    private DetalleViewModel detalleViewModel;
     final static int PRESET_AMOUNT = 15;
 
     @Override
@@ -88,6 +96,14 @@ public class SeleccionarProducto extends AppCompatActivity
                 R.layout.product_search_dropdown, products);
         productAutoComplete.setAdapter(adapter);
         productAutoComplete.setOnItemClickListener(onItemClickListener);
+
+        detalleViewModel = ViewModelProviders.of(this).get(DetalleViewModel.class);
+
+        //get factura id from client activity
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            bill_id = extras.getInt("bill_id");
+        }
     }
 
     private void setText(int resourceId, String text){
@@ -99,7 +115,6 @@ public class SeleccionarProducto extends AppCompatActivity
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Product product = (Product) adapterView.getItemAtPosition(i);
-                   // productViewModel.insert(product);
 
                     boolean isThere = false;
                     for (Product product1 : products) {
@@ -123,7 +138,7 @@ public class SeleccionarProducto extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -169,7 +184,7 @@ public class SeleccionarProducto extends AppCompatActivity
             //do nothing
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -182,8 +197,16 @@ public class SeleccionarProducto extends AppCompatActivity
 
     public void toOrderResumen(View view) {
 
+        int index = 0;
+        for (Product product1 : products){
+            detalle = new Detalle(bill_id, product1.getId(), amounts.get(index));
+            detalleViewModel.insert(detalle);
+            index++;
+        }
+
         Intent intent = new Intent(this, ResumenOrden.class);
         startActivity(intent);
+
     }
 
 }

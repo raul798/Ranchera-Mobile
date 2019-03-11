@@ -1,8 +1,6 @@
 package ado.edu.pucmm.rancherasystem;
 
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,10 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +22,8 @@ import java.util.List;
 import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
 import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.Factura;
-import ado.edu.pucmm.rancherasystem.db.FacturaViewModel;
+import ado.edu.pucmm.rancherasystem.viewmodels.FacturaViewModel;
 import ado.edu.pucmm.rancherasystem.db.RancheraDB;
-import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
-import ado.edu.pucmm.rancherasystem.viewmodels.ProductViewModel;
 
 public class ConsultarClientes extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, FacturaViewModel.Listener {
@@ -88,7 +82,7 @@ public class ConsultarClientes extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -144,7 +138,7 @@ public class ConsultarClientes extends AppCompatActivity
     }
 
     public void toProductSelection(View view) {
-        factura = new Factura("Pending", 57);
+        factura = new Factura("Pending", client.getId());
         facturaViewModel.insert(factura);
     }
 
@@ -153,10 +147,11 @@ public class ConsultarClientes extends AppCompatActivity
     public void onFinish(final Factura factura) {
         this.runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(ConsultarClientes.this,String.valueOf(factura.getId()), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ConsultarClientes.this,String.valueOf(factura.getId()), Toast.LENGTH_SHORT).show();
             }
         });
         Intent intent = new Intent(this, SeleccionarProducto.class);
+        intent.putExtra("bill_id", factura.getId());
         startActivity(intent);
     }
 }

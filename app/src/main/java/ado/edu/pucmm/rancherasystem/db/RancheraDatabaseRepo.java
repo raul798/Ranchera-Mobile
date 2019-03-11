@@ -68,7 +68,7 @@ public class RancheraDatabaseRepo {
             synchronized (LOCK) {
                 if (rancheraDB == null) {
                     rancheraDB = Room.databaseBuilder(context,
-                            RancheraDB.class, "ranchera db")
+                            RancheraDB.class, "ranchera_database")
                             .addCallback(dbCallback).build();
                 }
             }

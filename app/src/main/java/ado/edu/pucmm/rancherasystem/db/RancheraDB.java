@@ -15,7 +15,7 @@ public abstract class RancheraDB extends RoomDatabase {
 
     private static volatile RancheraDB INSTANCE;
 
-    static RancheraDB getDatabase(final Context context) {
+    public static RancheraDB getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (RancheraDB.class) {
                 if (INSTANCE == null) {

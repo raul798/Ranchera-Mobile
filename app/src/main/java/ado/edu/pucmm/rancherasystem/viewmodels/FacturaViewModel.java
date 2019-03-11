@@ -1,9 +1,14 @@
-package ado.edu.pucmm.rancherasystem.db;
+package ado.edu.pucmm.rancherasystem.viewmodels;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import ado.edu.pucmm.rancherasystem.db.Factura;
+import ado.edu.pucmm.rancherasystem.db.FacturaDao;
+import ado.edu.pucmm.rancherasystem.db.RancheraDB;
+import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
 
 public class FacturaViewModel extends AndroidViewModel {
     //private String TAG = this.getClass().getSimpleName();
