@@ -60,8 +60,7 @@ public class RancheraDatabaseRepo {
         allProducts = productDao.getAllProducts();
     }
 
-    public RancheraDatabaseRepo() {
-    }
+    public RancheraDatabaseRepo() {}
 
     public synchronized static RancheraDB getRancheraDB(Context context){
         if(rancheraDB == null) {
@@ -98,6 +97,19 @@ public class RancheraDatabaseRepo {
         new insertAsyncTask(productDao).execute(product);
     }
 
+    public Factura getBill(Context context, int factura_id) {
+        if (facturaDao == null) {
+            facturaDao = RancheraDatabaseRepo.getRancheraDB(context).facturaDao();
+        }
+        return facturaDao.searchFacturaByID(factura_id);
+    }
+
+    public Client getSingleClient(Context context, int client_id) {
+        if (clientDao == null) {
+            clientDao = RancheraDatabaseRepo.getRancheraDB(context).clientDao();
+        }
+        return clientDao.searchClientByID(client_id);
+    }
 
     private static class insertAsyncTask extends AsyncTask<Product, Void, Void> {
 

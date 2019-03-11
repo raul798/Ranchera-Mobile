@@ -134,8 +134,6 @@ public class SeleccionarProducto extends AppCompatActivity
                 }
             };
 
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -205,8 +203,8 @@ public class SeleccionarProducto extends AppCompatActivity
         }
 
         Intent intent = new Intent(this, ResumenOrden.class);
+        intent.putExtra("bill_id", bill_id);
         startActivity(intent);
 
     }
-
 }

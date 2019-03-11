@@ -18,4 +18,7 @@ public interface FacturaDao {
 
     @Query("SELECT COUNT(*) from Factura")
     int CountFacturas();
+
+    @Query("SELECT * FROM Factura WHERE id = :factura_id")
+    Factura searchFacturaByID(int factura_id);
 }

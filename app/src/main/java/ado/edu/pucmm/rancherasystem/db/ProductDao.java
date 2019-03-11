@@ -20,7 +20,6 @@ public interface ProductDao {
     @Query("select * from Product where id = :id")
     Client searchProductByID(int id);
 
-
     @Query("select * from Product where name = :name")
     Client searchProductByName(String name);
 

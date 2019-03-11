@@ -11,9 +11,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.util.List;
+
+import ado.edu.pucmm.rancherasystem.db.Client;
+import ado.edu.pucmm.rancherasystem.db.Factura;
+import ado.edu.pucmm.rancherasystem.db.Product;
+import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
 
 public class ResumenOrden extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private int bill_id;
+    private Factura factura;
+    private Client client;
+    private List<Product> products;
+    private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +45,24 @@ public class ResumenOrden extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            bill_id = extras.getInt("bill_id");
+        }
+
+        //Arreglar: crashea al hacer getBill p getSingleClient
+        //factura = rancheraDatabaseRepo.getBill(this, bill_id);
+        //client = rancheraDatabaseRepo.getSingleClient(this, factura.getId_client());
+        //setText(R.id.name_clientes_text, client.getName());
+        //setText(R.id.phone_clientes_text, client.getPhoneNumber());
+        //setText(R.id.email_clientes_text, client.getEmail());
     }
+
+    private void setText(int resourceId, String text){
+        ((TextView)findViewById(resourceId)).setText(text);
+    }
+
 
     @Override
     public void onBackPressed() {
