@@ -10,6 +10,7 @@ public class FacturaViewModel extends AndroidViewModel {
     private FacturaDao facturaDao;
     private RancheraDB rancheraDB;
     private RancheraDatabaseRepo repository;
+    private Listener listener;
 
     public FacturaViewModel(Application application) {
         super(application);
@@ -33,8 +34,18 @@ public class FacturaViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Factura... facturas) {
-            billDao.insert(facturas[0]);
+            int id = billDao.insert(facturas[0]).intValue();
+            facturas[0].setId(id);
+            listener.onFinish(facturas[0]);
             return null;
         }
+    }
+
+    public void setListener(Listener listener){
+        this.listener = listener;
+    }
+
+    public interface Listener {
+        void onFinish(Factura factura);
     }
 }

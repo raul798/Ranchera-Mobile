@@ -11,7 +11,7 @@ import java.util.List;
 @Dao
 public interface FacturaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(Factura factura);
+    Long insert(Factura factura);
 
     @Query("DELETE FROM Factura")
     void deleteAll();

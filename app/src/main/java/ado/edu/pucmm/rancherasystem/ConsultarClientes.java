@@ -32,7 +32,7 @@ import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
 import ado.edu.pucmm.rancherasystem.viewmodels.ProductViewModel;
 
 public class ConsultarClientes extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FacturaViewModel.Listener {
 
     private static final String DATABASE_NAME = "ranchera_database";
     private RancheraDB db;
@@ -67,6 +67,7 @@ public class ConsultarClientes extends AppCompatActivity
         clientAutoComplete.setOnItemClickListener(onItemClickListener);
 
         facturaViewModel = ViewModelProviders.of(this).get(FacturaViewModel.class);
+        this.facturaViewModel.setListener(this);
     }
 
     private void setText(int resourceId, String text){
@@ -143,15 +144,19 @@ public class ConsultarClientes extends AppCompatActivity
     }
 
     public void toProductSelection(View view) {
-
-        //57 is test number change for the id of the client
         factura = new Factura("Pending", 57);
         facturaViewModel.insert(factura);
-        Toast.makeText(view.getContext(),String.valueOf(factura.getId()), Toast.LENGTH_SHORT).show();
-
-        Intent intent = new Intent(this, SeleccionarProducto.class);
-        startActivity(intent);
     }
 
 
+    @Override
+    public void onFinish(final Factura factura) {
+        this.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(ConsultarClientes.this,String.valueOf(factura.getId()), Toast.LENGTH_SHORT).show();
+            }
+        });
+        Intent intent = new Intent(this, SeleccionarProducto.class);
+        startActivity(intent);
+    }
 }
