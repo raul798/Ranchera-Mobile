@@ -169,7 +169,7 @@ public class ConfirmacionOrden extends AppCompatActivity
 
     public void toDashboard(View view) {
 
-        Intent intent = new Intent(this, DashBoardActivity.class);
+        Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 
