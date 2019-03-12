@@ -14,13 +14,13 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/phone_clientes_subtext2"
+        app:layout_constraintBottom_toTopOf="@+id/total_textView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/third_separator_resumen" />
 
     <TextView
-        android:id="@+id/phone_clientes_subtext2"
+        android:id="@+id/total_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

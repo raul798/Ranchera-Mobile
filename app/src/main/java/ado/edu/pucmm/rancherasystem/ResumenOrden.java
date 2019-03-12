@@ -35,6 +35,7 @@ public class ResumenOrden extends AppCompatActivity
     private int bill_id;
     private Factura bill;
     private Client client;
+    private float total;
     private List<Integer> products_ids;
     private List<Integer> selected_amounts;
     private List<Product> products;
@@ -63,11 +64,13 @@ public class ResumenOrden extends AppCompatActivity
         recyclerView.setAdapter(recylerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             bill_id = extras.getInt("bill_id");
         }
 
+        total = 0;
         products = new ArrayList<Product>();
         selected_amounts = new ArrayList<Integer>();
         bill = rancheraDatabaseRepo.getBill(this, bill_id);
@@ -79,14 +82,17 @@ public class ResumenOrden extends AppCompatActivity
         for(Integer id : products_ids){
             Product current = rancheraDatabaseRepo.getOrderProduct(this,id);
             Integer amount = rancheraDatabaseRepo.getSelectedProductAmount(this,id);
+            total += current.getPrice() * amount;
             products.add(current);
             selected_amounts.add(amount);
         }
 
+        bill.setTotal(total);
+        String total_message = "Total: $" + String.valueOf(total);
         setText(R.id.name_clientes_text, client.getName());
         setText(R.id.phone_clientes_text, client.getPhoneNumber());
         setText(R.id.email_clientes_text, client.getEmail());
-
+        setText(R.id.total_textView,total_message) ;
         recylerAdapter.setProducts(products);
         recylerAdapter.setAmounts(selected_amounts);
 

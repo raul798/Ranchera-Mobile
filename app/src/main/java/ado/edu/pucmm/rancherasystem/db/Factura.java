@@ -15,10 +15,14 @@ public class Factura {
     @NonNull
     private String descripcion;
 
+    private float total;
+
     public Factura(String descripcion, Integer id_client) {
         this.descripcion = descripcion;
         this.id_client = id_client;
+        this.total = 0;
     }
+
 
     public int getId() {
         return id;
@@ -34,6 +38,14 @@ public class Factura {
 
     public void setId_client(int id_client) {
         this.id_client = id_client;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     @NonNull
