@@ -61,7 +61,7 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuActivity.this, ConsultarClientes.class));
+                startActivity(new Intent(MenuActivity.this, ListOfBills.class));   // Cambiado el FAB para que se direccione a list of bills - consultarClientes
             }
         });
 
@@ -74,6 +74,7 @@ public class MenuActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

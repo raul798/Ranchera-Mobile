@@ -41,7 +41,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillVi
 
         } else {
             // Covers the case of data not being ready yet.
-            holder.wordItemView.setText("No Word");
+            holder.wordItemView.setText("No Data for the Bill");
         }
     }
 
@@ -59,3 +59,4 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillVi
         else return 0;
     }
 }
+
