@@ -5,6 +5,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface FacturaDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -17,5 +19,5 @@ public interface FacturaDao {
     int CountFacturas();
 
     @Query("SELECT * FROM Factura WHERE id = :factura_id")
-    Bill searchFacturaByID(int factura_id);
+    Factura searchFacturaByID(int factura_id);
 }

@@ -26,7 +26,7 @@ public class ResumenOrden extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private int bill_id;
-    private Bill bill;
+    private Factura bill;
     private Client client;
     private List<Product> products;
     private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
@@ -55,7 +55,7 @@ public class ResumenOrden extends AppCompatActivity
 
         bill = rancheraDatabaseRepo.getBill(this, bill_id);
 
-        client = rancheraDatabaseRepo.getSingleClient(this,bill.getClient_id());
+        client = rancheraDatabaseRepo.getSingleClient(this,bill.getId_client());
 
 
         //setText(R.id.name_clientes_text, client.getName());

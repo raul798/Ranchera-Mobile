@@ -114,12 +114,13 @@ public class RancheraDatabaseRepo {
         return client;
     }
 
-    public Bill getBill(Context context, int factura_id) {
+    public Factura getBill(Context context, int factura_id) {
         if (facturaDao == null) {
             facturaDao = RancheraDatabaseRepo.getRancheraDB(context).facturaDao();
         }
 
-        Bill bill = null;
+        Factura bill = null;
+
         try {
             bill = new billAsyncTask(facturaDao).execute(factura_id).get();
         } catch (ExecutionException e) {
@@ -127,8 +128,8 @@ public class RancheraDatabaseRepo {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return bill;
-        //TODO: make async method
     }
 
     private static class clientAsyncTask extends AsyncTask<Integer, Void, Client>{
@@ -145,7 +146,7 @@ public class RancheraDatabaseRepo {
         }
     }
 
-    public static class billAsyncTask extends AsyncTask<Integer, Void, Bill>{
+    public static class billAsyncTask extends AsyncTask<Integer, Void, Factura>{
 
         private FacturaDao asyncTaskDao;
 
@@ -154,7 +155,7 @@ public class RancheraDatabaseRepo {
         }
 
         @Override
-        protected Bill doInBackground(Integer... integers) {
+        protected Factura doInBackground(Integer... integers) {
             return asyncTaskDao.searchFacturaByID(integers[0]);
         }
     }
