@@ -20,4 +20,10 @@ public interface FacturaDao {
 
     @Query("SELECT * FROM Factura WHERE id = :factura_id")
     Factura searchFacturaByID(int factura_id);
+
+    @Query("UPDATE Factura SET total = :total WHERE id = :id")
+    void updateBillTotal(int id, float total);
+
+    @Query("UPDATE Factura SET descripcion = :description WHERE id = :id")
+    void updateBillDescription(int id, String description);
 }

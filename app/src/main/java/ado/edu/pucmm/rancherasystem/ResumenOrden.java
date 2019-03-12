@@ -88,7 +88,9 @@ public class ResumenOrden extends AppCompatActivity
         }
 
         bill.setTotal(total);
-        String total_message = "Total: $" + String.valueOf(total);
+        rancheraDatabaseRepo.updateBillTotal(this, bill_id, total);
+        //rancheraDatabaseRepo.updateBillDescription(this, bill_id, "Done");
+        String total_message = "Total: RD$" + String.valueOf(total);
         setText(R.id.name_clientes_text, client.getName());
         setText(R.id.phone_clientes_text, client.getPhoneNumber());
         setText(R.id.email_clientes_text, client.getEmail());

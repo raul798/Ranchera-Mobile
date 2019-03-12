@@ -186,6 +186,27 @@ public class RancheraDatabaseRepo {
         return amount;
     }
 
+    public void updateBillTotal(Context context, Integer bill_id, Float total) {
+        if (facturaDao == null) {
+            facturaDao = RancheraDatabaseRepo.getRancheraDB(context).facturaDao();
+        }
+
+        updateParams params = new updateParams(bill_id,total);
+
+        new updateTotalAsyncTask(facturaDao).execute(params);
+    }
+
+    public void updateBillDescription(Context context, Integer bill_id, String description){
+
+        if (facturaDao == null) {
+            facturaDao = RancheraDatabaseRepo.getRancheraDB(context).facturaDao();
+        }
+
+        updateParamsDescription params = new updateParamsDescription(bill_id,description);
+
+        new updateDescriptionAsyncTask(facturaDao).execute(params);
+    }
+
     private static class detalleAsyncTask extends AsyncTask<Integer, Void, List <Integer>>{
 
         private DetalleDao asyncTaskDao;
@@ -212,6 +233,7 @@ public class RancheraDatabaseRepo {
             return asyncTaskDao.getSelectedProductAmount(params[0]);
         }
     }
+
     private static class productAsyncTask extends AsyncTask<Integer, Void, Product>{
 
         private ProductDao asyncTaskDao;
@@ -254,7 +276,7 @@ public class RancheraDatabaseRepo {
         }
     }
 
-    private static class insertAsyncTask extends AsyncTask<Product, Integer, Void> {
+    private static class insertAsyncTask extends android.os.AsyncTask<Product, Integer, Void> {
 
         private ProductDao asyncTaskDao;
 
@@ -270,4 +292,53 @@ public class RancheraDatabaseRepo {
 
     }
 
+    private static class updateParams {
+        int id;
+        float total;
+
+        updateParams(int id, float total) {
+            this.id = id;
+            this.total = total;
+        }
+    }
+
+    private static class updateTotalAsyncTask extends AsyncTask<updateParams, Void, Void> {
+
+        private FacturaDao asyncTaskDao;
+
+        updateTotalAsyncTask(FacturaDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final updateParams... params) {
+            asyncTaskDao.updateBillTotal(params[0].id, params[0].total);
+            return null;
+        }
+    }
+
+    private static class updateParamsDescription {
+        int id;
+        String description;
+
+        updateParamsDescription(int id, String description) {
+            this.id = id;
+            this.description = description;
+        }
+    }
+
+    private static class updateDescriptionAsyncTask extends AsyncTask<updateParamsDescription, Void, Void> {
+
+        private FacturaDao asyncTaskDao;
+
+        updateDescriptionAsyncTask(FacturaDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final updateParamsDescription... params) {
+            asyncTaskDao.updateBillDescription(params[0].id, params[0].description);
+            return null;
+        }
+    }
 }
