@@ -30,6 +30,7 @@ public class ConfirmacionOrden extends AppCompatActivity
     private ImageView endStatusCircleIncomplete;
     private SignaturePad mSignaturePad;
     private TextView signatureText;
+    private Button returnButton;
     private RancheraDatabaseRepo rancheraDatabaseRepo =  new RancheraDatabaseRepo();
     private int bill_id;
 
@@ -64,6 +65,10 @@ public class ConfirmacionOrden extends AppCompatActivity
         endStatusCircleComplete = (ImageView) findViewById(R.id.confirmation_final_circle);
         endStatusCircleIncomplete = (ImageView) findViewById(R.id.confirmacion_confirmacion_circle);
         endStatusCircleComplete.setVisibility(View.INVISIBLE);
+
+        returnButton = findViewById(R.id.btn_return);
+        returnButton.setEnabled(false);
+        returnButton.setVisibility(View.INVISIBLE);
 
         mSignaturePad = (SignaturePad) findViewById(R.id.signature_pad);
         mSignaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
@@ -156,8 +161,16 @@ public class ConfirmacionOrden extends AppCompatActivity
         mSignaturePad.setVisibility(View.INVISIBLE);
         finishButton.setVisibility(View.INVISIBLE);
         signatureText.setVisibility(View.INVISIBLE);
+        returnButton.setVisibility(View.VISIBLE);
+        returnButton.setEnabled(true);
 
         rancheraDatabaseRepo.updateBillDescription(this, bill_id, "Done");
+    }
+
+    public void toDashboard(View view) {
+
+        Intent intent = new Intent(this, DashBoardActivity.class);
+        startActivity(intent);
     }
 
 }
