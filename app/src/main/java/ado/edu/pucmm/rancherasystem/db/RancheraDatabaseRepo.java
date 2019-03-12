@@ -11,6 +11,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class RancheraDatabaseRepo {
     private static RancheraDB rancheraDB;
@@ -97,24 +98,68 @@ public class RancheraDatabaseRepo {
         new insertAsyncTask(productDao).execute(product);
     }
 
+    public Client getSingleClient (Context context, Integer clientId) {
+        Client client = null;
+        if(clientDao == null) {
+            clientDao = RancheraDatabaseRepo.getRancheraDB(context).clientDao();
 
-    //Natalia aiuda
-    public Factura getBill(Context context, int factura_id) {
+            try {
+                client = new clientAsyncTask(clientDao).execute(clientId).get();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return client;
+    }
+
+    public Bill getBill(Context context, int factura_id) {
         if (facturaDao == null) {
             facturaDao = RancheraDatabaseRepo.getRancheraDB(context).facturaDao();
         }
-        return facturaDao.searchFacturaByID(factura_id);
-    }
 
-    //Natalia aiuda
-    public Client getSingleClient(Context context, int client_id) {
-        if (clientDao == null) {
-            clientDao = RancheraDatabaseRepo.getRancheraDB(context).clientDao();
+        Bill bill = null;
+        try {
+            bill = new billAsyncTask(facturaDao).execute(factura_id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return clientDao.searchClientByID(client_id);
+        return bill;
+        //TODO: make async method
     }
 
-    private static class insertAsyncTask extends AsyncTask<Product, Void, Void> {
+    private static class clientAsyncTask extends AsyncTask<Integer, Void, Client>{
+
+        private ClientDao asyncTaskDao;
+
+        clientAsyncTask(ClientDao dao){
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Client doInBackground(final Integer... params){
+             return asyncTaskDao.searchClientByID(params[0]);
+        }
+    }
+
+    public static class billAsyncTask extends AsyncTask<Integer, Void, Bill>{
+
+        private FacturaDao asyncTaskDao;
+
+        billAsyncTask(FacturaDao dao){
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Bill doInBackground(Integer... integers) {
+            return asyncTaskDao.searchFacturaByID(integers[0]);
+        }
+    }
+
+    private static class insertAsyncTask extends AsyncTask<Product, Integer, Void> {
 
         private ProductDao asyncTaskDao;
 
@@ -127,6 +172,7 @@ public class RancheraDatabaseRepo {
             asyncTaskDao.insert(params[0]);
             return null;
         }
+
     }
 
 }

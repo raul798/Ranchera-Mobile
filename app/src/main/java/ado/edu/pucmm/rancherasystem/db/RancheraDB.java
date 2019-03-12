@@ -7,7 +7,6 @@ import android.content.Context;
 
 @Database(entities = {Client.class, Bill.class, Product.class, Factura.class, Detalle.class}, version = 1)
 public abstract class RancheraDB extends RoomDatabase {
-
     public abstract ClientDao clientDao();
     public abstract ProductDao productDao();
     public abstract DetalleDao detalleDao();
