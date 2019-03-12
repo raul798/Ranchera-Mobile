@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
+import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
+
 public class ConfirmacionOrden extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -28,6 +30,8 @@ public class ConfirmacionOrden extends AppCompatActivity
     private ImageView endStatusCircleIncomplete;
     private SignaturePad mSignaturePad;
     private TextView signatureText;
+    private RancheraDatabaseRepo rancheraDatabaseRepo =  new RancheraDatabaseRepo();
+    private int bill_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +84,11 @@ public class ConfirmacionOrden extends AppCompatActivity
                 //Event triggered when the pad is cleared
             }
         });
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            bill_id = extras.getInt("bill_id");
+        }
     }
 
     @Override
@@ -147,6 +156,8 @@ public class ConfirmacionOrden extends AppCompatActivity
         mSignaturePad.setVisibility(View.INVISIBLE);
         finishButton.setVisibility(View.INVISIBLE);
         signatureText.setVisibility(View.INVISIBLE);
+
+        rancheraDatabaseRepo.updateBillDescription(this, bill_id, "Done");
     }
 
 }

@@ -89,7 +89,6 @@ public class ResumenOrden extends AppCompatActivity
 
         bill.setTotal(total);
         rancheraDatabaseRepo.updateBillTotal(this, bill_id, total);
-        //rancheraDatabaseRepo.updateBillDescription(this, bill_id, "Done");
         String total_message = "Total: RD$" + String.valueOf(total);
         setText(R.id.name_clientes_text, client.getName());
         setText(R.id.phone_clientes_text, client.getPhoneNumber());
@@ -169,6 +168,7 @@ public class ResumenOrden extends AppCompatActivity
     public void toConfirmacion(View view) {
 
         Intent intent = new Intent(this, ConfirmacionOrden.class);
+        intent.putExtra("bill_id", bill_id);
         startActivity(intent);
     }
 }
