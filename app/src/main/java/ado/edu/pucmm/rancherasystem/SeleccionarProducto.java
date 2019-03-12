@@ -51,12 +51,6 @@ public class SeleccionarProducto extends AppCompatActivity
     private ProductViewModel productViewModel;
     private ProductRecyclerViewAdapter recylerAdapter;
     private int bill_id;
-    private int client_id;
-    private String client_name;
-    private String client_phone;
-    private String client_email;
-    private String client_address;
-    private Client client;
     private Detalle detalle;
     private DetalleViewModel detalleViewModel;
     final static int PRESET_AMOUNT = 15;
@@ -201,17 +195,21 @@ public class SeleccionarProducto extends AppCompatActivity
     }
 
     public void toOrderResumen(View view) {
+        if(!products.isEmpty()) {
+            int index = 0;
+            for (Product product1 : products) {
+                detalle = new Detalle(bill_id, product1.getId(), amounts.get(index));
+                detalleViewModel.insert(detalle);
+                index++;
+            }
 
-        int index = 0;
-        for (Product product1 : products){
-            detalle = new Detalle(bill_id, product1.getId(), amounts.get(index));
-            detalleViewModel.insert(detalle);
-            index++;
+            Intent intent = new Intent(this, ResumenOrden.class);
+            intent.putExtra("bill_id", bill_id);
+            startActivity(intent);
         }
-
-        Intent intent = new Intent(this, ResumenOrden.class);
-        intent.putExtra("bill_id", bill_id);
-        startActivity(intent);
+        else{
+            Toast.makeText(SeleccionarProducto.this,"Seleccione un producto", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

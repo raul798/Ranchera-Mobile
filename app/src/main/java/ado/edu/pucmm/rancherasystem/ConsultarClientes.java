@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,7 @@ public class ConsultarClientes extends AppCompatActivity
 
         AutoCompleteTextView clientAutoComplete = findViewById(R.id.search_cliente);
         clients = new ArrayList<Client>();
+        client = null;
         ClientSearchAdapter adapter = new ClientSearchAdapter(this,
                 R.layout.client_search_dropdown, clients);
         clientAutoComplete.setAdapter(adapter);
@@ -138,20 +140,21 @@ public class ConsultarClientes extends AppCompatActivity
     }
 
     public void toProductSelection(View view) {
-        factura = new Factura("Pending", client.getId());
-        facturaViewModel.insert(factura);
+        if(client!= null) {
+            factura = new Factura("Pending", client.getId());
+            facturaViewModel.insert(factura);
+        }
+        else Toast.makeText(ConsultarClientes.this,"Seleccione un cliente", Toast.LENGTH_SHORT).show();
     }
 
 
     @Override
     public void onFinish(final Factura factura) {
-        this.runOnUiThread(new Runnable() {
-            public void run() {
-                //Toast.makeText(ConsultarClientes.this,String.valueOf(factura.getId()), Toast.LENGTH_SHORT).show();
-            }
-        });
-        Intent intent = new Intent(this, SeleccionarProducto.class);
-        intent.putExtra("bill_id", factura.getId());
-        startActivity(intent);
+
+        if(client != null) {
+            Intent intent = new Intent(this, SeleccionarProducto.class);
+            intent.putExtra("bill_id", factura.getId());
+            startActivity(intent);
+        }
     }
 }

@@ -123,7 +123,7 @@ public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecy
 
         void onClickMinus(View view, int position){
             int current = amounts.get(position);
-            if(current > 0) {
+            if(current > 1) {
                 amounts.set(position, --current);
                 notifyDataSetChanged();
             }
