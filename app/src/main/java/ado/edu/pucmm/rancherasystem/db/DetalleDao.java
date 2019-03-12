@@ -20,4 +20,7 @@ public interface DetalleDao {
 
     @Query("SELECT id_producto FROM Detalle WHERE id_factura = :id_factura ")
     List<Integer> getBillProducts(int id_factura);
+
+    @Query("SELECT cantidad FROM Detalle WHERE id_producto = :id_producto ")
+    Integer getSelectedProductAmount(int id_producto);
 }

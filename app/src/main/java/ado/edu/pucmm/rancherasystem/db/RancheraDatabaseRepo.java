@@ -168,6 +168,24 @@ public class RancheraDatabaseRepo {
         return product;
     }
 
+    public Integer getSelectedProductAmount(Context context, Integer product_id) {
+        if (detalleDao == null) {
+            detalleDao = RancheraDatabaseRepo.getRancheraDB(context).detalleDao();
+        }
+
+        Integer amount = null;
+
+        try {
+            amount = new amountAsyncTask(detalleDao).execute(product_id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return amount;
+    }
+
     private static class detalleAsyncTask extends AsyncTask<Integer, Void, List <Integer>>{
 
         private DetalleDao asyncTaskDao;
@@ -182,6 +200,18 @@ public class RancheraDatabaseRepo {
         }
     }
 
+    private static class amountAsyncTask extends AsyncTask<Integer, Void, Integer>{
+        private DetalleDao asyncTaskDao;
+
+        amountAsyncTask(DetalleDao dao){
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Integer doInBackground(final Integer... params){
+            return asyncTaskDao.getSelectedProductAmount(params[0]);
+        }
+    }
     private static class productAsyncTask extends AsyncTask<Integer, Void, Product>{
 
         private ProductDao asyncTaskDao;

@@ -2,6 +2,8 @@ package ado.edu.pucmm.rancherasystem;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,11 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
+import ado.edu.pucmm.rancherasystem.adapters.ProductsDetailsRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.db.Bill;
 import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.Factura;
 import ado.edu.pucmm.rancherasystem.db.Product;
 import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
+import ado.edu.pucmm.rancherasystem.viewmodels.ProductViewModel;
 
 public class ResumenOrden extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,7 +36,9 @@ public class ResumenOrden extends AppCompatActivity
     private Factura bill;
     private Client client;
     private List<Integer> products_ids;
+    private List<Integer> selected_amounts;
     private List<Product> products;
+    private ProductsDetailsRecyclerViewAdapter recylerAdapter;
     private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
 
 
@@ -51,12 +58,18 @@ public class ResumenOrden extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recylerAdapter = new ProductsDetailsRecyclerViewAdapter(this);
+        recyclerView.setAdapter(recylerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             bill_id = extras.getInt("bill_id");
         }
 
         products = new ArrayList<Product>();
+        selected_amounts = new ArrayList<Integer>();
         bill = rancheraDatabaseRepo.getBill(this, bill_id);
 
         client = rancheraDatabaseRepo.getSingleClient(this,bill.getId_client());
@@ -65,12 +78,18 @@ public class ResumenOrden extends AppCompatActivity
 
         for(Integer id : products_ids){
             Product current = rancheraDatabaseRepo.getOrderProduct(this,id);
+            Integer amount = rancheraDatabaseRepo.getSelectedProductAmount(this,id);
             products.add(current);
+            selected_amounts.add(amount);
         }
 
         setText(R.id.name_clientes_text, client.getName());
         setText(R.id.phone_clientes_text, client.getPhoneNumber());
         setText(R.id.email_clientes_text, client.getEmail());
+
+        recylerAdapter.setProducts(products);
+        recylerAdapter.setAmounts(selected_amounts);
+
     }
 
     private void setText(int resourceId, String text){
