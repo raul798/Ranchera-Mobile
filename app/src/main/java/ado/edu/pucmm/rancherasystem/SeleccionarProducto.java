@@ -29,6 +29,7 @@ import java.util.ListIterator;
 import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.adapters.ProductSearchAdapter;
 import ado.edu.pucmm.rancherasystem.db.Bill;
+import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.Detalle;
 import ado.edu.pucmm.rancherasystem.db.Factura;
 import ado.edu.pucmm.rancherasystem.db.Product;
@@ -50,6 +51,12 @@ public class SeleccionarProducto extends AppCompatActivity
     private ProductViewModel productViewModel;
     private ProductRecyclerViewAdapter recylerAdapter;
     private int bill_id;
+    private int client_id;
+    private String client_name;
+    private String client_phone;
+    private String client_email;
+    private String client_address;
+    private Client client;
     private Detalle detalle;
     private DetalleViewModel detalleViewModel;
     final static int PRESET_AMOUNT = 15;
@@ -99,7 +106,7 @@ public class SeleccionarProducto extends AppCompatActivity
 
         detalleViewModel = ViewModelProviders.of(this).get(DetalleViewModel.class);
 
-        //get factura id from client activity
+        //get factura id and client from client activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             bill_id = extras.getInt("bill_id");

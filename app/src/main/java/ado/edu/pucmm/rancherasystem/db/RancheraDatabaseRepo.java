@@ -132,6 +132,70 @@ public class RancheraDatabaseRepo {
         return bill;
     }
 
+    public List<Integer> getProductsFromDetail(Context context, Integer factura_id) {
+        if (detalleDao == null) {
+            detalleDao = RancheraDatabaseRepo.getRancheraDB(context).detalleDao();
+        }
+
+        List <Integer> products = null;
+
+        try {
+            products = new detalleAsyncTask(detalleDao).execute(factura_id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
+    public Product getOrderProduct(Context context, Integer factura_id) {
+        if (productDao == null) {
+            productDao = RancheraDatabaseRepo.getRancheraDB(context).productDao();
+        }
+
+        Product product = null;
+
+        try {
+            product = new productAsyncTask(productDao).execute(factura_id).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        return product;
+    }
+
+    private static class detalleAsyncTask extends AsyncTask<Integer, Void, List <Integer>>{
+
+        private DetalleDao asyncTaskDao;
+
+        detalleAsyncTask(DetalleDao dao){
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected List<Integer> doInBackground(final Integer... params){
+            return asyncTaskDao.getBillProducts(params[0]);
+        }
+    }
+
+    private static class productAsyncTask extends AsyncTask<Integer, Void, Product>{
+
+        private ProductDao asyncTaskDao;
+
+        productAsyncTask(ProductDao dao){
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Product doInBackground(final Integer... params){
+            return asyncTaskDao.searchProductByID(params[0]);
+        }
+    }
+
     private static class clientAsyncTask extends AsyncTask<Integer, Void, Client>{
 
         private ClientDao asyncTaskDao;

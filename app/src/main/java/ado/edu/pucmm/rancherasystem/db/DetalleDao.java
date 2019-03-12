@@ -5,6 +5,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
+import java.util.List;
+
 @Dao
 public interface DetalleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -15,4 +17,7 @@ public interface DetalleDao {
 
     @Query("SELECT COUNT(*) from Detalle")
     int CountDetalles();
+
+    @Query("SELECT id_producto FROM Detalle WHERE id_factura = :id_factura ")
+    List<Integer> getBillProducts(int id_factura);
 }

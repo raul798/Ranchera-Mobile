@@ -18,10 +18,10 @@ public interface ProductDao {
     void deleteAll();
 
     @Query("select * from Product where id = :id")
-    Client searchProductByID(int id);
+    Product searchProductByID(int id);
 
     @Query("select * from Product where name = :name")
-    Client searchProductByName(String name);
+    Product searchProductByName(String name);
 
     @Query("SELECT * from Product ORDER BY id ASC")
     LiveData<List<Product>> getAllProducts();
