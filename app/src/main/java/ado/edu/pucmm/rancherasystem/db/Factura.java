@@ -1,7 +1,9 @@
 package ado.edu.pucmm.rancherasystem.db;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "Factura")
@@ -17,10 +19,14 @@ public class Factura {
 
     private float total;
 
+
+    private byte[] signature;
+
     public Factura(String descripcion, Integer id_client) {
         this.descripcion = descripcion;
         this.id_client = id_client;
         this.total = 0;
+        this.signature = null;
     }
 
 
@@ -56,4 +62,17 @@ public class Factura {
     public void setDescripcion(@NonNull String descripcion) {
         this.descripcion = descripcion;
     }
+
+    public void setSignature(byte[] signature) {
+        this.signature = signature;
+    }
+
+    public byte[] getSignature() {
+        return signature;
+    }
+
+
 }
+
+
+

@@ -1,6 +1,7 @@
 package ado.edu.pucmm.rancherasystem;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
+
+import java.io.ByteArrayOutputStream;
 
 import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
 
@@ -165,6 +168,14 @@ public class ConfirmacionOrden extends AppCompatActivity
         returnButton.setEnabled(true);
 
         rancheraDatabaseRepo.updateBillDescription(this, bill_id, "Done");
+
+        Bitmap signature = mSignaturePad.getSignatureBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        signature.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+
+        rancheraDatabaseRepo.updateBillSignature(this, bill_id, byteArray);
+        signature.recycle();
     }
 
     public void toDashboard(View view) {

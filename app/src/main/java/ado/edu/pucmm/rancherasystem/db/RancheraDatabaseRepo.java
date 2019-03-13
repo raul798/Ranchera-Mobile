@@ -8,6 +8,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 import java.util.List;
@@ -338,6 +339,42 @@ public class RancheraDatabaseRepo {
         @Override
         protected Void doInBackground(final updateParamsDescription... params) {
             asyncTaskDao.updateBillDescription(params[0].id, params[0].description);
+            return null;
+        }
+    }
+
+    public void updateBillSignature(Context context, Integer bill_id, byte[] signature){
+
+        if (facturaDao == null) {
+            facturaDao = RancheraDatabaseRepo.getRancheraDB(context).facturaDao();
+        }
+
+        updateParamsSignature params = new updateParamsSignature(bill_id,signature);
+
+        new updateSignatureAsyncTask(facturaDao).execute(params);
+    }
+
+    private static class updateParamsSignature {
+        int id;
+        byte[] signature;
+
+        updateParamsSignature(int id, byte[] signature) {
+            this.id = id;
+            this.signature = signature;
+        }
+    }
+
+    private static class updateSignatureAsyncTask extends AsyncTask<updateParamsSignature, Void, Void> {
+
+        private FacturaDao asyncTaskDao;
+
+        updateSignatureAsyncTask(FacturaDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final updateParamsSignature... params) {
+            asyncTaskDao.updateBillSignature(params[0].id, params[0].signature);
             return null;
         }
     }

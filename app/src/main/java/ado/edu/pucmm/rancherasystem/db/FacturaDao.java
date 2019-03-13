@@ -4,6 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
+import android.graphics.Bitmap;
 
 import java.util.List;
 
@@ -26,4 +27,7 @@ public interface FacturaDao {
 
     @Query("UPDATE Factura SET descripcion = :description WHERE id = :id")
     void updateBillDescription(int id, String description);
+
+    @Query("UPDATE Factura SET signature = :signature WHERE id = :id")
+    void updateBillSignature(int id, byte[] signature);
 }
