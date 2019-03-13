@@ -55,11 +55,6 @@ public abstract class RancheraDB extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            mDao.deleteAll();
-            Bill bill = new Bill(1, 500, "Primer test de esto", 1);
-            mDao.insert(bill);
-            bill = new Bill(2,5000,"segundo test", 1);
-            mDao.insert(bill);
             return null;
         }
     }

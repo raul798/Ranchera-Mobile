@@ -16,14 +16,14 @@ public class BillViewModel extends AndroidViewModel {
 
     public BillViewModel (Application application){
         super(application);
-        mRepository = new RancheraDatabaseRepo();
-        mAllBills = mRepository.getListofbills();
+        mRepository = new RancheraDatabaseRepo(application);
     }
 
     public LiveData<List<Bill>> getmAllBills() {
         return mAllBills;
     }
 
-    public void insert(Bill bill){mRepository.insert(bill);
+    public void insert(Bill bill){
+        mRepository.insert(bill);
     }
 }

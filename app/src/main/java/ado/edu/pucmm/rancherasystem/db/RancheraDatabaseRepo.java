@@ -1,14 +1,13 @@
 package ado.edu.pucmm.rancherasystem.db;
 
-import android.arch.lifecycle.LiveData;
+import android.app.Application;
 import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RancheraDatabaseRepo {
@@ -16,31 +15,18 @@ public class RancheraDatabaseRepo {
     private static RancheraDB rancheraDB;
     private ClientDao clientDao;
     private BillDao billDao;
-    private LiveData<List<Bill>> listofbills;
+    private List<Bill> listofbills; //TODO: initialize this variable
     private static final Object LOCK = new Object();
 
+    public RancheraDatabaseRepo(Context context){
+        RancheraDB db = RancheraDB.getDatabase(context);
+        billDao = db.billDao();
+        listofbills = new ArrayList<>();
+    }
+
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback(){
-        public void onCreate (SupportSQLiteDatabase db){
-
-        }
-        public void onOpen (SupportSQLiteDatabase db){
-            //delete existing data
-            db.execSQL("Delete From Client");
-
-            ContentValues contentValues = new ContentValues();
-            contentValues.put("name", "eTest");
-            contentValues.put("phoneNumber", "809-123-4567");
-            contentValues.put("email", "test@email.com");
-            contentValues.put("address", "Test address #10");
-            db.insert("Client", OnConflictStrategy.IGNORE, contentValues);
-
-            contentValues = new ContentValues();
-            contentValues.put("id", "001");
-            contentValues.put("debt","100000");
-            contentValues.put("description","first bill test");
-            contentValues.put("client_id", "1");
-            db.insert("bill_table",OnConflictStrategy.IGNORE,contentValues );
-        }
+        public void onCreate (SupportSQLiteDatabase db){}
+        public void onOpen (SupportSQLiteDatabase db){}
     };
 
     public synchronized static RancheraDB getRancheraDB(Context context){
@@ -57,24 +43,47 @@ public class RancheraDatabaseRepo {
     }
 
     public void insert(Bill bill){
-        new insertAsyncTask(billDao).execute(bill);
+        new insertAsyncTask().execute(bill);
     }
 
-    private static class insertAsyncTask extends AsyncTask<Bill, Void, Void> {
+    private class insertAsyncTask extends AsyncTask<Bill, Void, Void> {
 
-        private BillDao mAsyncTaskDao;
-
-        insertAsyncTask(BillDao billdao) {
-            mAsyncTaskDao = billdao;
+        insertAsyncTask() {
         }
 
         @Override
         protected Void doInBackground(final Bill... params) {
-            mAsyncTaskDao.insert(params[0]);
+            billDao.insert(params[0]);
             return null;
         }
     }
 
+    public List<Bill> getBills(Context context, Integer client_id) {
+        if (billDao == null) {
+            billDao = RancheraDatabaseRepo.getRancheraDB(context).billDao();
+        }
+        List<Bill> bills = new ArrayList<>();
+        try {
+            bills = new selectBillsAsyncTask(billDao).execute(client_id).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bills;
+    }
+
+    private static class selectBillsAsyncTask extends AsyncTask<Integer, Void, List<Bill>>{
+
+        private BillDao mAsyncTaskDao;
+
+        selectBillsAsyncTask(BillDao billdao){
+            mAsyncTaskDao = billdao;
+        }
+
+        @Override
+        protected List<Bill> doInBackground(Integer... params) {
+            return mAsyncTaskDao.getBills(params[0]);
+        }
+    }
 
     public List<Client> getClient(Context context, String clientStr) {
         if (clientDao == null) {
@@ -82,16 +91,8 @@ public class RancheraDatabaseRepo {
         }
         return clientDao.getClients(clientStr+"%");
     }
-    public List<Bill> getBills(Context context, String billStr) {
-        if (billDao == null) {
-            billDao = RancheraDatabaseRepo.getRancheraDB(context).billDao();
-        }
-        return billDao.getBills(billStr+"%");
-    }
 
-    public LiveData<List<Bill>> getListofbills() {
+    public List<Bill> getListofbills() {
         return listofbills;
     }
-
-
 }

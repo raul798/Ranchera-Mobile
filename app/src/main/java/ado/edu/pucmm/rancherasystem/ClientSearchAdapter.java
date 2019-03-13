@@ -20,12 +20,13 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
     private Context mContext;
     private int itemLayout;
 
-    private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
+    private RancheraDatabaseRepo rancheraDatabaseRepo;
 
     private ClientSearchAdapter.ListFilter listFilter = new ClientSearchAdapter.ListFilter();
 
     public ClientSearchAdapter(Context context, int resource, List<Client> clientDataList) {
         super(context, resource, clientDataList);
+        rancheraDatabaseRepo = new RancheraDatabaseRepo(context.getApplicationContext());
         dataList = clientDataList;
         mContext = context;
         itemLayout = resource;

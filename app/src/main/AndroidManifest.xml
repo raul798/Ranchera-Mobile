@@ -11,7 +11,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ListOfBills"></activity>
+        <activity android:name=".BillDetailActivity"></activity>
+        <activity android:name=".ListOfBills" />
         <activity
             android:name=".MainActivity"
             android:label="FlujoClientes_Productos"

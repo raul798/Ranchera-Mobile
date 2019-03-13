@@ -24,7 +24,7 @@ public interface BillDao {
     LiveData<List<Bill>> getAllBills();
 
     @Query("SELECT  * FROM bill_table where client_id like :clientId")
-    List<Bill> getBills(String clientId );
+    List<Bill> getBills(Integer clientId );
 
 
 }
