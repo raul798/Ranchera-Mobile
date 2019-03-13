@@ -65,6 +65,7 @@ public class ConfirmacionOrden extends AppCompatActivity
         signatureText = (TextView) findViewById(R.id.firme_text);
         finishText.setVisibility(View.INVISIBLE);
 
+
         endStatusCircleComplete = (ImageView) findViewById(R.id.confirmation_final_circle);
         endStatusCircleIncomplete = (ImageView) findViewById(R.id.confirmacion_confirmacion_circle);
         endStatusCircleComplete.setVisibility(View.INVISIBLE);
@@ -155,6 +156,10 @@ public class ConfirmacionOrden extends AppCompatActivity
         return true;
     }
 
+    private void setText(int resourceId, String text){
+        ((TextView)findViewById(resourceId)).setText(text);
+    }
+
     public void finishOrder(View view) {
 
         finishCircle.setVisibility(View.VISIBLE);
@@ -175,6 +180,7 @@ public class ConfirmacionOrden extends AppCompatActivity
         byte[] byteArray = stream.toByteArray();
 
         rancheraDatabaseRepo.updateBillSignature(this, bill_id, byteArray);
+        setText(R.id.confirmation_text, "Orden #"+ String.valueOf(bill_id) + " enviada");
         signature.recycle();
     }
 

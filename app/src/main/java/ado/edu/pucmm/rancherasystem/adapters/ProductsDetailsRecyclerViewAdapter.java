@@ -48,7 +48,7 @@ public class ProductsDetailsRecyclerViewAdapter extends RecyclerView.Adapter<Pro
             int amount = amounts.get(position);
             String priceString = "Precio: $" + String.valueOf(current.getPrice());
             holder.productItemView.setText(current.getName());
-            holder.productQuantityView.setText(String.valueOf(amount));
+            holder.productQuantityView.setText("Cantidad: " + String.valueOf(amount));
             holder.productPriceView.setText(priceString);
 
         } else {
