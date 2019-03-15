@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
 import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.Factura;
@@ -36,6 +37,10 @@ public class ConsultarClientes extends AppCompatActivity
     private Client client;
     private Factura factura;
     private int cnt = 0;
+
+    private static final String DATABASE_NAME = "ranchera_database";
+    private RancheraDB db;
+    private List<Client> clients;
 
 
     @Override
@@ -61,7 +66,6 @@ public class ConsultarClientes extends AppCompatActivity
                 R.layout.client_search_dropdown, clients);
         clientAutoComplete.setAdapter(adapter);
         clientAutoComplete.setOnItemClickListener(onItemClickListener);
-
         facturaViewModel = ViewModelProviders.of(this).get(FacturaViewModel.class);
         this.facturaViewModel.setListener(this);
     }
@@ -74,11 +78,13 @@ public class ConsultarClientes extends AppCompatActivity
             new AdapterView.OnItemClickListener(){
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Client client = ( Client) adapterView.getItemAtPosition(i);
                     client = ( Client) adapterView.getItemAtPosition(i);
                     setText(R.id.name_clientes_text, client.getName());
                     setText(R.id.phone_clientes_text, client.getPhoneNumber());
                     setText(R.id.email_clientes_text, client.getEmail());
                     setText(R.id.address_clientes_text, client.getAddress());
+                    Toast.makeText(ConsultarClientes.this, "", Toast.LENGTH_SHORT).show();
                 }
             };
 

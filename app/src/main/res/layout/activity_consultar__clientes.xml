@@ -7,7 +7,7 @@
     tools:context="ado.edu.pucmm.rancherasystem.ConsultarCliente">
 
     <Button
-        android:id="@+id/bttn_Resumen"
+        android:id="@+id/btn_resumen"
         android:layout_width="102dp"
         android:layout_height="51dp"
         android:layout_marginTop="667dp"
@@ -16,14 +16,14 @@
         android:text="@string/resumen"
         android:textColor="@color/DefaultBlue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bttn_Ordenes"
+        app:layout_constraintEnd_toStartOf="@+id/btn_ordenes"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
 
     <Button
-        android:id="@+id/bttn_Ordenes"
+        android:id="@+id/btn_ordenes"
         android:layout_width="90dp"
         android:layout_height="51dp"
         android:layout_marginTop="666dp"
@@ -32,13 +32,13 @@
         android:text="@string/ordenes"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bttn_CC"
-        app:layout_constraintStart_toEndOf="@+id/bttn_Resumen"
+        app:layout_constraintEnd_toStartOf="@+id/btn_CC"
+        app:layout_constraintStart_toEndOf="@+id/btn_resumen"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/bttn_CC"
+        android:id="@+id/btn_CC"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="120dp"
         android:layout_height="51dp"
@@ -48,25 +48,204 @@
         android:text="@string/consultar_clientes"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bttn_Prod"
-        app:layout_constraintStart_toEndOf="@+id/bttn_Ordenes"
+        app:layout_constraintEnd_toStartOf="@+id/btn_prod"
+        app:layout_constraintStart_toEndOf="@+id/btn_ordenes"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/bttn_Prod"
+        android:id="@+id/btn_prod"
         android:layout_width="120dp"
         android:layout_height="51dp"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="32dp"
         android:background="@color/DefaultBlue"
         android:onClick="ToastTBD"
         android:text="@string/productos"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bttn_CC"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/btn_CC"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/text_numeroEjemplo"
+        android:layout_width="244dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginRight="75dp"
+        android:text="@string/numero_ejemplo"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_detalle_numero"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ic_phone"
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="375dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="150dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/ic_phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_detalle_numero"
+        android:layout_width="246dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginRight="71dp"
+        android:text="@string/detalle_numero"
+        app:layout_constraintBottom_toTopOf="@+id/text_email_ejemplo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ic_phone"
+        app:layout_constraintTop_toBottomOf="@+id/text_numeroEjemplo" />
+
+    <TextView
+        android:id="@+id/text_email_ejemplo"
+        android:layout_width="246dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginRight="71dp"
+        android:text="@string/title_ejemplo_email"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_detalle_email_ejemplo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/image_mail"
+        app:layout_constraintTop_toBottomOf="@+id/text_detalle_numero" />
+
+    <TextView
+        android:id="@+id/text_detalle_email_ejemplo"
+        android:layout_width="247dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginRight="71dp"
+        android:layout_marginBottom="350dp"
+        android:text="@string/title_detalle_email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toEndOf="@+id/image_mail"
+        app:layout_constraintTop_toBottomOf="@+id/text_email_ejemplo" />
+
+    <ImageView
+        android:id="@+id/ic_phone"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:srcCompat="@drawable/ic_local_phone_black_24dp" />
+
+    <ImageView
+        android:id="@+id/image_mail"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/image_bulleted_view"
+        app:layout_constraintEnd_toStartOf="@+id/text_email_ejemplo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ic_phone"
+        app:srcCompat="@drawable/ic_mail_outline_24dp" />
+
+    <TextView
+        android:id="@+id/text_mensaje_facturas"
+        android:layout_width="327dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="168dp"
+        android:text="@string/title_mensaje_facturas"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_resumen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/image_bulleted_view"
+        app:layout_constraintTop_toBottomOf="@+id/text_detalle_email_ejemplo"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/ab_toolbar"
+        android:layout_width="475dp"
+        android:layout_height="88dp"
+        android:layout_marginBottom="40dp"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/text_header"
+        android:layout_width="217dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="60dp"
+        android:text="@string/header"
+        android:textColor="@color/colorWhite"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/image_bulleted_view"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="204dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_resumen"
+        app:layout_constraintEnd_toStartOf="@+id/text_mensaje_facturas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_format_list_bulleted_24dp" />
+
+    <ImageView
+        android:id="@+id/image_help"
+        android:layout_width="49dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.708"
+        app:layout_constraintStart_toEndOf="@+id/text_header"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.117"
+        app:srcCompat="@android:drawable/ic_menu_help" />
 
 
 </android.support.constraint.ConstraintLayout>

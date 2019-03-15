@@ -4,7 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity//(tableName = "product_table")
+@Entity(tableName = "product_table")
 public class Product {
     @PrimaryKey(autoGenerate = true)
     @NonNull

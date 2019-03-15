@@ -17,6 +17,9 @@ public interface ClientDao {
     @Query("DELETE FROM Client")
     void deleteAll();
 
+    @Query("select * from Client where id = :id")
+    Client searchClientByID(int id);
+
     @Query("SELECT * FROM Client WHERE id = :id")
     Client searchClientByID(int id);
 

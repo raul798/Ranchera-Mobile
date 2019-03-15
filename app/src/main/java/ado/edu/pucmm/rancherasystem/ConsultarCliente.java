@@ -19,3 +19,5 @@ public class ConsultarCliente extends AppCompatActivity {
         myToast.show();
     }
 }
+
+
