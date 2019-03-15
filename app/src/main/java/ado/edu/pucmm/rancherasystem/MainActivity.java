@@ -11,8 +11,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
     }
 
     public void loginMe(View view) {
@@ -31,5 +29,11 @@ public class MainActivity extends AppCompatActivity {
         Intent helpIntent = new Intent(this, SupportActivity.class);
         //login logic
         startActivity(helpIntent);
+    }
+
+    public void facturaMe(View view) {
+        Intent facturaIntent = new Intent(this, PagarFacturaActivity.class);
+        //login logic
+        startActivity(facturaIntent);
     }
 }
