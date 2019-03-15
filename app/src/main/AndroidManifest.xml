@@ -46,6 +46,7 @@
             android:name=".ResumenOrden"
             android:label="Ranchera"
             android:parentActivityName=".SeleccionarProducto"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -54,6 +55,7 @@
         <activity
             android:name=".SeleccionarProducto"
             android:label="Ranchera"
+            android:screenOrientation="portrait"
             android:parentActivityName=".ConsultarClientes"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
@@ -63,6 +65,7 @@
         <activity
             android:name=".ConsultarClientes"
             android:label="@string/ranchera"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
