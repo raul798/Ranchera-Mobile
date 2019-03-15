@@ -17,6 +17,17 @@ public abstract class RancheraDB extends RoomDatabase {
     private static volatile RancheraDB INSTANCE;
 
     static RancheraDB getDatabase(final Context context) {
+
+@Database(entities = {Client.class, Bill.class, Product.class, Factura.class, Detalle.class}, version = 1)
+public abstract class RancheraDB extends RoomDatabase {
+    public abstract ClientDao clientDao();
+    public abstract ProductDao productDao();
+    public abstract DetalleDao detalleDao();
+    public abstract FacturaDao facturaDao();
+
+    private static volatile RancheraDB INSTANCE;
+
+    public static RancheraDB getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (RancheraDB.class) {
                 if (INSTANCE == null) {
@@ -33,7 +44,6 @@ public abstract class RancheraDB extends RoomDatabase {
     public static void destroyInstance() {
         INSTANCE = null;
     }
-
 
     private static RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback(){
@@ -58,4 +68,5 @@ public abstract class RancheraDB extends RoomDatabase {
             return null;
         }
     }
+
 }

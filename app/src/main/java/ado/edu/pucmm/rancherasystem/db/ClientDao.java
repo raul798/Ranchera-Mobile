@@ -20,7 +20,10 @@ public interface ClientDao {
     @Query("select * from Client where id = :id")
     Client searchClientByID(int id);
 
-    @Query("select * from Client where name = :name")
+    @Query("SELECT * FROM Client WHERE id = :id")
+    Client searchClientByID(int id);
+
+    @Query("SELECT * FROM Client WHERE name = :name")
     Client searchClientByName(String name);
 
     @Query("SELECT * from Client ORDER BY id ASC")

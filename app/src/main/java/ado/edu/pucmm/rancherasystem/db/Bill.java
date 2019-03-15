@@ -4,7 +4,11 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity (tableName = "bill_table")
+@Entity (tableName = "bill_table",
+        foreignKeys = @ForeignKey(entity = Client.class,
+        parentColumns = "id",
+        childColumns = "client_id",
+        onDelete = ForeignKey.CASCADE))
 public class Bill {
 
     @PrimaryKey(autoGenerate = true)
