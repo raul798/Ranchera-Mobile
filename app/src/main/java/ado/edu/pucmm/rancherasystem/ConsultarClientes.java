@@ -1,6 +1,5 @@
 package ado.edu.pucmm.rancherasystem;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;

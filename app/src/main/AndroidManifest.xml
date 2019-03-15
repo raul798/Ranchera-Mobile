@@ -4,6 +4,7 @@
     package="ado.edu.pucmm.rancherasystem">
 
     <application
+        android:name=".RancheraApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/ranchera"
@@ -75,6 +76,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity android:name=".HelpRequestActivity" />
+        <activity android:name=".PagarFacturaActivity" />
+        <activity android:name=".PagoFacturaActivity"></activity>
     </application>
 
 </manifest>
