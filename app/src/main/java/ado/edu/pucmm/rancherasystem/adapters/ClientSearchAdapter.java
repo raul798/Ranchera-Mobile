@@ -1,4 +1,4 @@
-package ado.edu.pucmm.rancherasystem;
+package ado.edu.pucmm.rancherasystem.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.db.Client;
 import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
 
@@ -20,13 +21,12 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
     private Context mContext;
     private int itemLayout;
 
-    private RancheraDatabaseRepo rancheraDatabaseRepo;
+    private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
 
     private ClientSearchAdapter.ListFilter listFilter = new ClientSearchAdapter.ListFilter();
 
     public ClientSearchAdapter(Context context, int resource, List<Client> clientDataList) {
         super(context, resource, clientDataList);
-        rancheraDatabaseRepo = new RancheraDatabaseRepo(context.getApplicationContext());
         dataList = clientDataList;
         mContext = context;
         itemLayout = resource;
@@ -59,8 +59,6 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
 
         return view;
     }
-
-
 
     @NonNull
     @Override

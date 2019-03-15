@@ -140,6 +140,12 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="numero_ejemplo">+1 809 620 2020</string>
+    <string name="detalle_numero">Mobile</string>
+    <string name="title_ejemplo_email">Roger123@gmail.com</string>
+    <string name="title_detalle_email">Personal</string>
+    <string name="title_mensaje_facturas">Cliente Tiene 5 Facturas Vencidas</string>
+    <string name="header">Consultar-Clientes</string>
     <string name="soporte"><u>Soporte</u></string>
     <string name="factura"><u>factura</u></string>
 

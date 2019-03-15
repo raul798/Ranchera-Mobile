@@ -1,6 +1,5 @@
 package ado.edu.pucmm.rancherasystem;
 
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,10 +20,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.db.Client;
+import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
+import ado.edu.pucmm.rancherasystem.db.Client;
+import ado.edu.pucmm.rancherasystem.db.Factura;
+import ado.edu.pucmm.rancherasystem.viewmodels.FacturaViewModel;
 import ado.edu.pucmm.rancherasystem.db.RancheraDB;
 
 public class ConsultarClientes extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, FacturaViewModel.Listener {
+
+    private static final String DATABASE_NAME = "ranchera_database";
+    private RancheraDB db;
+    private List<Client> clients;
+    private FacturaViewModel facturaViewModel;
+    private Client client;
+    private Factura factura;
+    private int cnt = 0;
 
     private static final String DATABASE_NAME = "ranchera_database";
     private RancheraDB db;
@@ -50,10 +60,13 @@ public class ConsultarClientes extends AppCompatActivity
 
         AutoCompleteTextView clientAutoComplete = findViewById(R.id.search_cliente);
         clients = new ArrayList<Client>();
+        client = null;
         ClientSearchAdapter adapter = new ClientSearchAdapter(this,
                 R.layout.client_search_dropdown, clients);
         clientAutoComplete.setAdapter(adapter);
         clientAutoComplete.setOnItemClickListener(onItemClickListener);
+        facturaViewModel = ViewModelProviders.of(this).get(FacturaViewModel.class);
+        this.facturaViewModel.setListener(this);
     }
 
     private void setText(int resourceId, String text){
@@ -65,6 +78,7 @@ public class ConsultarClientes extends AppCompatActivity
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Client client = ( Client) adapterView.getItemAtPosition(i);
+                    client = ( Client) adapterView.getItemAtPosition(i);
                     setText(R.id.name_clientes_text, client.getName());
                     setText(R.id.phone_clientes_text, client.getPhoneNumber());
                     setText(R.id.email_clientes_text, client.getEmail());
@@ -75,7 +89,7 @@ public class ConsultarClientes extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -131,10 +145,21 @@ public class ConsultarClientes extends AppCompatActivity
     }
 
     public void toProductSelection(View view) {
-
-        Intent intent = new Intent(this, SeleccionarProducto.class);
-        startActivity(intent);
+        if(client!= null) {
+            factura = new Factura("Pending", client.getId());
+            facturaViewModel.insert(factura);
+        }
+        else Toast.makeText(ConsultarClientes.this,"Seleccione un cliente", Toast.LENGTH_SHORT).show();
     }
 
 
+    @Override
+    public void onFinish(final Factura factura) {
+
+        if(client != null) {
+            Intent intent = new Intent(this, SeleccionarProducto.class);
+            intent.putExtra("bill_id", factura.getId());
+            startActivity(intent);
+        }
+    }
 }

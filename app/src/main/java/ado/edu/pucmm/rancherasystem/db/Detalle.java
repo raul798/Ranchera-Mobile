@@ -16,7 +16,7 @@ public class Detalle {
     @NonNull
     private int cantidad;
 
-    public Detalle(@NonNull int id_factura, @NonNull int id_producto, @NonNull int cantidad) {
+    public Detalle(@NonNull Integer id_factura, @NonNull Integer id_producto, @NonNull Integer cantidad) {
         this.id_factura = id_factura;
         this.id_producto = id_producto;
         this.cantidad = cantidad;

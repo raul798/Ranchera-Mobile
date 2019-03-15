@@ -1,7 +1,6 @@
 package ado.edu.pucmm.rancherasystem.db;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -15,9 +14,7 @@ public class Bill {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
-
     private float debt;
-
     private int client_id;
 
     public Bill(int id, float debt, String description, int client_id) {

@@ -1,4 +1,4 @@
-package ado.edu.pucmm.rancherasystem;
+package ado.edu.pucmm.rancherasystem.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,22 +12,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import ado.edu.pucmm.rancherasystem.db.Client;
+import ado.edu.pucmm.rancherasystem.R;
+import ado.edu.pucmm.rancherasystem.db.Product;
 import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
 
-public class ClientSearchAdapter extends ArrayAdapter<Client> {
-    private List<Client> dataList;
+public class ProductSearchAdapter extends ArrayAdapter<Product> {
+    private List<Product> dataList;
     private Context mContext;
     private int itemLayout;
 
-    private RancheraDatabaseRepo rancheraDatabaseRepo;
+    private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
 
-    private ClientSearchAdapter.ListFilter listFilter = new ClientSearchAdapter.ListFilter();
+    private ProductSearchAdapter.ListFilter listFilter = new ProductSearchAdapter.ListFilter();
 
-    public ClientSearchAdapter(Context context, int resource, List<Client> clientDataList) {
-        super(context, resource, clientDataList);
-        rancheraDatabaseRepo = new RancheraDatabaseRepo(context.getApplicationContext());
-        dataList = clientDataList;
+    public ProductSearchAdapter(Context context, int resource, List<Product> productDataList) {
+        super(context, resource, productDataList);
+        dataList = productDataList;
         mContext = context;
         itemLayout = resource;
     }
@@ -38,12 +38,12 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
     }
 
     @Override
-    public Client getItem(int position) {
+    public Product getItem(int position) {
         return dataList.get(position);
     }
 
     @Override
-    public int getPosition(Client item) {
+    public int getPosition(Product item) {
         return super.getPosition(item);
     }
 
@@ -54,7 +54,7 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
             view = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
         }
 
-        TextView strName = (TextView) view.findViewById(R.id.textViewClientName);
+        TextView strName = (TextView) view.findViewById(R.id.textViewProductName);
         strName.setText(getItem(position).getName());
 
         return view;
@@ -85,8 +85,8 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
                 final String searchStrLowerCase = prefix.toString().toLowerCase();
 
                 //Call to database to get matching records using room
-                List<Client> matchValues =
-                        rancheraDatabaseRepo.getClient(mContext, searchStrLowerCase);
+                List<Product> matchValues =
+                        rancheraDatabaseRepo.getProduct(mContext, searchStrLowerCase);
 
                 results.values = matchValues;
                 results.count = matchValues.size();
@@ -98,7 +98,7 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             if (results.values != null) {
-                dataList = (ArrayList<Client>)results.values;
+                dataList = (ArrayList<Product>)results.values;
             } else {
                 dataList = null;
             }
