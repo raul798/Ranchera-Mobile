@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/lay"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ConfirmacionOrden"
+    tools:context=".ui.activity.DashBoardActivity$ConfirmacionOrden"
     tools:showIn="@layout/app_bar_confirmacion_orden">
 
     <ImageView

@@ -13,15 +13,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
-import ado.edu.pucmm.rancherasystem.db.Product;
-import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
+import ado.edu.pucmm.rancherasystem.entity.Product;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 
 public class ProductSearchAdapter extends ArrayAdapter<Product> {
     private List<Product> dataList;
     private Context mContext;
     private int itemLayout;
 
-    private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
+    private RanchDatabaseRepo ranchDatabaseRepo = new RanchDatabaseRepo();
 
     private ProductSearchAdapter.ListFilter listFilter = new ProductSearchAdapter.ListFilter();
 
@@ -86,7 +86,7 @@ public class ProductSearchAdapter extends ArrayAdapter<Product> {
 
                 //Call to database to get matching records using room
                 List<Product> matchValues =
-                        rancheraDatabaseRepo.getProduct(mContext, searchStrLowerCase);
+                        ranchDatabaseRepo.getProduct(mContext, searchStrLowerCase);
 
                 results.values = matchValues;
                 results.count = matchValues.size();

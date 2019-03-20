@@ -11,9 +11,8 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import ado.edu.pucmm.rancherasystem.ConsultarClientes;
 import ado.edu.pucmm.rancherasystem.R;
-import ado.edu.pucmm.rancherasystem.db.Product;
+import ado.edu.pucmm.rancherasystem.entity.Product;
 
 public class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ProductViewHolder> {
 

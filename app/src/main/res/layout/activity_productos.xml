@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ado.edu.pucmm.rancherasystem.Productos">
+    tools:context="ado.edu.pucmm.rancherasystem.ui.activity.Productos">
 
     <TextView
         android:id="@+id/textView13"

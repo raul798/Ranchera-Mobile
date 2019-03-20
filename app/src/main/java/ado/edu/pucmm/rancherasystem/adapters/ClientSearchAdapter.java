@@ -13,15 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
-import ado.edu.pucmm.rancherasystem.db.Client;
-import ado.edu.pucmm.rancherasystem.db.RancheraDatabaseRepo;
+import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 
 public class ClientSearchAdapter extends ArrayAdapter<Client> {
+
     private List<Client> dataList;
     private Context mContext;
     private int itemLayout;
 
-    private RancheraDatabaseRepo rancheraDatabaseRepo = new RancheraDatabaseRepo();
+    private RanchDatabaseRepo ranchDatabaseRepo = new RanchDatabaseRepo();
 
     private ClientSearchAdapter.ListFilter listFilter = new ClientSearchAdapter.ListFilter();
 
@@ -54,7 +55,7 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
             view = LayoutInflater.from(parent.getContext()).inflate(itemLayout, parent, false);
         }
 
-        TextView strName = (TextView) view.findViewById(R.id.textViewClientName);
+        TextView strName = view.findViewById(R.id.textViewClientName);
         strName.setText(getItem(position).getName());
 
         return view;
@@ -81,11 +82,7 @@ public class ClientSearchAdapter extends ArrayAdapter<Client> {
                 }
             } else {
                 final String searchStrLowerCase = prefix.toString().toLowerCase();
-
-                //Call to database to get matching records using room
-                List<Client> matchValues =
-                        rancheraDatabaseRepo.getClient(mContext, searchStrLowerCase);
-
+                List<Client> matchValues = ranchDatabaseRepo.getClient(mContext, searchStrLowerCase);
                 results.values = matchValues;
                 results.count = matchValues.size();
             }

@@ -147,6 +147,6 @@
     <string name="title_mensaje_facturas">Cliente Tiene 5 Facturas Vencidas</string>
     <string name="header">Consultar-Clientes</string>
     <string name="soporte"><u>Soporte</u></string>
-    <string name="factura"><u>factura</u></string>
+    <string name="bill"><u>bill</u></string>
 
 </resources>

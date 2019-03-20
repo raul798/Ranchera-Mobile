@@ -5,15 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
-import ado.edu.pucmm.rancherasystem.ConsultarClientes;
 import ado.edu.pucmm.rancherasystem.R;
-import ado.edu.pucmm.rancherasystem.db.Product;
+import ado.edu.pucmm.rancherasystem.entity.Product;
 
 public class ProductsDetailsRecyclerViewAdapter extends RecyclerView.Adapter<ProductsDetailsRecyclerViewAdapter.ProductDetailsViewHolder> {
 
