@@ -47,7 +47,6 @@ public class SelectProductsActivity extends AppCompatActivity
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
         productViewModel.getAllProducts().observe(this,(x) -> {});
 
