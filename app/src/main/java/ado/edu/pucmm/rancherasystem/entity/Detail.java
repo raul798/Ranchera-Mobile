@@ -16,9 +16,9 @@ public class Detail {
     @NonNull
     private int quantity;
 
-    public Detail(int id, int bill, int product) {
-        this.id = id;
+    public Detail(Integer bill, Integer product, Integer quantity) {
         this.bill = bill;
+        this.quantity = quantity;
         this.product = product;
     }
 
