@@ -39,7 +39,7 @@
             android:name=".ui.activity.ConfirmacionOrden"
             android:label="Ranchera"
             android:parentActivityName=".ui.activity.OrderSummaryActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.OrderSummaryActivity" />
