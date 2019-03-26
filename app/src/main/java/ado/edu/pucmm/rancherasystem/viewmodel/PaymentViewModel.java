@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import ado.edu.pucmm.rancherasystem.dao.PaymentDao;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.db.RanchDb;
 
@@ -17,7 +18,7 @@ public class PaymentViewModel extends AndroidViewModel {
 
     public PaymentViewModel(Application application) {
         super(application);
-        ranchDb = RanchDb.getDatabase(application);
+        ranchDb = RanchDatabaseRepo.getDb(application);
         paymentDao = ranchDb.getPaymentDao();
     }
 

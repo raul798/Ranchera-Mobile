@@ -20,7 +20,7 @@ public class DetailViewModel extends AndroidViewModel {
 
     public DetailViewModel(Application application) {
         super(application);
-        ranchDb = RanchDb.getDatabase(application);
+        ranchDb = RanchDatabaseRepo.getDb(application);
         detailDao = ranchDb.getDetailDao();
         repository = new RanchDatabaseRepo(application);
     }

@@ -9,6 +9,7 @@ import android.util.Log;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.dao.ProductDao;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.db.RanchDb;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 
@@ -21,7 +22,7 @@ public class ProductViewModel extends AndroidViewModel {
 
     public ProductViewModel(Application application) {
         super(application);
-        ranchDb = RanchDb.getDatabase(application);
+        ranchDb = RanchDatabaseRepo.getDb(application);
         productDao = ranchDb.getProductDao();
         products = productDao.getAllProducts();
     }

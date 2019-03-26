@@ -11,7 +11,6 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import ado.edu.pucmm.rancherasystem.dao.BillDao;
 import ado.edu.pucmm.rancherasystem.dao.ClientDao;
@@ -33,7 +32,7 @@ public class RanchDatabaseRepo {
     private List<Bill> listofbills;
 
     public RanchDatabaseRepo(Context context) {
-        RanchDb db = RanchDb.getDatabase(context);
+        RanchDb db = RanchDatabaseRepo.getDb(context);
         productDao = db.getProductDao();
         allProducts = productDao.getAllProducts();
     }
@@ -120,9 +119,7 @@ public class RanchDatabaseRepo {
             clientDao = RanchDatabaseRepo.getDb(context).getClientDao();
             try {
                 client = new clientAsyncTask(clientDao).execute(clientId).get();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -138,9 +135,7 @@ public class RanchDatabaseRepo {
 
         try {
             bill = new billAsyncTask(billDao).execute(billId).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -156,9 +151,7 @@ public class RanchDatabaseRepo {
 
         try {
             products = new detalleAsyncTask(detailDao).execute(factura_id).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -174,9 +167,7 @@ public class RanchDatabaseRepo {
 
         try {
             product = new productAsyncTask(productDao).execute(factura_id).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -192,9 +183,7 @@ public class RanchDatabaseRepo {
 
         try {
             amount = new amountAsyncTask(detailDao).execute(product_id).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

@@ -38,38 +38,36 @@
         <activity
             android:name=".ui.activity.ConfirmacionOrden"
             android:label="Ranchera"
-            android:parentActivityName=".ui.activity.ResumenOrden"
+            android:parentActivityName=".ui.activity.OrderSummaryActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.ResumenOrden" />
+                android:value=".ui.activity.OrderSummaryActivity" />
         </activity>
         <activity
-            android:name=".ui.activity.ResumenOrden"
+            android:name=".ui.activity.OrderSummaryActivity"
             android:label="Ranchera"
-            android:parentActivityName=".ui.activity.SeleccionarProducto"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".ui.activity.SelectProductsActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.SeleccionarProducto" />
+                android:value=".ui.activity.SelectProductsActivity" />
         </activity>
         <activity
-            android:name=".ui.activity.SeleccionarProducto"
+            android:name=".ui.activity.SelectProductsActivity"
             android:label="Ranchera"
             android:screenOrientation="portrait"
-            android:parentActivityName=".ui.activity.ConsultarCliente"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".ui.activity.SelectClientActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.ConsultarCliente" />
+                android:value=".ui.activity.SelectClientActivity" />
         </activity>
+
         <activity
-            android:name=".ui.activity.ConsultarCliente"
+            android:name=".ui.activity.SelectClientActivity"
             android:label="@string/ranchera"
             android:screenOrientation="portrait"
-            android:parentActivityName=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:parentActivityName=".ui.activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.MainActivity" />
@@ -77,7 +75,6 @@
         <activity android:name=".ui.activity.HelpRequestActivity" />
         <activity android:name=".ui.activity.PagarFacturaActivity" />
         <activity android:name=".ui.activity.PagoFacturaActivity"/>
-        <activity android:name=".ui.activity.ConsultarClientes"/>
     </application>
 
 </manifest>

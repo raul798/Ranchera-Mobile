@@ -6,13 +6,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity (foreignKeys =
-            @ForeignKey(
-                    entity = Client.class,
-                    parentColumns = "id",
-                    childColumns = "client",
-                    onDelete = ForeignKey.CASCADE)
-)
+@Entity
 public class Bill {
 
     @PrimaryKey(autoGenerate = true)

@@ -17,13 +17,13 @@ public class BillViewModel extends AndroidViewModel {
 
     public BillViewModel(Application application) {
         super(application);
-        ranchDb = RanchDb.getDatabase(application);
+        ranchDb = RanchDatabaseRepo.getDb(application);
         billDao = ranchDb.getBillDao();
         repository = new RanchDatabaseRepo(application);
     }
 
-    public void insert(Bill factura) {
-        new InsertAsyncTask(billDao).execute(factura);
+    public void insert(Bill bill) {
+        new InsertAsyncTask(billDao).execute(bill);
     }
 
 
@@ -37,6 +37,7 @@ public class BillViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Bill... bills) {
+
             int id = billDao.insert(bills[0]).intValue();
             bills[0].setId(id);
             listener.onFinish(bills[0]);

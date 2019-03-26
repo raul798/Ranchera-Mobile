@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import ado.edu.pucmm.rancherasystem.dao.HelpRequestDao;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.HelpRequest;
 import ado.edu.pucmm.rancherasystem.db.RanchDb;
 
@@ -17,7 +18,7 @@ public class HelpRequestViewModel extends AndroidViewModel {
 
     public HelpRequestViewModel(Application application) {
         super(application);
-        ranchDb = RanchDb.getDatabase(application);
+        ranchDb = RanchDatabaseRepo.getDb(application);
         helpRequestDao = ranchDb.getHelpRequestDao();
     }
 

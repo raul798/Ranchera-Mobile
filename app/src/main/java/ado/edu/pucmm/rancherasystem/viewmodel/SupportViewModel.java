@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import ado.edu.pucmm.rancherasystem.dao.SupportDao;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.db.RanchDb;
 import ado.edu.pucmm.rancherasystem.entity.Support;
 
@@ -17,7 +18,7 @@ public class SupportViewModel extends AndroidViewModel {
 
     public SupportViewModel(Application application) {
         super(application);
-        ranchDb = RanchDb.getDatabase(application);
+        ranchDb = RanchDatabaseRepo.getDb(application);
         supportDao = ranchDb.getSupportDao();
     }
 

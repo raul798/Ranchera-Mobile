@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.activity.ResumenOrden"
+    tools:context=".ui.activity.OrderSummaryActivity"
     tools:showIn="@layout/app_bar_resumen_orden">
 
     <android.support.v7.widget.RecyclerView
@@ -408,7 +408,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="24dp"
         android:background="@android:color/holo_blue_light"
-        android:onClick="toSelectProducto"
+        android:onClick="toSelectProduct"
         android:text="Anterior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -425,7 +425,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="24dp"
         android:background="@android:color/holo_blue_bright"
-        android:onClick="toConfirmacion"
+        android:onClick="toSummary"
         android:text=" Confirmar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -23,7 +23,7 @@ public class MenuActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> startActivity(new Intent(MenuActivity.this, ConsultarClientes.class)));
+        fab.setOnClickListener(view -> startActivity(new Intent(MenuActivity.this, SelectClientActivity.class)));
     }
 
 

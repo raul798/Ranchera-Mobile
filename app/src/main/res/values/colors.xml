@@ -6,6 +6,7 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorCustomGrey">#5C5C5C</color>
     <color name="colorCustomGrey2">#888888</color>
+    <color name="gray">#CCC</color>
     <color name="colorAlmostWhite">#E4E4E4</color>
     <color name="colorGreen">#52D355</color>
     <color name="DefaultBlue">#1C53EC</color>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.activity.SeleccionarProducto"
+    tools:context=".ui.activity.SelectProductsActivity"
     tools:showIn="@layout/app_bar_seleccionar_producto">
 
     <ImageView
@@ -261,7 +261,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/holo_blue_light"
-        android:onClick="toConsultarClientes"
+        android:onClick="toClientSelect"
         android:text="Anterior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -280,7 +280,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="20dp"
         android:background="@android:color/holo_blue_bright"
-        android:onClick="toOrderResumen"
+        android:onClick="toOrderSummary"
         android:text="Siguiente"
 
         app:layout_constraintBottom_toBottomOf="parent"
