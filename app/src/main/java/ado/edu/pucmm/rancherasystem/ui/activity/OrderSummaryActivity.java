@@ -54,7 +54,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
         selectedAmounts = new ArrayList<>();
         bill = ranchDatabaseRepo.getBill(this, billId);
 
-        client = ranchDatabaseRepo.getSingleClient(this,billId);
+        client = ranchDatabaseRepo.getSingleClient(this,bill.getClient());
 
         productsIds = ranchDatabaseRepo.getProductsFromDetail(this, billId);
 

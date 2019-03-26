@@ -34,8 +34,8 @@ public class SelectClientActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_clientes);
 
-        clients = new ArrayList<>();
-        client = new Client();
+        clients = new ArrayList<Client>();
+        client = null;
 
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
         this.billViewModel.setListener(this);
@@ -45,6 +45,17 @@ public class SelectClientActivity extends AppCompatActivity
         clientAutoComplete.setAdapter(adapter);
         clientAutoComplete.setOnItemClickListener(onItemClickListener);
     }
+
+    private AdapterView.OnItemClickListener onItemClickListener =
+            (adapterView, view, i, l) -> {
+                client = (Client) adapterView.getItemAtPosition(i);
+                setText(R.id.name_clientes_text, client.getName());
+                setText(R.id.phone_clientes_text, client.getPhoneNumber());
+                setText(R.id.email_clientes_text, client.getEmail());
+                setText(R.id.address_clientes_text, client.getAddress());
+                Toast.makeText(SelectClientActivity.this, "Client Seleccionado", Toast.LENGTH_SHORT).show();
+                hideKeyboard();
+            };
 
     public void cancelOrder(View view) {
         startActivity(new Intent(this, MainActivity.class));
@@ -60,7 +71,6 @@ public class SelectClientActivity extends AppCompatActivity
                     Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @Override
     public void onFinish(Bill bill) {
@@ -79,15 +89,4 @@ public class SelectClientActivity extends AppCompatActivity
         InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getRootView().getWindowToken(), 0);
     }
-
-    private AdapterView.OnItemClickListener onItemClickListener =
-            (adapterView, view, i, l) -> {
-                client = (Client) adapterView.getItemAtPosition(i);
-                setText(R.id.name_clientes_text, client.getName());
-                setText(R.id.phone_clientes_text, client.getPhoneNumber());
-                setText(R.id.email_clientes_text, client.getEmail());
-                setText(R.id.address_clientes_text, client.getAddress());
-                Toast.makeText(SelectClientActivity.this, "Client Seleccionado", Toast.LENGTH_SHORT).show();
-                hideKeyboard();
-            };
 }
