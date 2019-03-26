@@ -85,6 +85,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
 
     public void toSelectProduct(View view) {
         Intent intent = new Intent(this, SelectProductsActivity.class);
+        intent.putExtra("billId", billId);
         startActivity(intent);
     }
 

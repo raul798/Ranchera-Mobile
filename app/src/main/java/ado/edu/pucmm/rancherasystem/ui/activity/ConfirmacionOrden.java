@@ -97,7 +97,7 @@ public class ConfirmacionOrden extends AppCompatActivity
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            bill_id = extras.getInt("bill_id");
+            bill_id = extras.getInt("billId");
         }
     }
 
