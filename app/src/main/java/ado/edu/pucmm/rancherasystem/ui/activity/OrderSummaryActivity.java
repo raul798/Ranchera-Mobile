@@ -59,6 +59,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
         productsIds = ranchDatabaseRepo.getProductsFromDetail(this, billId);
 
         for(Integer id : productsIds){
+            //current esta nulo por alguna razon
             Product current = ranchDatabaseRepo.getOrderProduct(this,id);
             Integer amount = ranchDatabaseRepo.getSelectedProductAmount(this,id);
             total += current.getPrice() * amount;
