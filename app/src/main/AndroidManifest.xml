@@ -68,6 +68,15 @@
                 android:value=".ui.activity.SelectClientActivity" />
         </activity>
         <activity
+            android:name=".ui.activity.SearchProductActivity"
+            android:label="Ranchera"
+            android:parentActivityName=".ui.activity.MenuActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MenuActivity" />
+        </activity>
+        <activity
             android:name=".ui.activity.SelectClientActivity"
             android:label="@string/ranchera"
             android:parentActivityName=".ui.activity.MainActivity"
@@ -75,6 +84,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.activity.SearchClientActivity"
+            android:label="@string/ranchera"
+            android:parentActivityName=".ui.activity.MenuActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.activity.MenuActivity" />
         </activity>
         <activity android:name=".ui.activity.HelpRequestActivity" />
         <activity android:name=".ui.activity.PagarFacturaActivity" />

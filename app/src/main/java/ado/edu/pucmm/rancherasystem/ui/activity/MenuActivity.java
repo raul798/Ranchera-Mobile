@@ -47,10 +47,12 @@ public class MenuActivity extends AppCompatActivity
                 switch (menuItem.getItemId())
                 {
                     case R.id.products:
-                        Toast.makeText(MenuActivity.this, "product", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(MenuActivity.this, SearchProductActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.clients:
-                        Toast.makeText(MenuActivity.this, "clients", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(MenuActivity.this, SearchClientActivity.class);
+                        startActivity(intent);
                         break;
                     case R.id.inventory:
                         Toast.makeText(MenuActivity.this, "inventory", Toast.LENGTH_SHORT).show();
