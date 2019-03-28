@@ -14,9 +14,10 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.activity.MenuActivity"
-            android:label="@string/title_activity_menu"
+            android:label="@string/ranchera"
             android:parentActivityName=".ui.activity.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ado.edu.pucmm.rancherasystem.ui.activity.MainActivity" />
@@ -25,16 +26,14 @@
         <activity android:name=".ui.activity.ListOfBills" />
         <activity
             android:name=".ui.activity.MainActivity"
-            android:label="FlujoClientes_Productos"
+            android:label="@string/ranchera"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.Productos" />
         <activity android:name=".ui.activity.DashBoardActivity" />
         <activity
             android:name=".ui.activity.ForgotActivity"
@@ -79,11 +78,11 @@
         <activity
             android:name=".ui.activity.SelectClientActivity"
             android:label="@string/ranchera"
-            android:parentActivityName=".ui.activity.MainActivity"
+            android:parentActivityName=".ui.activity.MenuActivity"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.activity.MainActivity" />
+                android:value=".ui.activity.MenuActivity" />
         </activity>
         <activity
             android:name=".ui.activity.SearchClientActivity"
