@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,12 +19,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.List;
+
 import ado.edu.pucmm.rancherasystem.R;
+import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
+import ado.edu.pucmm.rancherasystem.adapters.RouteRecyclerViewAdapter;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
+import ado.edu.pucmm.rancherasystem.entity.Client;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Intent intent;
+    private RouteRecyclerViewAdapter recyclerAdapter;
+    private RanchDatabaseRepo rancheraDatabaseRepo;
+    List<Client> clients;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +48,17 @@ public class MenuActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerAdapter = new RouteRecyclerViewAdapter(this);
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId())
@@ -69,6 +86,10 @@ public class MenuActivity extends AppCompatActivity
                 }
             }
         });
+
+        //rancheraDatabaseRepo = new RanchDatabaseRepo(getApplication());
+        //clients = repos.get
+        //recyclerAdapter.setClients();
     }
 
     @Override
