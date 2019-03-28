@@ -53,7 +53,6 @@ public class SelectClientActivity extends AppCompatActivity
                 setText(R.id.phone_clientes_text, client.getPhoneNumber());
                 setText(R.id.email_clientes_text, client.getEmail());
                 setText(R.id.address_clientes_text, client.getAddress());
-                Toast.makeText(SelectClientActivity.this, "Cliente seleccionado", Toast.LENGTH_SHORT).show();
                 hideKeyboard();
             };
 
