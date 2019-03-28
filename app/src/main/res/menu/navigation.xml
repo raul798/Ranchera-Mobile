@@ -16,7 +16,11 @@
         android:state_checked="true"
         app:showAsAction="always|withText"
         android:enabled="true"
+<<<<<<< HEAD
         android:icon="@drawable/ic_local_shipping_black_24dp"
+=======
+        android:icon="@drawable/ic_library_books_black_24dp"
+>>>>>>> added faq
         />
 
     <item
@@ -34,7 +38,11 @@
         android:state_checked="true"
         app:showAsAction="ifRoom|withText"
         android:enabled="true"
+<<<<<<< HEAD
         android:icon="@drawable/ic_library_books_black_24dp"
+=======
+        android:icon="@drawable/ic_local_shipping_black_24dp"
+>>>>>>> added faq
         />
 
     <item
@@ -43,7 +51,11 @@
         android:state_checked="true"
         app:showAsAction="ifRoom|withText"
         android:enabled="true"
+<<<<<<< HEAD
         android:icon="@drawable/ic_baseline_inbox_24px"
+=======
+        android:icon="@drawable/ic_local_shipping_black_24dp"
+>>>>>>> added faq
         />
 
 </menu>

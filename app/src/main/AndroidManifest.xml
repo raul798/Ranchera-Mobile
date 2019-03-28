@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+<<<<<<< HEAD
         <activity android:name=".ui.activity.ClientInformationActivity">
             android:label="@string/ranchera"
             android:parentActivityName=".ui.activity.MenuActivity"
@@ -21,12 +22,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ado.edu.pucmm.rancherasystem.ui.activity.MenuActivity" />
         </activity>
+=======
+>>>>>>> added faq
         <activity
             android:name=".ui.activity.MenuActivity"
             android:label="@string/ranchera"
             android:parentActivityName=".ui.activity.MainActivity"
+<<<<<<< HEAD
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
+=======
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+>>>>>>> added faq
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ado.edu.pucmm.rancherasystem.ui.activity.MainActivity" />
@@ -40,7 +48,10 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> added faq
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -59,5 +59,9 @@
     <string name="header">Consultar-Clientes</string>
     <string name="soporte"><u>Soporte</u></string>
     <string name="bill"><u>bill</u></string>
+<<<<<<< HEAD
+=======
+    <string name="faq">FAQ</string>
+>>>>>>> added faq
 
 </resources>
