@@ -16,20 +16,34 @@ import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 
 public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecyclerViewAdapter.RouteViewHolder> {
+
+    class RouteViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView clientNameView;
+        private final TextView addressView;
+
+
+        private RouteViewHolder(View itemView) {
+            super(itemView);
+            clientNameView = itemView.findViewById(R.id.text_view_name);
+            addressView = itemView.findViewById(R.id.address_clientes_text);
+        }
+    }
+
     private final LayoutInflater inflater;
     private List<Client> clients;
+    public RouteRecyclerViewAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
-    @NonNull
     @Override
-    public RouteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RouteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = inflater.inflate(R.layout.recyclerview_route, parent, false);
         return new RouteViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RouteViewHolder holder, int i) {
+    public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
        if(clients!= null) {
-           Client current = clients.get(i);
+           Client current = clients.get(position);
            holder.clientNameView.setText(current.getName());
            holder.addressView.setText(current.getAddress());
        }
@@ -49,28 +63,5 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
     public void setClients(List<Client> clients){
         this.clients = clients;
         notifyDataSetChanged();
-    }
-
-    public RouteRecyclerViewAdapter(Context context) { inflater = LayoutInflater.from(context); }
-
-    class RouteViewHolder extends RecyclerView.ViewHolder {
-
-        private final TextView clientNameView;
-        private final TextView addressView;
-
-
-        private RouteViewHolder(View itemView) {
-            super(itemView);
-            clientNameView = itemView.findViewById(R.id.text_view_name);
-            addressView = itemView.findViewById(R.id.address_clientes_text);
-        }
-
-    }
-
-
-
-    public class RouteAdapterListener {
-
-
     }
 }

@@ -1,5 +1,7 @@
 package ado.edu.pucmm.rancherasystem.ui.activity;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
@@ -26,18 +29,29 @@ import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.adapters.RouteRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.entity.Product;
+import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.viewmodel.BillViewModel;
+import ado.edu.pucmm.rancherasystem.viewmodel.RouteViewModel;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Intent intent;
+    private Intent intent;
     private RouteRecyclerViewAdapter recyclerAdapter;
     private RanchDatabaseRepo rancheraDatabaseRepo;
-    List<Client> clients;
+    private List<Client> clients;
+    private List<Route> routes;
+    private RouteViewModel routeViewModel;
+
+    private List<Integer> clientIds;
+    private Integer clientId;
+    private Client test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        rancheraDatabaseRepo = new RanchDatabaseRepo(getBaseContext());
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -87,9 +101,24 @@ public class MenuActivity extends AppCompatActivity
             }
         });
 
-        //rancheraDatabaseRepo = new RanchDatabaseRepo(getApplication());
-        //clients = repos.get
-        //recyclerAdapter.setClients();
+        clients = new ArrayList<Client>();
+        routes = new ArrayList<Route>();
+        routeViewModel = ViewModelProviders.of(this).get(RouteViewModel.class);
+
+        routes = rancheraDatabaseRepo.getAllRoutes();
+        int cnt = 0;
+        for(Route route : routes) {
+            cnt++;
+
+            clients.add(rancheraDatabaseRepo.getSingleClient(this, route.getClientId()));
+
+            Toast.makeText(MenuActivity.this,
+                    String.valueOf(cnt),
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        recyclerAdapter.setClients(clients);
+
     }
 
     @Override

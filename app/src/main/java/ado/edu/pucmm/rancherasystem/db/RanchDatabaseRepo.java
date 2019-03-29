@@ -16,9 +16,11 @@ import ado.edu.pucmm.rancherasystem.dao.BillDao;
 import ado.edu.pucmm.rancherasystem.dao.ClientDao;
 import ado.edu.pucmm.rancherasystem.dao.DetailDao;
 import ado.edu.pucmm.rancherasystem.dao.ProductDao;
+import ado.edu.pucmm.rancherasystem.dao.RouteDao;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 import ado.edu.pucmm.rancherasystem.entity.Product;
+import ado.edu.pucmm.rancherasystem.entity.Route;
 
 public class RanchDatabaseRepo {
 
@@ -27,14 +29,21 @@ public class RanchDatabaseRepo {
     private ProductDao productDao;
     private DetailDao detailDao;
     private BillDao billDao;
+    private RouteDao routeDao;
     private static final Object LOCK = new Object();
     private LiveData<List<Product>> allProducts;
+    private LiveData<List<Route>> allRoutes;
     private List<Bill> listofbills;
+    private List<Route> listRoutes;
 
     public RanchDatabaseRepo(Context context) {
         RanchDb db = RanchDatabaseRepo.getDb(context);
         productDao = db.getProductDao();
         allProducts = productDao.getAllProducts();
+
+        //routeDao = db.getRouteDao();
+        //allRoutes = routeDao.getAllRoutes();
+
     }
 
     public RanchDatabaseRepo() {}
@@ -366,12 +375,43 @@ public class RanchDatabaseRepo {
         }
     }
 
+    public List<Route> getAllRoutes() {
+
+        if (routeDao == null) {
+            routeDao = ranchDb.getRouteDao();
+        }
+
+        List<Route> routes = null;
+
+        try {
+            routes = new AllRoutesAsyncTask(routeDao).execute().get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return routes;
+    }
+
+
+    private class AllRoutesAsyncTask extends AsyncTask<Void, Void, List<Route>>{
+
+        RouteDao routeDao;
+
+        public AllRoutesAsyncTask(RouteDao routeDao){this.routeDao = routeDao;}
+
+        @Override
+        protected List<Route> doInBackground(Void... voids) {
+            return routeDao.getAllRoutes();
+        }
+    }
+
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {
         public void onCreate(SupportSQLiteDatabase db) {
         }
 
         public void onOpen(SupportSQLiteDatabase db) {
-            //delete existing data
+
+           /* //delete existing data
             db.execSQL("Delete From Client");
 
             ContentValues client1 = new ContentValues();
@@ -382,10 +422,10 @@ public class RanchDatabaseRepo {
             db.insert("Client", OnConflictStrategy.IGNORE, client1);
 
             ContentValues client2 = new ContentValues();
-            client2.put("name", "Dante Fanñ");
-            client2.put("phoneNumber", "809-123-4567");
-            client2.put("email", "raul.test@email.com");
-            client2.put("address", "Test address #10");
+            client2.put("name", "Dante Fana");
+            client2.put("phoneNumber", "829-123-4567");
+            client2.put("email", "dante.test@email.com");
+            client2.put("address", "Test address #20");
             db.insert("Client", OnConflictStrategy.IGNORE, client2);
 
             db.execSQL("Delete From Product");
@@ -403,6 +443,23 @@ public class RanchDatabaseRepo {
             contentValuesProduct.put("price", 1000);
             contentValuesProduct.put("description", "Producto de testing 2");
             db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
+
+            db.execSQL("Delete From Route");
+
+            ContentValues route1 = new ContentValues();
+            route1.put("clientID", 1);
+            route1.put("latitude", 18.462423);
+            route1.put("longitude", -69.930105);
+            route1.put("priority", "Test address #10");
+            db.insert("Route", OnConflictStrategy.IGNORE, route1);
+
+            ContentValues route2 = new ContentValues();
+            route2.put("clientID", 2);
+            route2.put("latitude", 18.462423);
+            route2.put("longitude", -69.930105);
+            route2.put("priority", "Test address #10");
+            db.insert("Route", OnConflictStrategy.IGNORE, route2);
+            */
         }
     };
 }
