@@ -14,6 +14,7 @@ import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.entity.Route;
 
 public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecyclerViewAdapter.RouteViewHolder> {
 
@@ -21,7 +22,6 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
 
         private final TextView clientNameView;
         private final TextView addressView;
-
 
         private RouteViewHolder(View itemView) {
             super(itemView);
@@ -31,7 +31,9 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
     }
 
     private final LayoutInflater inflater;
+    private List<Route> routes;
     private List<Client> clients;
+
     public RouteRecyclerViewAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
     @Override
@@ -43,13 +45,14 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
     @Override
     public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
        if(clients!= null) {
-           Client current = clients.get(position);
+           //Route current =
+           Client current = clients.get(0);
            holder.clientNameView.setText(current.getName());
            holder.addressView.setText(current.getAddress());
        }
        else {
            // Covers the case of data not being ready yet.
-           holder.clientNameView.setText("No tirene rutas pendientes");
+           holder.clientNameView.setText("No tiene rutas pendientes");
        }
     }
 
