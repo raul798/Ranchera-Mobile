@@ -124,13 +124,11 @@ public class RanchDatabaseRepo {
 
     public Client getSingleClient(Context context, Integer clientId) {
         Client client = null;
-        if (clientDao == null) {
-            clientDao = RanchDatabaseRepo.getDb(context).getClientDao();
-            try {
-                client = new clientAsyncTask(clientDao).execute(clientId).get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        clientDao = clientDao == null? RanchDatabaseRepo.getDb(context).getClientDao(): clientDao;
+        try {
+            client = new clientAsyncTask(clientDao).execute(clientId).get();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return client;
     }
@@ -411,6 +409,7 @@ public class RanchDatabaseRepo {
 
         public void onOpen(SupportSQLiteDatabase db) {
 
+            /*
            //delete existing data
             db.execSQL("Delete From Client");
 
@@ -426,13 +425,6 @@ public class RanchDatabaseRepo {
             client2.put("phoneNumber", "829-123-4567");
             client2.put("email", "dante.test@email.com");
             client2.put("address", "Test address #20");
-            db.insert("Client", OnConflictStrategy.IGNORE, client2);
-
-            ContentValues client3 = new ContentValues();
-            client2.put("name", "Natalia V");
-            client2.put("phoneNumber", "829-124-7777");
-            client2.put("email", "nat.test@email.com");
-            client2.put("address", "Test address #22");
             db.insert("Client", OnConflictStrategy.IGNORE, client2);
 
             db.execSQL("Delete From Product");
@@ -457,22 +449,17 @@ public class RanchDatabaseRepo {
             route1.put("clientID", 1);
             route1.put("latitude", 18.462423);
             route1.put("longitude", -69.930105);
-            route1.put("priority", "Test address #10");
+            route1.put("priority", 1);
             db.insert("Route", OnConflictStrategy.IGNORE, route1);
 
             ContentValues route2 = new ContentValues();
             route2.put("clientID", 2);
             route2.put("latitude", 20.462423);
             route2.put("longitude", -70.930105);
-            route2.put("priority", "Test address #10");
+            route2.put("priority", 2);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
+            */
 
-            ContentValues route3 = new ContentValues();
-            route2.put("clientID", 3);
-            route2.put("latitude", 30.462423);
-            route2.put("longitude", -71.930105);
-            route2.put("priority", "Test address #11");
-            db.insert("Route", OnConflictStrategy.IGNORE, route2);
 
         }
     };

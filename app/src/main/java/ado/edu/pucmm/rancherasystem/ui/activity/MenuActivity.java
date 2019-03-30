@@ -43,6 +43,9 @@ public class MenuActivity extends AppCompatActivity
     private List<Client> clients;
     private List<Route> routes;
     private RouteViewModel routeViewModel;
+    private List<Integer> clientsIds;
+    private Client client1;
+    private Client client2;
 
     private List<Integer> clientIds;
     private Integer clientId;
@@ -51,7 +54,7 @@ public class MenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rancheraDatabaseRepo = new RanchDatabaseRepo(getBaseContext());
+        rancheraDatabaseRepo = new RanchDatabaseRepo();
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,22 +104,23 @@ public class MenuActivity extends AppCompatActivity
             }
         });
 
+
         clients = new ArrayList<Client>();
         routes = new ArrayList<Route>();
+        clientsIds = new ArrayList<Integer>();
         routeViewModel = ViewModelProviders.of(this).get(RouteViewModel.class);
 
         routes = rancheraDatabaseRepo.getAllRoutes();
-        int cnt = 0;
+        //client1 = rancheraDatabaseRepo.getSingleClient(this, 1);
+        //client2 = rancheraDatabaseRepo.getSingleClient(this, 2);
+
         for(Route route : routes) {
-            cnt++;
-
-            clients.add(rancheraDatabaseRepo.getSingleClient(this, route.getClientId()));
-
-            Toast.makeText(MenuActivity.this,
-                    String.valueOf(cnt),
-                    Toast.LENGTH_SHORT).show();
+            Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
+            clients.add(client);
         }
 
+
+        //Toast.makeText(MenuActivity.this, String.valueOf(client1.getId()), Toast.LENGTH_SHORT).show();
         recyclerAdapter.setClients(clients);
 
     }
@@ -151,7 +155,6 @@ public class MenuActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

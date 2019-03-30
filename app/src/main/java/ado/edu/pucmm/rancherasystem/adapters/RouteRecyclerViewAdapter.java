@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
@@ -32,7 +33,7 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
 
     private final LayoutInflater inflater;
     private List<Route> routes;
-    private List<Client> clients;
+    private List<Client> clients = new ArrayList<>();
 
     public RouteRecyclerViewAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
@@ -43,24 +44,19 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RouteViewHolder holder, int position) {
-       if(clients!= null) {
-           //Route current =
-           Client current = clients.get(0);
+    public void onBindViewHolder(RouteViewHolder holder, int position) {
+       if(clients != null) {
+           Client current = clients.get(position);
            holder.clientNameView.setText(current.getName());
            holder.addressView.setText(current.getAddress());
-       }
-       else {
-           // Covers the case of data not being ready yet.
+       } else {
            holder.clientNameView.setText("No tiene rutas pendientes");
        }
     }
 
     @Override
     public int getItemCount() {
-        if (clients != null)
-            return clients.size();
-        else return 0;
+        return clients.size();
     }
 
     public void setClients(List<Client> clients){

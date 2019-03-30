@@ -3,7 +3,6 @@ package ado.edu.pucmm.rancherasystem.viewmodel;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
@@ -17,7 +16,6 @@ public class RouteViewModel extends AndroidViewModel {
     private RouteDao routeDao;
     private RanchDb ranchDb;
     private RanchDatabaseRepo repository;
-    private LiveData<List<Route>> routes;
 
     public RouteViewModel(Application application) {
         super(application);
