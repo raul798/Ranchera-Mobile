@@ -447,8 +447,7 @@ public class RanchDatabaseRepo {
 
             ContentValues route1 = new ContentValues();
             route1.put("clientID", 1);
-            route1.put("latitude", 18.462423);
-            route1.put("longitude", -69.930105);
+            route1.put("latitude",  );
             route1.put("priority", 1);
             db.insert("Route", OnConflictStrategy.IGNORE, route1);
 

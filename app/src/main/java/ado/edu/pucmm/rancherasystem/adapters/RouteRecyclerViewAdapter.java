@@ -19,6 +19,7 @@ import java.util.List;
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.ui.activity.ClientInformationActivity;
 import ado.edu.pucmm.rancherasystem.ui.activity.MenuActivity;
 import ado.edu.pucmm.rancherasystem.ui.activity.SelectClientActivity;
 import ado.edu.pucmm.rancherasystem.ui.activity.SelectProductsActivity;
@@ -83,15 +84,18 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
     public class AdapterListener {
 
         void onClick(View view, int position){
-            /*
+
            Context context = view.getContext();
-            Intent intent = new Intent(context, SelectClientActivity.class);
+            Intent intent = new Intent(context, ClientInformationActivity.class);
+            intent.putExtra("clientId", clients.get(position).getId());
             context.startActivity(intent);
-            */
+
+            /*
             Context context = view.getContext();
             Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                    Uri.parse("google.navigation:q=Calle Sanabacoa,+Santo Domingo"));
+                    Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345"));
             context.startActivity(intent);
+            */
         }
     }
 }
