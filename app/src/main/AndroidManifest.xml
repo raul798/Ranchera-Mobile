@@ -12,7 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.ClientInformationActivity"></activity>
+        <activity android:name=".ui.activity.ClientInformationActivity">
+            android:label="@string/ranchera"
+            android:parentActivityName=".ui.activity.MenuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ado.edu.pucmm.rancherasystem.ui.activity.MenuActivity" />
+        </activity>
         <activity
             android:name=".ui.activity.MenuActivity"
             android:label="@string/ranchera"

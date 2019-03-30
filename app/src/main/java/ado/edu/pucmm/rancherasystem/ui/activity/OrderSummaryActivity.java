@@ -1,5 +1,6 @@
 package ado.edu.pucmm.rancherasystem.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -91,6 +92,13 @@ public class OrderSummaryActivity extends AppCompatActivity {
 
     public void toSummary(View view) {
         Intent intent = new Intent(this, ConfirmacionOrden.class);
+        intent.putExtra("billId", billId);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, SelectProductsActivity.class);
         intent.putExtra("billId", billId);
         startActivity(intent);
     }
