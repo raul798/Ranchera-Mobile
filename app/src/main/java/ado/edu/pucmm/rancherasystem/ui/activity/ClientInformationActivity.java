@@ -2,7 +2,9 @@ package ado.edu.pucmm.rancherasystem.ui.activity;
 
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
@@ -65,6 +67,12 @@ public class ClientInformationActivity extends AppCompatActivity
     public void toProductSelection(View view) {
             bill = new Bill(client.getId(),"Pending");
             billViewModel.insert(bill);
+    }
+
+    public void toGoogleMap(View view) {
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("google.navigation:q=" + client.getAddress()));
+        startActivity(intent);
     }
 
     @Override

@@ -409,7 +409,7 @@ public class RanchDatabaseRepo {
 
         public void onOpen(SupportSQLiteDatabase db) {
 
-            /*
+
            //delete existing data
             db.execSQL("Delete From Client");
 
@@ -417,14 +417,14 @@ public class RanchDatabaseRepo {
             client1.put("name", "Raul Test");
             client1.put("phoneNumber", "809-123-4567");
             client1.put("email", "raul.test@email.com");
-            client1.put("address", "Test address #10");
+            client1.put("address", "Calle Sanabacoa, Santo Domingo");
             db.insert("Client", OnConflictStrategy.IGNORE, client1);
 
             ContentValues client2 = new ContentValues();
             client2.put("name", "Dante Fana");
             client2.put("phoneNumber", "829-123-4567");
             client2.put("email", "dante.test@email.com");
-            client2.put("address", "Test address #20");
+            client2.put("address", "Calle Sanabacoa, Santo Domingo");
             db.insert("Client", OnConflictStrategy.IGNORE, client2);
 
             db.execSQL("Delete From Product");
@@ -447,17 +447,14 @@ public class RanchDatabaseRepo {
 
             ContentValues route1 = new ContentValues();
             route1.put("clientID", 1);
-            route1.put("latitude",  );
-            route1.put("priority", 1);
+            route1.put("priority", 2);
             db.insert("Route", OnConflictStrategy.IGNORE, route1);
 
             ContentValues route2 = new ContentValues();
             route2.put("clientID", 2);
-            route2.put("latitude", 20.462423);
-            route2.put("longitude", -70.930105);
-            route2.put("priority", 2);
+            route2.put("priority", 1);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
-            */
+
 
 
         }

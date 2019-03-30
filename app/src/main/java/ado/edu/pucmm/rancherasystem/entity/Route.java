@@ -12,14 +12,10 @@ public class Route {
     private int id;
     private int clientId;
     private int priority;
-    private float latitude;
-    private float longitude;
 
-    public Route(int clientId, int priority, float latitude, float longitude) {
+    public Route(int clientId, int priority) {
         this.clientId = clientId;
         this.priority = priority;
-        this.latitude = latitude;
-        this.longitude = longitude;
     }
 
     public void setId(int id) {
@@ -34,14 +30,6 @@ public class Route {
         this.priority = priority;
     }
 
-    public void setLatitude(float latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(float longitude) {
-        this.longitude = longitude;
-    }
-
     public int getId() {
         return id;
     }
@@ -52,13 +40,5 @@ public class Route {
 
     public int getPriority() {
         return priority;
-    }
-
-    public float getLatitude() {
-        return latitude;
-    }
-
-    public float getLongitude() {
-        return longitude;
     }
 }
