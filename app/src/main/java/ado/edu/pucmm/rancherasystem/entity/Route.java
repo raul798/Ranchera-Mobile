@@ -12,10 +12,12 @@ public class Route {
     private int id;
     private int clientId;
     private int priority;
+    private boolean status;
 
-    public Route(int clientId, int priority) {
+    public Route(int clientId, int priority, boolean status) {
         this.clientId = clientId;
         this.priority = priority;
+        this.status = status;
     }
 
     public void setId(int id) {
@@ -30,6 +32,8 @@ public class Route {
         this.priority = priority;
     }
 
+    public void setStatus(boolean status) { this.status = status; }
+
     public int getId() {
         return id;
     }
@@ -41,4 +45,6 @@ public class Route {
     public int getPriority() {
         return priority;
     }
+
+    public boolean isStatus() { return status; }
 }

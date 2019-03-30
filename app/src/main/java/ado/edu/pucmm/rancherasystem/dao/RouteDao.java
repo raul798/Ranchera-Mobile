@@ -23,6 +23,6 @@ public interface RouteDao {
     @Query("select * from Route where id = :id")
     Route searchRouteById(int id);
 
-    @Query("select * from Route ORDER BY priority ASC")
+    @Query("select * from Route ORDER BY status, priority ASC")
     List<Route> getAllRoutes();
 }

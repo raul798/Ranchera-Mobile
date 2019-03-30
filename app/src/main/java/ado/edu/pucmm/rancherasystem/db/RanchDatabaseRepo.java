@@ -447,18 +447,14 @@ public class RanchDatabaseRepo {
 
             ContentValues route1 = new ContentValues();
             route1.put("clientID", 1);
-<<<<<<< Updated upstream
             route1.put("priority", 2);
-=======
-            route1.put("latitude",  19.462423);
-            route1.put("longitude", -30.3);
-            route1.put("priority", 1);
->>>>>>> Stashed changes
+            route1.put("status", false);
             db.insert("Route", OnConflictStrategy.IGNORE, route1);
 
             ContentValues route2 = new ContentValues();
             route2.put("clientID", 2);
             route2.put("priority", 1);
+            route2.put("status", true);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
 
 
