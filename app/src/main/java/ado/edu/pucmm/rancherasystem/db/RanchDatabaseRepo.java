@@ -457,7 +457,7 @@ public class RanchDatabaseRepo {
             route2.put("status", true);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
 
-        
+
 
         }
     };
