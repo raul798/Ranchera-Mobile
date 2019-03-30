@@ -13,6 +13,8 @@ import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Faq;
 import ado.edu.pucmm.rancherasystem.ui.activity.SupportActivity;
 
+import ado.edu.pucmm.rancherasystem.R;
+
 public class FaqListAdapter extends RecyclerView.Adapter<FaqListAdapter.FaqViewHolder> {
     private final LayoutInflater layoutInflater;
     private Context mContext;
@@ -27,7 +29,7 @@ public class FaqListAdapter extends RecyclerView.Adapter<FaqListAdapter.FaqViewH
     @NonNull
     @Override
     public FaqViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = layoutInflater.inflate(R.layout.list_item_faq, parent, false);
+        View itemView = (View) layoutInflater.inflate(R.layout.list_item_faq, parent, false);
         FaqViewHolder viewHolder = new FaqViewHolder(itemView);
         return viewHolder;
     }
@@ -38,9 +40,7 @@ public class FaqListAdapter extends RecyclerView.Adapter<FaqListAdapter.FaqViewH
             Faq faq = mFaqs.get(position);
             holder.setData(faq.getQuestion(), faq.getAnswer(), position);
         }
-        else {
-
-        }
+        else {}
     }
 
     @Override
