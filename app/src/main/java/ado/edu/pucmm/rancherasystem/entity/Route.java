@@ -13,11 +13,13 @@ public class Route {
     private int clientId;
     private int priority;
     private boolean status;
+    private int user;
 
-    public Route(int clientId, int priority, boolean status) {
+    public Route(int clientId, int priority, boolean status, int user) {
         this.clientId = clientId;
         this.priority = priority;
         this.status = status;
+        this.user = user;
     }
 
     public void setId(int id) {
@@ -34,6 +36,8 @@ public class Route {
 
     public void setStatus(boolean status) { this.status = status; }
 
+    public void setUser(int user) { this.user = user; }
+
     public int getId() {
         return id;
     }
@@ -48,5 +52,5 @@ public class Route {
 
     public boolean isStatus() { return status; }
 
-
+    public int getUser() { return user; }
 }

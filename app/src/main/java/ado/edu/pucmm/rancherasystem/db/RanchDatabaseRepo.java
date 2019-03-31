@@ -473,7 +473,7 @@ public class RanchDatabaseRepo {
 
         public void onOpen(SupportSQLiteDatabase db) {
 
-/*
+            /*
             //delete existing data
             db.execSQL("Delete From Client");
 
@@ -513,14 +513,16 @@ public class RanchDatabaseRepo {
             route1.put("clientID", 1);
             route1.put("priority", 2);
             route1.put("status", false);
+            route1.put("user", 1);
             db.insert("Route", OnConflictStrategy.IGNORE, route1);
 
             ContentValues route2 = new ContentValues();
             route2.put("clientID", 2);
             route2.put("priority", 1);
             route2.put("status", false);
+            route2.put("user", 1);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
-*/
+            */
 
 
         }
