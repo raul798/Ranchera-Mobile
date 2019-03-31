@@ -30,6 +30,7 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
     private RanchDatabaseRepo ranchDatabaseRepo = new RanchDatabaseRepo();
     Context context;
     Route route;
+    String statusText;
 
     class RouteViewHolder extends RecyclerView.ViewHolder {
 
@@ -48,6 +49,7 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
             statusView = itemView.findViewById(R.id.statusTextView);
             context = itemView.getContext();
             route = null;
+            statusText = null;
             toMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,7 +78,9 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
            holder.clientNameView.setText(current.getName());
            holder.addressView.setText(current.getAddress());
            route = ranchDatabaseRepo.getRouteByClientId(context, current.getId());
-           holder.statusView.setText(String.valueOf(route.isStatus()));
+           if(route.isStatus() == true) statusText = "(Listo)";
+                   else statusText = "(Pendiente)";
+           holder.statusView.setText(String.valueOf(statusText));
        } else {
            holder.clientNameView.setText("No tiene rutas pendientes");
        }
