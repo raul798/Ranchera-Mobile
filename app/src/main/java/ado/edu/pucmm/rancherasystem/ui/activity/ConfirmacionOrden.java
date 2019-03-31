@@ -22,6 +22,8 @@ import java.io.ByteArrayOutputStream;
 
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
+import ado.edu.pucmm.rancherasystem.entity.Bill;
+import ado.edu.pucmm.rancherasystem.entity.Client;
 
 public class ConfirmacionOrden extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class ConfirmacionOrden extends AppCompatActivity {
     private Button returnButton;
     private RanchDatabaseRepo ranchDatabaseRepo =  new RanchDatabaseRepo();
     private int bill_id;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +90,7 @@ public class ConfirmacionOrden extends AppCompatActivity {
         if (extras != null) {
             bill_id = extras.getInt("billId");
         }
+
     }
 
     private void setText(int resourceId, String text){
@@ -115,11 +119,21 @@ public class ConfirmacionOrden extends AppCompatActivity {
         ranchDatabaseRepo.updateBillSignature(this, bill_id, byteArray);
         setText(R.id.confirmation_text, "Orden #"+ String.valueOf(bill_id) + " enviada");
         signature.recycle();
+
+        Client client = null;
+        Bill bill = null;
+
+        bill = ranchDatabaseRepo.getBill(this, bill_id);
+        client = ranchDatabaseRepo.getSingleClient(this, bill.getClient());
+
+        intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("clientId", client.getId());
+        //startActivity(intent);
     }
 
     public void toDashboard(View view) {
 
-        Intent intent = new Intent(this, MenuActivity.class);
+        //Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 

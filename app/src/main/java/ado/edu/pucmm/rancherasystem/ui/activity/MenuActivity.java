@@ -42,14 +42,10 @@ public class MenuActivity extends AppCompatActivity
     private RanchDatabaseRepo rancheraDatabaseRepo;
     private List<Client> clients;
     private List<Route> routes;
+    private int clientId;
     private RouteViewModel routeViewModel;
     private List<Integer> clientsIds;
-    private Client client1;
-    private Client client2;
 
-    private List<Integer> clientIds;
-    private Integer clientId;
-    private Client test;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,12 +100,17 @@ public class MenuActivity extends AppCompatActivity
             }
         });
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            clientId = extras.getInt("clientId");
+        }
 
         clients = new ArrayList<Client>();
         routes = new ArrayList<Route>();
         clientsIds = new ArrayList<Integer>();
         routeViewModel = ViewModelProviders.of(this).get(RouteViewModel.class);
 
+        rancheraDatabaseRepo.updateRouteStatus(this, true, clientId);
         routes = rancheraDatabaseRepo.getAllRoutes();
         //client1 = rancheraDatabaseRepo.getSingleClient(this, 1);
         //client2 = rancheraDatabaseRepo.getSingleClient(this, 2);
@@ -119,10 +120,8 @@ public class MenuActivity extends AppCompatActivity
             clients.add(client);
         }
 
-
         //Toast.makeText(MenuActivity.this, String.valueOf(client1.getId()), Toast.LENGTH_SHORT).show();
         recyclerAdapter.setClients(clients);
-
     }
 
     @Override

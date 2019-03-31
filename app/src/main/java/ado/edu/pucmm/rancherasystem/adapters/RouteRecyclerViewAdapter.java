@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 import ado.edu.pucmm.rancherasystem.entity.Route;
 import ado.edu.pucmm.rancherasystem.ui.activity.ClientInformationActivity;
@@ -26,12 +27,17 @@ import ado.edu.pucmm.rancherasystem.ui.activity.SelectProductsActivity;
 
 public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecyclerViewAdapter.RouteViewHolder> {
 
+    private RanchDatabaseRepo ranchDatabaseRepo = new RanchDatabaseRepo();
+    Context context;
+    Route route;
+
     class RouteViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView clientNameView;
         private final TextView addressView;
         private final ImageButton toMap;
         private final AdapterListener onClickListener;
+        private  final TextView statusView;
 
         private RouteViewHolder(View itemView) {
             super(itemView);
@@ -39,6 +45,9 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
             addressView = itemView.findViewById(R.id.address_clientes_text);
             toMap = itemView.findViewById(R.id.btn_toMap);
             onClickListener = new AdapterListener();
+            statusView = itemView.findViewById(R.id.statusTextView);
+            context = itemView.getContext();
+            route = null;
             toMap.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -66,6 +75,8 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
            Client current = clients.get(position);
            holder.clientNameView.setText(current.getName());
            holder.addressView.setText(current.getAddress());
+           route = ranchDatabaseRepo.getRouteByClientId(context, current.getId());
+           holder.statusView.setText(String.valueOf(route.isStatus()));
        } else {
            holder.clientNameView.setText("No tiene rutas pendientes");
        }

@@ -32,18 +32,11 @@ public class RanchDatabaseRepo {
     private RouteDao routeDao;
     private static final Object LOCK = new Object();
     private LiveData<List<Product>> allProducts;
-    private LiveData<List<Route>> allRoutes;
-    private List<Bill> listofbills;
-    private List<Route> listRoutes;
 
     public RanchDatabaseRepo(Context context) {
         RanchDb db = RanchDatabaseRepo.getDb(context);
         productDao = db.getProductDao();
         allProducts = productDao.getAllProducts();
-
-        //routeDao = db.getRouteDao();
-        //allRoutes = routeDao.getAllRoutes();
-
     }
 
     public RanchDatabaseRepo() {}
@@ -403,14 +396,85 @@ public class RanchDatabaseRepo {
         }
     }
 
+    public void updateRouteStatus(Context context, boolean status, int clientId) {
+
+        if (routeDao == null) {
+            routeDao = RanchDatabaseRepo.getDb(context).getRouteDao();
+        }
+
+        updateRouteParams params = new updateRouteParams(status, clientId);
+
+        new updateStatusAsyncTask(routeDao).execute(params);
+    }
+
+    private static class updateStatusAsyncTask extends AsyncTask<updateRouteParams, Void, Void> {
+
+        private RouteDao asyncTaskDao;
+
+        updateStatusAsyncTask(RouteDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final updateRouteParams... params) {
+            asyncTaskDao.updateStatus(params[0].status, params[0].clientId);
+            return null;
+        }
+    }
+
+    private static class updateRouteParams {
+        boolean status;
+        int clientId;
+
+        updateRouteParams(boolean status, int clientId) {
+            this.status = status;
+            this.clientId = clientId;
+        }
+    }
+
+
+    private static class searchRouteByClientIdAsyncTask extends AsyncTask<Integer, Void, Route> {
+
+        private RouteDao asyncTaskDao;
+
+        searchRouteByClientIdAsyncTask(RouteDao dao) {
+            asyncTaskDao = dao;
+        }
+
+
+        @Override
+        protected Route doInBackground(final Integer... params) {
+            return asyncTaskDao.searchRouteByClientId(params[0]);
+        }
+    }
+
+
+    public Route getRouteByClientId(Context context, Integer clientId) {
+        if (routeDao == null) {
+            routeDao = RanchDatabaseRepo.getDb(context).getRouteDao();
+        }
+
+        Route route = null;
+
+        try {
+            route = new searchRouteByClientIdAsyncTask(routeDao).execute(clientId).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return route;
+    }
+
+
+
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {
         public void onCreate(SupportSQLiteDatabase db) {
         }
 
         public void onOpen(SupportSQLiteDatabase db) {
 
-
-           //delete existing data
+/*
+            //delete existing data
             db.execSQL("Delete From Client");
 
             ContentValues client1 = new ContentValues();
@@ -454,9 +518,9 @@ public class RanchDatabaseRepo {
             ContentValues route2 = new ContentValues();
             route2.put("clientID", 2);
             route2.put("priority", 1);
-            route2.put("status", true);
+            route2.put("status", false);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
-
+*/
 
 
         }

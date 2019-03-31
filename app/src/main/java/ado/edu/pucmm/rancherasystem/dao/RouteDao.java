@@ -25,4 +25,10 @@ public interface RouteDao {
 
     @Query("select * from Route ORDER BY status, priority ASC")
     List<Route> getAllRoutes();
+
+    @Query("UPDATE Route SET status = :status WHERE clientId = :clientId")
+    void updateStatus(boolean status, int clientId);
+
+    @Query("select * from Route where clientId = :clientId")
+    Route searchRouteByClientId(int clientId);
 }
