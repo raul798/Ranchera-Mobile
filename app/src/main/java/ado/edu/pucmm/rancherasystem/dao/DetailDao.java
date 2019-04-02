@@ -12,11 +12,7 @@ import ado.edu.pucmm.rancherasystem.entity.Detail;
 
 @Dao
 public interface DetailDao {
-<<<<<<< HEAD
     @Insert()
-=======
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
->>>>>>> added faq
     void insert(Detail detail);
 
     @Query("DELETE FROM Detail")

@@ -32,8 +32,6 @@ public class RanchDatabaseRepo {
     private RouteDao routeDao;
     private static final Object LOCK = new Object();
     private LiveData<List<Product>> allProducts;
-    private static final Object LOCK = new Object();
-    private LiveData<List<Product>> allProducts;
     private List<Bill> listofbills;
 
     public RanchDatabaseRepo(Context context) {
