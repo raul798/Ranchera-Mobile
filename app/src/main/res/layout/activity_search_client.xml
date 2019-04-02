@@ -154,7 +154,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:maxLines="4"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"

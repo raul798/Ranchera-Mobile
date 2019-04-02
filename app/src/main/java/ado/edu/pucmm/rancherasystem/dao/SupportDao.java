@@ -12,7 +12,7 @@ import ado.edu.pucmm.rancherasystem.entity.Support;
 
 @Dao
 public interface SupportDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     void insert(Support question);
 
     @Query("DELETE FROM Support")

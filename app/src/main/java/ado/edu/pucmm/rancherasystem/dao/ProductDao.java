@@ -16,7 +16,7 @@ public interface ProductDao {
     @Query("SELECT COUNT(*) from Product")
     int Count();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     void insert(Product product);
 
     @Query("DELETE FROM Product")

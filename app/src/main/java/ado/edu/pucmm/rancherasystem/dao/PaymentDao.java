@@ -9,7 +9,7 @@ import ado.edu.pucmm.rancherasystem.entity.Payment;
 
 @Dao
 public interface PaymentDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     void insert(Payment payment);
 
     @Query("DELETE FROM Payment")

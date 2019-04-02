@@ -473,9 +473,9 @@ public class RanchDatabaseRepo {
 
         public void onOpen(SupportSQLiteDatabase db) {
 
-            /*
+
             //delete existing data
-            db.execSQL("Delete From Client");
+            //db.execSQL("Delete From Client");
 
             ContentValues client1 = new ContentValues();
             client1.put("name", "Raul Test");
@@ -491,7 +491,7 @@ public class RanchDatabaseRepo {
             client2.put("address", "Calle Sanabacoa, Santo Domingo");
             db.insert("Client", OnConflictStrategy.IGNORE, client2);
 
-            db.execSQL("Delete From Product");
+            //db.execSQL("Delete From Product");
 
             ContentValues contentValuesProduct = new ContentValues();
             contentValuesProduct.put("name", "Product#0001");
@@ -507,7 +507,7 @@ public class RanchDatabaseRepo {
             contentValuesProduct.put("description", "Producto de testing 2");
             db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
 
-            db.execSQL("Delete From Route");
+            //db.execSQL("Delete From Route");
 
             ContentValues route1 = new ContentValues();
             route1.put("clientID", 1);
@@ -522,7 +522,7 @@ public class RanchDatabaseRepo {
             route2.put("status", false);
             route2.put("user", 1);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
-            */
+
 
 
         }

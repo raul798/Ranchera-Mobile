@@ -13,7 +13,7 @@ import ado.edu.pucmm.rancherasystem.entity.HelpRequest;
 @Dao
 public interface HelpRequestDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     void insert(HelpRequest request);
 
     @Query("DELETE FROM HelpRequest")
