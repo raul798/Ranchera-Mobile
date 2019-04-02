@@ -13,7 +13,7 @@ import ado.edu.pucmm.rancherasystem.entity.Client;
 @Dao
 public interface ClientDao {
 
-    @Insert(onConflict = OnConflictStrategy.FAIL)
+    @Insert()
     void insert(Client client);
 
     @Query("DELETE FROM Client")

@@ -78,7 +78,10 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
            holder.clientNameView.setText(current.getName());
            holder.addressView.setText(current.getAddress());
            route = ranchDatabaseRepo.getRouteByClientId(context, current.getId());
-           if(route.isStatus() == true) statusText = "(Listo)";
+           if(route.isStatus()){
+               statusText = "(Listo)";
+               holder.itemView.findViewById(R.id.btn_toMap).setVisibility(View.GONE);
+           }
                    else statusText = "(Pendiente)";
            holder.statusView.setText(String.valueOf(statusText));
        } else {
@@ -104,13 +107,6 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
             Intent intent = new Intent(context, ClientInformationActivity.class);
             intent.putExtra("clientId", clients.get(position).getId());
             context.startActivity(intent);
-
-            /*
-            Context context = view.getContext();
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                    Uri.parse("http://maps.google.com/maps?saddr=20.344,34.34&daddr=20.5666,45.345"));
-            context.startActivity(intent);
-            */
         }
     }
 }
