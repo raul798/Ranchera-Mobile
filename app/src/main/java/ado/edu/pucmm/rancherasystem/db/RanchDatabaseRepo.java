@@ -473,7 +473,7 @@ public class RanchDatabaseRepo {
 
         public void onOpen(SupportSQLiteDatabase db) {
 
-            /*
+/*
             //delete existing data
             db.execSQL("Delete From Client");
 
@@ -522,8 +522,8 @@ public class RanchDatabaseRepo {
             route2.put("status", false);
             route2.put("user", 1);
             db.insert("Route", OnConflictStrategy.IGNORE, route2);
-            */
 
+*/
 
         }
     };
