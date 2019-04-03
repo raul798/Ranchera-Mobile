@@ -13,13 +13,13 @@ import ado.edu.pucmm.rancherasystem.entity.Client;
 @Dao
 public interface ClientDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     void insert(Client client);
 
     @Query("DELETE FROM Client")
     void deleteAll();
 
-    @Query("select * from Client where id = :id")
+    @Query("SELECT * FROM Client WHERE id = :id")
     Client searchClientByID(int id);
 
     @Query("SELECT * FROM Client WHERE name = :name")

@@ -90,7 +90,6 @@ public class ConfirmacionOrden extends AppCompatActivity {
         if (extras != null) {
             bill_id = extras.getInt("billId");
         }
-
     }
 
     private void setText(int resourceId, String text){

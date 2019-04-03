@@ -8,20 +8,17 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
-import ado.edu.pucmm.rancherasystem.entity.HelpRequest;
+import ado.edu.pucmm.rancherasystem.entity.Faq;
+import ado.edu.pucmm.rancherasystem.entity.Support;
 
 @Dao
-public interface HelpRequestDao {
-
+public interface FaqDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(HelpRequest request);
+    void insert(Faq faq);
 
-    @Query("DELETE FROM HelpRequest")
+    @Query("DELETE FROM Faq")
     void deleteAll();
 
-    @Query("SELECT * from HelpRequest")
-    LiveData<List<HelpRequest>> getAllRequest();
-
-    @Query("SELECT COUNT(*) from HelpRequest")
-    int CountRequests();
+    @Query("SELECT * from Faq")
+    LiveData<List<Faq>> getAllFaqs();
 }

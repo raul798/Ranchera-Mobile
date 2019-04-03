@@ -13,7 +13,7 @@ import ado.edu.pucmm.rancherasystem.entity.Bill;
 @Dao
 public interface BillDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     Long insert(Bill bill);
 
     @Query("DELETE FROM Bill")

@@ -32,6 +32,7 @@ public class RanchDatabaseRepo {
     private RouteDao routeDao;
     private static final Object LOCK = new Object();
     private LiveData<List<Product>> allProducts;
+    private List<Bill> listofbills;
 
     public RanchDatabaseRepo(Context context) {
         RanchDb db = RanchDatabaseRepo.getDb(context);
@@ -473,57 +474,54 @@ public class RanchDatabaseRepo {
 
         public void onOpen(SupportSQLiteDatabase db) {
 
-/*
             //delete existing data
-            db.execSQL("Delete From Client");
+            //db.execSQL("Delete From Client");
 
             ContentValues client1 = new ContentValues();
             client1.put("name", "Raul Test");
             client1.put("phoneNumber", "809-123-4567");
             client1.put("email", "raul.test@email.com");
             client1.put("address", "Calle Sanabacoa, Santo Domingo");
-            db.insert("Client", OnConflictStrategy.IGNORE, client1);
+            db.insert("Client", OnConflictStrategy.ABORT, client1);
 
             ContentValues client2 = new ContentValues();
             client2.put("name", "Dante Fana");
             client2.put("phoneNumber", "829-123-4567");
             client2.put("email", "dante.test@email.com");
             client2.put("address", "Calle Sanabacoa, Santo Domingo");
-            db.insert("Client", OnConflictStrategy.IGNORE, client2);
+            db.insert("Client", OnConflictStrategy.ABORT, client2);
 
-            db.execSQL("Delete From Product");
+            //db.execSQL("Delete From Product");
 
             ContentValues contentValuesProduct = new ContentValues();
             contentValuesProduct.put("name", "Product#0001");
             contentValuesProduct.put("quantity", 40);
             contentValuesProduct.put("price", 500);
             contentValuesProduct.put("description", "Producto de testing 1");
-            db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
+            db.insert("Product", OnConflictStrategy.ABORT, contentValuesProduct);
 
             contentValuesProduct = new ContentValues();
             contentValuesProduct.put("name", "Product#0002");
             contentValuesProduct.put("quantity", 30);
             contentValuesProduct.put("price", 1000);
             contentValuesProduct.put("description", "Producto de testing 2");
-            db.insert("Product", OnConflictStrategy.IGNORE, contentValuesProduct);
+            db.insert("Product", OnConflictStrategy.ABORT, contentValuesProduct);
 
-            db.execSQL("Delete From Route");
+            //db.execSQL("Delete From Route");
 
             ContentValues route1 = new ContentValues();
             route1.put("clientID", 1);
             route1.put("priority", 2);
             route1.put("status", false);
             route1.put("user", 1);
-            db.insert("Route", OnConflictStrategy.IGNORE, route1);
+            db.insert("Route", OnConflictStrategy.ABORT, route1);
 
             ContentValues route2 = new ContentValues();
             route2.put("clientID", 2);
             route2.put("priority", 1);
             route2.put("status", false);
             route2.put("user", 1);
-            db.insert("Route", OnConflictStrategy.IGNORE, route2);
-
-*/
+            db.insert("Route", OnConflictStrategy.ABORT, route2);
 
         }
     };

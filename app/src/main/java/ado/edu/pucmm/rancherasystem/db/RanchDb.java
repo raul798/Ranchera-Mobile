@@ -10,6 +10,10 @@ import ado.edu.pucmm.rancherasystem.dao.HelpRequestDao;
 import ado.edu.pucmm.rancherasystem.dao.PaymentDao;
 import ado.edu.pucmm.rancherasystem.dao.ProductDao;
 import ado.edu.pucmm.rancherasystem.dao.RouteDao;
+import ado.edu.pucmm.rancherasystem.dao.FaqDao;
+import ado.edu.pucmm.rancherasystem.dao.HelpRequestDao;
+import ado.edu.pucmm.rancherasystem.dao.PaymentDao;
+import ado.edu.pucmm.rancherasystem.dao.ProductDao;
 import ado.edu.pucmm.rancherasystem.dao.SupportDao;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
@@ -18,6 +22,10 @@ import ado.edu.pucmm.rancherasystem.entity.HelpRequest;
 import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.entity.Faq;
+import ado.edu.pucmm.rancherasystem.entity.HelpRequest;
+import ado.edu.pucmm.rancherasystem.entity.Payment;
+import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Support;
 
 
@@ -25,7 +33,8 @@ import ado.edu.pucmm.rancherasystem.entity.Support;
         Client.class, Bill.class,
         Product.class, Detail.class,
         Payment.class, HelpRequest.class,
-        Support.class, Route.class
+        Support.class, Route.class,
+        Faq.class
 }, version = 1)
 public abstract class RanchDb extends RoomDatabase {
 
@@ -37,4 +46,5 @@ public abstract class RanchDb extends RoomDatabase {
     public abstract HelpRequestDao getHelpRequestDao();
     public abstract SupportDao getSupportDao();
     public abstract RouteDao getRouteDao();
+    public abstract FaqDao getFaqDao();
 }
