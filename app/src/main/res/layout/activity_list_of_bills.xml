@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.DashBoardActivity$ListOfBills">
+    tools:context=".ui.activity.ListOfBills">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -16,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/darker_gray"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toTopOf="@+id/cancel_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -231,7 +231,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="24dp"
         android:background="@android:color/holo_blue_light"
-        android:onClick="toSelectProduct"
         android:text="Anterior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -248,7 +247,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="24dp"
         android:background="@android:color/holo_blue_bright"
-        android:onClick="toSummary"
         android:text=" Confirmar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

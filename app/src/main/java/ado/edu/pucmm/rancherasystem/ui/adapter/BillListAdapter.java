@@ -28,8 +28,8 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillVi
 
         private BillViewHolder(View itemView) {
             super(itemView);
-            wordItemView_id = itemView.findViewById(R.id.text_id_factura);
-            wordItemView2_debt = itemView.findViewById(R.id.text_debt);
+            wordItemView_id = itemView.findViewById(R.id.text_factura);
+            wordItemView2_debt = itemView.findViewById(R.id.text_total);
             wordItemView3_date = itemView.findViewById(R.id.text_date);
             itemView.findViewById(R.id.view_id).setOnClickListener(this);
         }

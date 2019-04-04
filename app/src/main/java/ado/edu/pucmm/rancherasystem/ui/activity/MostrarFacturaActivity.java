@@ -21,7 +21,7 @@ import ado.edu.pucmm.rancherasystem.viewmodel.DetailViewModel;
 import ado.edu.pucmm.rancherasystem.viewmodel.BillViewModel;
 import ado.edu.pucmm.rancherasystem.viewmodel.ProductViewModel;
 
-public class PagarFacturaActivity extends AppCompatActivity {
+public class MostrarFacturaActivity extends AppCompatActivity {
     private BillViewModel billViewModel;
     private ProductViewModel productoViewModel;
     private FacturaListAdapter facturaListAdapter;
@@ -33,9 +33,7 @@ public class PagarFacturaActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pagar_factura);
-
-        id_factura = findViewById(R.id.FacturaID);
+        setContentView(R.layout.activity_list_of_bills);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         detalleListAdapter = new DetalleListAdapter(this);
@@ -44,14 +42,7 @@ public class PagarFacturaActivity extends AppCompatActivity {
 
 
         detailViewModel = ViewModelProviders.of(this).get(DetailViewModel.class);
-        detailViewModel.getAllDetails().observe(this, new Observer<List<Detail>>() {
-            @Override
-            public void onChanged(@Nullable List<Detail> details) {
-
-                detalleListAdapter.setDetalles(details);
-
-            }
-        });
+        detailViewModel.getAllDetails();
 
 
 

@@ -1,16 +1,12 @@
 package ado.edu.pucmm.rancherasystem.ui.activity;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -25,13 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
-import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.adapters.RouteRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Client;
-import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
-import ado.edu.pucmm.rancherasystem.viewmodel.BillViewModel;
 import ado.edu.pucmm.rancherasystem.viewmodel.RouteViewModel;
 
 public class MenuActivity extends AppCompatActivity
@@ -92,7 +85,7 @@ public class MenuActivity extends AppCompatActivity
                         startActivity(intent);
                         break;
                     case R.id.bill:
-                        intent = new Intent(MenuActivity.this, PagarFacturaActivity.class);
+                        intent = new Intent(MenuActivity.this, MostrarFacturaActivity.class);
                         startActivity(intent);
                         Toast.makeText(MenuActivity.this, "bill", Toast.LENGTH_SHORT).show();
                         break;

@@ -105,7 +105,7 @@
                 android:value=".ui.activity.MenuActivity" />
         </activity>
         <activity android:name=".ui.activity.HelpRequestActivity" />
-        <activity android:name=".ui.activity.PagarFacturaActivity" />
+        <activity android:name=".ui.activity.MostrarFacturaActivity" />
         <activity android:name=".ui.activity.PagoFacturaActivity" />
     </application>
 
