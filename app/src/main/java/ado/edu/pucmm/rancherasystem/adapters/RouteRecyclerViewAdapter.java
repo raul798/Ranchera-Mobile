@@ -80,6 +80,7 @@ public class RouteRecyclerViewAdapter extends RecyclerView.Adapter<RouteRecycler
            route = ranchDatabaseRepo.getRouteByClientId(context, current.getId());
            if(route.isStatus()){
                statusText = "(Listo)";
+               //holder.itemView.findViewById(R.id.statusTextView).setBackgroundColor("");
                holder.itemView.findViewById(R.id.btn_toMap).setVisibility(View.GONE);
            }
                    else statusText = "(Pendiente)";

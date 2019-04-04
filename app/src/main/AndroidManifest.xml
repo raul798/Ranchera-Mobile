@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.SelectClientBillActivity"></activity>
         <activity
             android:name=".ui.activity.ClientInformationActivity"
             android:label="@string/ranchera"
@@ -19,7 +20,7 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ado.edu.pucmm.rancherasystem.ui.activity.MenuActivity"/>
+                android:value="ado.edu.pucmm.rancherasystem.ui.activity.MenuActivity" />
         </activity>
         <activity
             android:name=".ui.activity.MenuActivity"
@@ -40,6 +41,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

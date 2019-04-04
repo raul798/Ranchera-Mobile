@@ -8,43 +8,74 @@
     android:id="@+id/view_id">
 
     <TextView
-        android:id="@+id/text_id_factura"
-        style="@style/bill_title"
-        android:layout_width="409dp"
-        android:layout_height="40dp"
-        android:background="@color/white"
-        android:text="Id_Factura"
-        app:layout_constraintBottom_toTopOf="@+id/text_debt"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/text_debt"
-        style="@style/bill_title"
-        android:layout_width="192dp"
-        android:layout_height="43dp"
-        android:background="@color/white"
-        android:text="debt: "
-        app:layout_constraintEnd_toStartOf="@+id/text_date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_id_factura" />
-
-    <TextView
-        android:id="@+id/text_date"
-        style="@style/bill_title"
-        android:layout_width="216dp"
-        android:layout_height="43dp"
-        android:background="@color/white"
-        android:text="date:"
+        android:id="@+id/text_total"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:maxLines="4"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/text_debt"
-        app:layout_constraintTop_toBottomOf="@+id/text_id_factura" />
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_clientes_text"
+        app:layout_constraintVertical_bias="0.158" />
+
+    <TextView
+        android:id="@+id/text_factura"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="36dp"
+        android:ems="10"
+        android:maxLines="4"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_clientes_text"
+        app:layout_constraintVertical_bias="0.158" />
+
+    <ImageView
+        android:id="@+id/address_icon2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:padding="15dp"
+        android:src="@drawable/ic_my_location_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/address_clientes_text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_clientes_text"
+        app:layout_constraintVertical_bias="0.127" />
 
     <View
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:background="@color/colorCustomGrey"
-        app:layout_constraintEnd_toEndOf="@+id/text_date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_debt" />
+        tools:layout_editor_absoluteY="69dp" />
 
 </android.support.constraint.ConstraintLayout>
