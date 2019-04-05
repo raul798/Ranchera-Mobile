@@ -13,7 +13,7 @@ import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.viewmodel.PaymentViewModel;
 
-public class PagoFacturaActivity extends AppCompatActivity {
+public class PayBillActivity extends AppCompatActivity {
 
     private PaymentViewModel paymentViewModel;
     private EditText pagoEditText;
@@ -26,7 +26,7 @@ public class PagoFacturaActivity extends AppCompatActivity {
         Button button = findViewById(R.id.RealizarPago);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Payment payment = new Payment(Double.parseDouble(pagoEditText.getText().toString()), 1,1 );
+                Payment payment = new Payment(Float.parseFloat(pagoEditText.getText().toString()), 1,1 );
                 paymentViewModel.insert(payment);
 
                 Toast.makeText(
@@ -34,7 +34,7 @@ public class PagoFacturaActivity extends AppCompatActivity {
                         "payment realizado correctamente",
                         Toast.LENGTH_LONG).show();
 
-                Intent mainIntent = new Intent(PagoFacturaActivity.this, MainActivity.class);
+                Intent mainIntent = new Intent(PayBillActivity.this, MainActivity.class);
                 startActivity(mainIntent);
 
             }

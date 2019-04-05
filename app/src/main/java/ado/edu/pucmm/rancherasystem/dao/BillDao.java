@@ -28,6 +28,12 @@ public interface BillDao {
     @Query("SELECT  * FROM Bill where client like :clientId")
     List<Bill> getBills(Integer clientId );
 
+    @Query("SELECT * FROM Bill WHERE client LIKE :clientId AND description LIKE 'Done'")
+    List<Bill> getDoneBills(Integer clientId);
+
+    @Query("SELECT COUNT(*) from Bill WHERE client LIKE :clientId AND description LIKE 'Done'")
+    Integer getDoneBillCount(Integer clientId);
+
     @Query("SELECT COUNT(*) from Bill")
     int CountFacturas();
 

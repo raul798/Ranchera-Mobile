@@ -12,7 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.SelectClientBillActivity"></activity>
         <activity
             android:name=".ui.activity.ClientInformationActivity"
             android:label="@string/ranchera"
@@ -105,8 +104,8 @@
                 android:value=".ui.activity.MenuActivity" />
         </activity>
         <activity android:name=".ui.activity.HelpRequestActivity" />
-        <activity android:name=".ui.activity.MostrarFacturaActivity" />
-        <activity android:name=".ui.activity.PagoFacturaActivity" />
+        <activity android:name=".ui.activity.ShowBillActivity" />
+        <activity android:name=".ui.activity.PayBillActivity" />
     </application>
 
 </manifest>

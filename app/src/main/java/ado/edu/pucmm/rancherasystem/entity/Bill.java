@@ -12,7 +12,6 @@ public class Bill {
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int id;
-    private float debt;
     private String description;
     private int client;
     private float total;
@@ -29,14 +28,6 @@ public class Bill {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public float getDebt() {
-        return debt;
-    }
-
-    public void setDebt(float debt) {
-        this.debt = debt;
     }
 
     public String getDescription() {

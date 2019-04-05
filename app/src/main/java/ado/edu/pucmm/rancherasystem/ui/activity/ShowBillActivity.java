@@ -1,9 +1,7 @@
 package ado.edu.pucmm.rancherasystem.ui.activity;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,20 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
-import ado.edu.pucmm.rancherasystem.entity.Detail;
+import ado.edu.pucmm.rancherasystem.ui.adapter.BillListAdapter;
 import ado.edu.pucmm.rancherasystem.ui.adapter.DetalleListAdapter;
-import ado.edu.pucmm.rancherasystem.ui.adapter.FacturaListAdapter;
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.viewmodel.DetailViewModel;
 import ado.edu.pucmm.rancherasystem.viewmodel.BillViewModel;
 import ado.edu.pucmm.rancherasystem.viewmodel.ProductViewModel;
 
-public class MostrarFacturaActivity extends AppCompatActivity {
+public class ShowBillActivity extends AppCompatActivity {
     private BillViewModel billViewModel;
     private ProductViewModel productoViewModel;
-    private FacturaListAdapter facturaListAdapter;
+    private BillListAdapter billListAdapter;
 
     private DetalleListAdapter detalleListAdapter;
     private DetailViewModel detailViewModel;
@@ -36,8 +31,9 @@ public class MostrarFacturaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_of_bills);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        detalleListAdapter = new DetalleListAdapter(this);
-        recyclerView.setAdapter(detalleListAdapter);
+
+        billListAdapter = new BillListAdapter(this);
+        recyclerView.setAdapter(billListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
@@ -49,7 +45,7 @@ public class MostrarFacturaActivity extends AppCompatActivity {
     }
 
     public void payMe(View view) {
-        Intent payIntent = new Intent(this, PagoFacturaActivity.class);
+        Intent payIntent = new Intent(this, PayBillActivity.class);
         //login logic
         startActivity(payIntent);
     }

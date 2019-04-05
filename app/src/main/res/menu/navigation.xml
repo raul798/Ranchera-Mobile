@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/inventory"
-        android:title="inventory"
+        android:title="Inventario"
         android:state_checked="true"
         app:showAsAction="always|withText"
         android:enabled="true"

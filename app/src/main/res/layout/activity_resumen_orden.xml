@@ -333,7 +333,6 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="Test User"
         android:textAllCaps="false"
         android:textColor="@android:color/black"

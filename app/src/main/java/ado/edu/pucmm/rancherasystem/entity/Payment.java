@@ -10,13 +10,13 @@ public class Payment {
     @NonNull
     private int id;
     @NonNull
-    private double amount;
+    private float amount;
     @NonNull
     private int bill;
     @NonNull
     private int client;
 
-    public Payment(double amount, int bill, int client) {
+    public Payment(float amount, int bill, int client) {
         this.amount = amount;
         this.bill = bill;
         this.client = client;
@@ -30,11 +30,11 @@ public class Payment {
         this.id = id;
     }
 
-    public double getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 

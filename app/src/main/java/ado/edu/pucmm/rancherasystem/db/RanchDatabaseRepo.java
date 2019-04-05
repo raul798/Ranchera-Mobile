@@ -15,10 +15,12 @@ import java.util.List;
 import ado.edu.pucmm.rancherasystem.dao.BillDao;
 import ado.edu.pucmm.rancherasystem.dao.ClientDao;
 import ado.edu.pucmm.rancherasystem.dao.DetailDao;
+import ado.edu.pucmm.rancherasystem.dao.PaymentDao;
 import ado.edu.pucmm.rancherasystem.dao.ProductDao;
 import ado.edu.pucmm.rancherasystem.dao.RouteDao;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
 
@@ -28,6 +30,7 @@ public class RanchDatabaseRepo {
     private ClientDao clientDao;
     private ProductDao productDao;
     private DetailDao detailDao;
+    private PaymentDao paymentDao;
     private BillDao billDao;
     private RouteDao routeDao;
     private static final Object LOCK = new Object();
@@ -91,6 +94,89 @@ public class RanchDatabaseRepo {
         @Override
         protected List<Bill> doInBackground(Integer... params) {
             return mAsyncTaskDao.getBills(params[0]);
+        }
+    }
+
+    public List<Bill> getDoneBills(Context context, Integer client_id) {
+        if (billDao == null) {
+            billDao = RanchDatabaseRepo.getDb(context).getBillDao();
+        }
+        List<Bill> bills = new ArrayList<>();
+        try {
+            bills = new SelectDoneBillsAsyncTask(billDao).execute(client_id).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bills;
+    }
+
+    private static class SelectDoneBillsAsyncTask extends AsyncTask<Integer, Void, List<Bill>> {
+
+        private BillDao mAsyncTaskDao;
+
+        SelectDoneBillsAsyncTask(BillDao billdao) {
+            mAsyncTaskDao = billdao;
+        }
+
+        @Override
+        protected List<Bill> doInBackground(Integer... params) {
+            return mAsyncTaskDao.getDoneBills(params[0]);
+        }
+    }
+
+    public Integer getDoneBillCount(Context context, Integer client_id) {
+        if (billDao == null) {
+            billDao = RanchDatabaseRepo.getDb(context).getBillDao();
+        }
+        int count = 0;
+        try {
+            count = new SelectDoneBillCountAsyncTask(billDao).execute(client_id).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    private static class SelectDoneBillCountAsyncTask extends AsyncTask<Integer, Void, Integer> {
+
+        private BillDao asyncTaskDao;
+
+        SelectDoneBillCountAsyncTask(BillDao billdao) {
+            asyncTaskDao = billdao;
+        }
+
+        @Override
+        protected Integer doInBackground(Integer... params) {
+            return asyncTaskDao.getDoneBillCount(params[0]);
+        }
+    }
+
+    public Float getBillAmount(Context context, Integer payment) {
+        if (paymentDao == null) {
+            paymentDao = RanchDatabaseRepo.getDb(context).getPaymentDao();
+        }
+
+        Float count = 0.0f;
+
+        try {
+            count = new SelectBillAmountAsyncTask(paymentDao).execute(payment).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    private static class SelectBillAmountAsyncTask extends AsyncTask<Integer, Void, Float> {
+
+        private PaymentDao asyncTaskDao;
+
+        SelectBillAmountAsyncTask(PaymentDao billdao) {
+            asyncTaskDao = billdao;
+        }
+
+        @Override
+        protected Float doInBackground(Integer... params) {
+            return asyncTaskDao.getBillAmounts(params[0]);
         }
     }
 
@@ -465,8 +551,6 @@ public class RanchDatabaseRepo {
 
         return route;
     }
-
-
 
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {
         public void onCreate(SupportSQLiteDatabase db) {
