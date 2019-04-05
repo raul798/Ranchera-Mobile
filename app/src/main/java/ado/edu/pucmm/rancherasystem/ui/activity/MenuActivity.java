@@ -63,10 +63,12 @@ public class MenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setEnabled(true);
         bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
 
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+                bottomNavigationView.setEnabled(false);
                 switch (menuItem.getItemId())
                 {
                     case R.id.products:
