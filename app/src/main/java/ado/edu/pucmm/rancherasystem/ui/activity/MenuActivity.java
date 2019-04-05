@@ -78,16 +78,11 @@ public class MenuActivity extends AppCompatActivity
                         startActivity(intent);
                         break;
                     case R.id.inventory:
-                        Toast.makeText(MenuActivity.this, "inventory", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MenuActivity.this, "Rutas", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.order:
                         intent = new Intent(MenuActivity.this, SelectClientActivity.class);
                         startActivity(intent);
-                        break;
-                    case R.id.bill:
-                        intent = new Intent(MenuActivity.this, MostrarFacturaActivity.class);
-                        startActivity(intent);
-                        Toast.makeText(MenuActivity.this, "bill", Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
