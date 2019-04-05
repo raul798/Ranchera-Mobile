@@ -24,8 +24,8 @@ public interface DetailDao {
     @Query("SELECT product FROM Detail WHERE bill = :id_factura ")
     List<Integer> getBillProducts(int id_factura);
 
-    @Query("SELECT quantity FROM Detail WHERE product = :id_producto ")
-    Integer getSelectedProductAmount(int id_producto);
+    @Query("SELECT quantity FROM Detail WHERE product = :id_producto and  bill = :billId")
+    Integer getSelectedProductAmount(int id_producto, int billId);
 
     @Query("SELECT * FROM Detail")
     LiveData<List<Detail>> getAllDetalles();

@@ -30,6 +30,7 @@ public class ProductsDetailsRecyclerViewAdapter extends RecyclerView.Adapter<Pro
     private final LayoutInflater inflater;
     private List<Product> products; // Cached copy of products
     private List<Integer> amounts;
+
     public ProductsDetailsRecyclerViewAdapter(Context context) { inflater = LayoutInflater.from(context); }
 
     @Override
@@ -40,7 +41,7 @@ public class ProductsDetailsRecyclerViewAdapter extends RecyclerView.Adapter<Pro
 
     @Override
     public void onBindViewHolder(ProductDetailsViewHolder holder, int position) {
-        if (products != null) {
+//        if (products != null) {
             Product current = products.get(position);
             int amount = amounts.get(position);
             String priceString = "Precio: $" + String.valueOf(current.getPrice());
@@ -48,10 +49,10 @@ public class ProductsDetailsRecyclerViewAdapter extends RecyclerView.Adapter<Pro
             holder.productQuantityView.setText("Cantidad: " + String.valueOf(amount));
             holder.productPriceView.setText(priceString);
 
-        } else {
-            // Covers the case of data not being ready yet.
-            holder.productItemView.setText("No Product");
-        }
+//        } else {
+//            // Covers the case of data not being ready yet.
+//            holder.productItemView.setText("No Product");
+//        }
     }
 
     public void setProducts(List<Product> products){
@@ -63,8 +64,7 @@ public class ProductsDetailsRecyclerViewAdapter extends RecyclerView.Adapter<Pro
         this.amounts = amounts;
         notifyDataSetChanged();
     }
-    // getItemCount() is called many times, and when it is first called,
-    // mProducts has not been updated (means initially, it's null, and we can't return null).
+
     @Override
     public int getItemCount() {
         if (products != null)

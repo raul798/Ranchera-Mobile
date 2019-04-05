@@ -1,13 +1,10 @@
 package ado.edu.pucmm.rancherasystem.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -62,7 +59,7 @@ public class OrderSummaryActivity extends AppCompatActivity {
         for(Integer id : productsIds){
             //current esta nulo por alguna razon
             Product current = ranchDatabaseRepo.getOrderProduct(this,id);
-            Integer amount = ranchDatabaseRepo.getSelectedProductAmount(this,id);
+            Integer amount = ranchDatabaseRepo.getSelectedProductAmount(this,id, billId);
             total += current.getPrice() * amount;
             products.add(current);
             selectedAmounts.add(amount);

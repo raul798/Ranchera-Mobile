@@ -87,7 +87,6 @@ public class SelectProductsActivity extends AppCompatActivity
         } else{
             Toast.makeText(SelectProductsActivity.this,"Seleccione un producto", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override

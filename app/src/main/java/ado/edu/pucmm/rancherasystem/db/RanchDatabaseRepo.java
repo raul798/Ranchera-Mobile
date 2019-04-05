@@ -261,7 +261,7 @@ public class RanchDatabaseRepo {
         return product;
     }
 
-    public Integer getSelectedProductAmount(Context context, Integer product_id) {
+    public Integer getSelectedProductAmount(Context context, Integer product_id, Integer billId) {
         if (detailDao == null) {
             detailDao = RanchDatabaseRepo.getDb(context).getDetailDao();
         }
@@ -269,7 +269,7 @@ public class RanchDatabaseRepo {
         Integer amount = null;
 
         try {
-            amount = new amountAsyncTask(detailDao).execute(product_id).get();
+            amount = new amountAsyncTask(detailDao).execute(product_id, billId).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -321,7 +321,7 @@ public class RanchDatabaseRepo {
 
         @Override
         protected Integer doInBackground(final Integer... params) {
-            return asyncTaskDao.getSelectedProductAmount(params[0]);
+            return asyncTaskDao.getSelectedProductAmount(params[0], params[1]);
         }
     }
 
