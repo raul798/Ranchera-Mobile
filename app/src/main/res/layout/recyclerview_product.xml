@@ -25,9 +25,9 @@
         android:layout_marginStart="75dp"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="6dp"
+        android:textColor="@color/colorWhite"
         android:backgroundTint="@android:color/black"
         android:text="+"
-        android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/bttn_minus"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,9 +40,9 @@
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="6dp"
+        android:textColor="@color/colorWhite"
         android:backgroundTint="@android:color/black"
         android:text="-"
-        android:textColor="@color/white"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/productNameRecyclerView"
         app:layout_constraintTop_toTopOf="parent" />

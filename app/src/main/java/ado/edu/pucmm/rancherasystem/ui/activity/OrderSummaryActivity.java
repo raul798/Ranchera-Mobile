@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -29,6 +30,8 @@ public class OrderSummaryActivity extends AppCompatActivity {
     private List<Product> products;
     private ProductsDetailsRecyclerViewAdapter recyclerAdapter;
     private RanchDatabaseRepo ranchDatabaseRepo;
+    private ImageView billIcon;
+    private TextView billAmount;
 
 
     @Override

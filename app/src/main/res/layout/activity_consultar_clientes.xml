@@ -148,7 +148,7 @@
         android:completionThreshold="1"
         android:dropDownAnchor="@id/text_view_clientes"
         android:hint="@string/search_clientes"
-        android:textColorLink="@color/colorAccent"
+        android:textColorLink="@color/colorCustomGrey"
         android:dropDownVerticalOffset="0dp"
         android:imeOptions="actionNext"
         android:inputType="text"
@@ -198,7 +198,7 @@
         android:layout_marginTop="52dp"
         android:text="Producto"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintHorizontal_bias="0.33"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -213,7 +213,7 @@
         android:layout_marginRight="8dp"
         android:text="Resumen"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.645"
+        app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -325,9 +325,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:text="x facturas vencidas"
-        android:textColor="@android:color/holo_red_light"
+        android:textColor="@color/customRed"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -440,42 +439,44 @@
     <Button
         android:id="@+id/cancel_button"
         android:layout_width="128dp"
-        android:layout_height="45dp"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_red_light"
+        android:background="@color/customRed"
         android:onClick="cancelOrder"
         android:text="Cancelar"
+        android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.123"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bill_clientes_text"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintVertical_bias="0.81" />
 
     <Button
         android:id="@+id/finish_button"
         android:layout_width="128dp"
-        android:layout_height="45dp"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_blue_light"
+        android:background="@color/colorPrimaryLight"
         android:onClick="toProductSelection"
         android:text="Siguiente"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.88"
+        app:layout_constraintHorizontal_bias="0.906"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bill_clientes_text"
-        app:layout_constraintVertical_bias="0.552" />
+        app:layout_constraintVertical_bias="0.81" />
 
     <ImageView
         android:id="@+id/phone_icon"

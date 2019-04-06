@@ -9,21 +9,25 @@
 
     <Button
         android:id="@+id/cancel_button"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="128dp"
-        android:layout_height="45dp"
+        android:layout_height="42dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/holo_blue_bright"
+        android:background="@color/colorPrimaryLight"
         android:onClick="returnToMenu"
         android:text="Volver"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bill_clientes_text" />
+        app:layout_constraintTop_toBottomOf="@+id/bill_clientes_text"
+        app:layout_constraintVertical_bias="0.841" />
 
     <ImageView
         android:id="@+id/search_icon_clientes"
@@ -54,7 +58,7 @@
         android:completionThreshold="1"
         android:dropDownAnchor="@id/text_view_clientes"
         android:hint="@string/search_clientes"
-        android:textColorLink="@color/colorAccent"
+        android:textColorLink="@color/colorCustomGrey"
         android:dropDownVerticalOffset="0dp"
         android:imeOptions="actionNext"
         android:inputType="text"
@@ -396,11 +400,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Cliente"
+        android:text="Buscar Cliente"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/search_cliente"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.472" />

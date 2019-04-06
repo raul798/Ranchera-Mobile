@@ -78,6 +78,7 @@
             android:name=".ui.activity.OrderSummaryActivity"
             android:label="Ranchera"
             android:parentActivityName=".ui.activity.SelectProductsActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -87,6 +88,7 @@
             android:name=".ui.activity.SelectProductsActivity"
             android:label="Ranchera"
             android:parentActivityName=".ui.activity.SelectClientActivity"
+            android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
