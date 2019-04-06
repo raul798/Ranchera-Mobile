@@ -31,8 +31,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ado.edu.pucmm.rancherasystem.ui.activity.MainActivity" />
         </activity>
-        <activity android:name=".ui.activity.BillDetailActivity" />
-        <activity android:name=".ui.activity.ListOfBills" />
+        <activity
+            android:name=".ui.activity.BillDetailActivity"
+            android:label="@string/ranchera"
+            android:parentActivityName=".ui.activity.ListOfBills"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ado.edu.pucmm.rancherasystem.ui.activity.ListOfBills" />
+        </activity>
+        <activity
+            android:name=".ui.activity.ListOfBills"
+            android:label="@string/ranchera"
+            android:parentActivityName=".ui.activity.ClientInformationActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ado.edu.pucmm.rancherasystem.ui.activity.ClientInformationActivity" />
+        </activity>
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/ranchera"

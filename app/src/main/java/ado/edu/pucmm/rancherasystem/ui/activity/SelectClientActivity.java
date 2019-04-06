@@ -9,14 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 import ado.edu.pucmm.rancherasystem.viewmodel.BillViewModel;
@@ -28,17 +31,29 @@ public class SelectClientActivity extends AppCompatActivity
     private BillViewModel billViewModel;
     private Client client;
     private Bill bill;
+    private RanchDatabaseRepo ranchDatabaseRepo;
+    private ImageView billIcon;
+    private TextView billAmount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consultar_clientes);
 
+        ranchDatabaseRepo = new RanchDatabaseRepo(getBaseContext());
         clients = new ArrayList<Client>();
         client = null;
+                //payedAmount = repo.getBillAmount(this,bill.getId());
 
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
         this.billViewModel.setListener(this);
+
+        billIcon = findViewById(R.id.bill_icon);
+        billAmount = findViewById(R.id.bill_clientes_text);
+
+        billIcon.setVisibility(View.INVISIBLE);
+        billAmount.setVisibility(View.INVISIBLE);
 
         AutoCompleteTextView clientAutoComplete = findViewById(R.id.search_cliente);
         ClientSearchAdapter adapter = new ClientSearchAdapter(this, R.layout.client_search_dropdown, clients);
@@ -49,10 +64,15 @@ public class SelectClientActivity extends AppCompatActivity
     private AdapterView.OnItemClickListener onItemClickListener =
             (adapterView, view, i, l) -> {
                 client = (Client) adapterView.getItemAtPosition(i);
+                Integer billCount = ranchDatabaseRepo.getDoneBillCount(this, client.getId());
+                String billMessage = String.valueOf(billCount) + " Facturas vencidas";
+                billIcon.setVisibility(View.VISIBLE);
+                billAmount.setVisibility(View.VISIBLE);
                 setText(R.id.name_clientes_text, client.getName());
                 setText(R.id.phone_clientes_text, client.getPhoneNumber());
                 setText(R.id.email_clientes_text, client.getEmail());
                 setText(R.id.address_clientes_text, client.getAddress());
+                setText(R.id.bill_clientes_text, billMessage);
                 hideKeyboard();
             };
 

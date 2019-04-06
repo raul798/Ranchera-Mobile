@@ -21,7 +21,7 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillVi
     private final Context context;
     private RanchDatabaseRepo ranchDatabaseRepo;
 
-    public static final String EXTRA_NUMBER = "id_client";
+    public static final String EXTRA_NUMBER = "billId";
 
     class BillViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView id;
