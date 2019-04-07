@@ -3,6 +3,7 @@ package ado.edu.pucmm.rancherasystem.ui.activity;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
@@ -77,6 +78,7 @@ public class SelectClientActivity extends AppCompatActivity
                 }
 
                 else{
+                    billAmount.setTextColor(Color.BLACK);
                     billMessage = " No tiene facturas vencidas";
                 }
 

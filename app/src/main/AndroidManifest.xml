@@ -66,7 +66,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.activity.SupportActivity" />
         <activity
-            android:name=".ui.activity.ConfirmacionOrden"
+            android:name=".ui.activity.ConfirmOrderActivity"
             android:label="Ranchera"
             android:parentActivityName=".ui.activity.OrderSummaryActivity"
             android:screenOrientation="portrait">

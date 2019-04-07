@@ -25,11 +25,10 @@ import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 
-public class ConfirmacionOrden extends AppCompatActivity {
+public class ConfirmOrderActivity extends AppCompatActivity {
 
     private Button finishButton;
     private ImageView finishCircle;
-    private ImageView uninishCircle;
     private TextView finishText;
     private ImageView endStatusCircleComplete;
     private ImageView endStatusCircleIncomplete;
@@ -48,7 +47,7 @@ public class ConfirmacionOrden extends AppCompatActivity {
         //set button unabled
         finishButton = (Button) findViewById(R.id.finish_button);
         finishButton.setEnabled(false);
-        finishButton.setBackgroundColor(getResources().getColor(android.R.color.holo_red_light));
+        finishButton.setBackgroundColor(getResources().getColor(R.color.customRed));
 
         finishCircle = (ImageView) findViewById(R.id.confirmation_circle);
         finishCircle.setVisibility(View.INVISIBLE);
@@ -77,7 +76,7 @@ public class ConfirmacionOrden extends AppCompatActivity {
             @Override
             public void onSigned() {
                 finishButton.setEnabled(true);
-                finishButton.setBackgroundColor(getResources().getColor(android.R.color.holo_green_light));
+                finishButton.setBackgroundColor(getResources().getColor(R.color.colorGreen));
             }
 
             @Override
