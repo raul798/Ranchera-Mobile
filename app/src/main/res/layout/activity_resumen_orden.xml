@@ -177,7 +177,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TableRow
+    <TextView
         android:id="@+id/first_row_resumen"
         android:layout_width="60dp"
         android:layout_height="2dp"
@@ -188,7 +188,7 @@
         app:layout_constraintEnd_toStartOf="@+id/producto_resumen_circle"
         app:layout_constraintHorizontal_bias="0.58"
         app:layout_constraintStart_toEndOf="@+id/cliente_resumen_circle"
-        app:layout_constraintTop_toTopOf="parent"></TableRow>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TableRow
         android:id="@+id/second_row_resumen"

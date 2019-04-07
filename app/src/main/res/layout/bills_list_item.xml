@@ -50,16 +50,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:padding="15dp"
-        android:src="@drawable/ic_baseline_inbox_24px"
+        android:src="@drawable/ic_baseline_assignment_late_24px"
         android:tint="@color/colorCustomGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.127" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:layout_width="wrap_content"

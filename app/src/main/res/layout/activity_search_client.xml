@@ -359,36 +359,38 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:visibility="invisible"
         android:layout_marginBottom="8dp"
         android:gravity="center"
+        android:onClick="toBillList"
         android:padding="15dp"
         android:src="@drawable/ic_format_list_bulleted_24dp"
+        android:tint="@color/colorPrimary"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:onClick="toBillList"
         app:layout_constraintStart_toEndOf="@+id/bill_clientes_text"
         app:layout_constraintTop_toTopOf="@+id/address_clientes_subtext"
-        app:layout_constraintVertical_bias="0.185" />
+        app:layout_constraintVertical_bias="0.16000003" />
 
     <ImageView
         android:id="@+id/bill_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center"
         android:padding="15dp"
+        android:src="@drawable/ic_baseline_assignment_late_24px"
         android:visibility="invisible"
-        android:src="@drawable/ic_baseline_inbox_24px"
-        android:tint="@color/colorCustomGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/bill_clientes_text"
-        app:layout_constraintHorizontal_bias="0.181"
+        app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fourth_separator_resumen"
-        app:layout_constraintVertical_bias="0.089" />
+        app:layout_constraintVertical_bias="0.04000002" />
 
     <TextView
         android:id="@+id/textView_title"
