@@ -60,6 +60,7 @@ public class ListOfBills extends AppCompatActivity {
 
             if(total - payedAmount <= 0){
                 bills.remove(bill);
+                break;
             }
         }
 
