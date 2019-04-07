@@ -88,7 +88,7 @@ public class BillDetailActivity extends AppCompatActivity {
     }
 
     public void toSummary(View view) {
-        Intent intent = new Intent(this, MenuActivity.class);
+        Intent intent = new Intent(this, PayBillActivity.class);
         intent.putExtra("billId", billId);
         startActivity(intent);
     }

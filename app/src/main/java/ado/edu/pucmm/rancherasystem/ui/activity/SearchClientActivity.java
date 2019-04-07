@@ -55,12 +55,27 @@ public class SearchClientActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener onItemClickListener =
             (adapterView, view, i, l) -> {
                 billIcon.setVisibility(View.VISIBLE);
-                billButton.setVisibility(View.VISIBLE);
                 client = (Client) adapterView.getItemAtPosition(i);
                 billCount = ranchDatabaseRepo.getDoneBillCount(this, client.getId());
-                String billMessage = String.valueOf(billCount) + " Facturas Vencidas";
+                String billMessage =  billMessage = String.valueOf(billCount);
+
+                if(billCount == 1) {
+                    billButton.setVisibility(View.VISIBLE);
+                    billMessage = billMessage + " factura vencida";
+                }
+
+                else if(billCount > 1){
+                    billButton.setVisibility(View.VISIBLE);
+                    billMessage = billMessage + " facturas vencidas";
+                }
+
+                else{
+                    billMessage = " No tiene facturas vencidas";
+                }
+
                 billAmount.setText(billMessage);
                 billAmount.setVisibility(View.VISIBLE);
+
                 setText(R.id.name_clientes_text, client.getName());
                 setText(R.id.phone_clientes_text, client.getPhoneNumber());
                 setText(R.id.email_clientes_text, client.getEmail());

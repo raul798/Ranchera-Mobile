@@ -44,6 +44,8 @@ public class OrderSummaryActivity extends AppCompatActivity {
         recyclerAdapter = new ProductsDetailsRecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        billIcon = findViewById(R.id.bill_icon3);
+        billAmount = findViewById(R.id.bill_clientes_text3);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -59,8 +61,27 @@ public class OrderSummaryActivity extends AppCompatActivity {
 
         productsIds = ranchDatabaseRepo.getProductsFromDetail(this, billId);
 
+        Integer billCount = ranchDatabaseRepo.getDoneBillCount(this, client.getId());
+
+        String billMessage = String.valueOf(billCount);
+
+        if(billCount == 1) {
+            billMessage = billMessage + " factura vencida";
+        }
+
+        else if(billCount > 1){
+            billMessage = billMessage + " facturas vencidas";
+        }
+
+        else{
+            billMessage = " No tiene facturas vencidas";
+        }
+
+        billIcon.setVisibility(View.VISIBLE);
+        billAmount.setVisibility(View.VISIBLE);
+        billAmount.setText(billMessage);
+
         for(Integer id : productsIds){
-            //current esta nulo por alguna razon
             Product current = ranchDatabaseRepo.getOrderProduct(this,id);
             Integer amount = ranchDatabaseRepo.getSelectedProductAmount(this,id, billId);
             total += current.getPrice() * amount;

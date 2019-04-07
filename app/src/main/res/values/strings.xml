@@ -2,7 +2,7 @@
     <string name="app_name">Ranchera</string>
     <string name="iniciar_sesion">Iniciar Sesion</string>
     <string name="recordarme">Recordarme</string>
-    <string name="olvide"><u>¿Olvide usuario y/o contraseña?</u></string>
+    <string name="olvide"><u>¿Olvidó su usuario y/o contraseña?</u></string>
     <string name="ingrese_correo"><u>Ingrese su correo registrado <b>en Ranchera</b></u></string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="tab_text_1">Resumen</string>

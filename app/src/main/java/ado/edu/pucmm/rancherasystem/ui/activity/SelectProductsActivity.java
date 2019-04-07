@@ -76,8 +76,10 @@ public class SelectProductsActivity extends AppCompatActivity
     public void toOrderSummary(View view) {
         if(!products.isEmpty()) {
             int index = 0;
+            int amount;
             for (Product product : products) {
-                detail = new Detail(billId, product.getId(), amounts.get(index));
+                amount = amounts.get(index);
+                detail = new Detail(billId, product.getId(), amount);
                 detailViewModel.insert(detail);
                 index++;
             }

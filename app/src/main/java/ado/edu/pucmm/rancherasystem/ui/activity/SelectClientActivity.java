@@ -65,7 +65,21 @@ public class SelectClientActivity extends AppCompatActivity
             (adapterView, view, i, l) -> {
                 client = (Client) adapterView.getItemAtPosition(i);
                 Integer billCount = ranchDatabaseRepo.getDoneBillCount(this, client.getId());
-                String billMessage = String.valueOf(billCount) + " Facturas vencidas";
+
+                String billMessage = String.valueOf(billCount);
+
+                if(billCount == 1) {
+                    billMessage = billMessage + " factura vencida";
+                }
+
+                else if(billCount > 1){
+                    billMessage = billMessage + " facturas vencidas";
+                }
+
+                else{
+                    billMessage = " No tiene facturas vencidas";
+                }
+
                 billIcon.setVisibility(View.VISIBLE);
                 billAmount.setVisibility(View.VISIBLE);
                 setText(R.id.name_clientes_text, client.getName());
