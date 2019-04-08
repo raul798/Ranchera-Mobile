@@ -20,4 +20,7 @@ public interface PaymentDao {
     @Query("SELECT Sum(amount) FROM Payment WHERE bill = :bill")
     float getBillAmounts(int bill);
 
+    @Query("UPDATE Payment SET signature = :signature WHERE id = :id")
+    void updatePaymentSignature(int id, byte[] signature);
+
 }

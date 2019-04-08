@@ -16,10 +16,16 @@ public class Payment {
     @NonNull
     private int client;
 
+    private byte[] signature;
+
     public Payment(float amount, int bill, int client) {
         this.amount = amount;
         this.bill = bill;
         this.client = client;
+    }
+
+    public byte[] getSignature() {
+        return signature;
     }
 
     public int getId() {
@@ -52,5 +58,9 @@ public class Payment {
 
     public void setClient(int client) {
         this.client = client;
+    }
+
+    public void setSignature(byte[] signature) {
+        this.signature = signature;
     }
 }

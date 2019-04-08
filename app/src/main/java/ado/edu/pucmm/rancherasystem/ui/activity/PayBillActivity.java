@@ -83,15 +83,18 @@ public class PayBillActivity extends AppCompatActivity {
 
         bill = ranchDatabaseRepo.getBill(this,billId);
         clientId = bill.getClient();
-
     }
-
 
     public void finishOrder(View view) {
         String input = pagoEditText.getText().toString();
         if (!input.isEmpty()) {
             toPay = Float.valueOf(pagoEditText.getText().toString());
-            if(toPay > 0) {
+            //float total = bill.getTotal();
+            float payedAmount = ranchDatabaseRepo.getBillAmount(this, billId);
+            float total = bill.getTotal();
+            float owed = total - payedAmount;
+
+            if(toPay > 0 && toPay <= owed ) {
                 finishCircle.setVisibility(View.VISIBLE);
                 finishText.setVisibility(View.VISIBLE);
                 signaturePad.setVisibility(View.INVISIBLE);
@@ -103,12 +106,11 @@ public class PayBillActivity extends AppCompatActivity {
                 Payment payment = new Payment(Float.parseFloat(pagoEditText.getText().toString()), billId, clientId);
                 paymentViewModel.insert(payment);
 
-                bill.setTotal(bill.getTotal() - toPay);
                 Bitmap signature = signaturePad.getSignatureBitmap();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 signature.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                //byte[] byteArray = stream.toByteArray();
-                //ranchDatabaseRepo.updateBillSignature(this, bill_id, byteArray);
+                byte[] byteArray = stream.toByteArray();
+                ranchDatabaseRepo.updatePaymentSignature(this, payment.getId(), byteArray);
                 finishText.setText("Pago realizado");
                 signature.recycle();
             }

@@ -552,6 +552,42 @@ public class RanchDatabaseRepo {
         return route;
     }
 
+    public void updatePaymentSignature(Context context, Integer payment_id, byte[] signature) {
+
+        if (paymentDao == null) {
+            paymentDao = RanchDatabaseRepo.getDb(context).getPaymentDao();
+        }
+
+        updateParamsSignaturePayment params = new updateParamsSignaturePayment(payment_id, signature);
+
+        new updateSignaturePaymentAsyncTask(paymentDao).execute(params);
+    }
+
+    private static class updateParamsSignaturePayment {
+        int id;
+        byte[] signature;
+
+        updateParamsSignaturePayment(int id, byte[] signature) {
+            this.id = id;
+            this.signature = signature;
+        }
+    }
+
+    private static class updateSignaturePaymentAsyncTask extends AsyncTask<updateParamsSignaturePayment, Void, Void> {
+
+        private PaymentDao asyncTaskDao;
+
+        updateSignaturePaymentAsyncTask(PaymentDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final updateParamsSignaturePayment... params) {
+            asyncTaskDao.updatePaymentSignature(params[0].id, params[0].signature);
+            return null;
+        }
+    }
+
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {
         public void onCreate(SupportSQLiteDatabase db) {
         }

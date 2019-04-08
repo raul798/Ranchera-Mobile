@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -32,6 +33,8 @@ public class ClientInformationActivity extends AppCompatActivity
     private Client client;
     private Bill bill;
     private int clientId;
+    private Integer billCount;
+    private TextView billAmount;
     private RanchDatabaseRepo ranchDatabaseRepo;
 
     @Override
@@ -40,6 +43,7 @@ public class ClientInformationActivity extends AppCompatActivity
         setContentView(R.layout.activity_client_information);
 
         ranchDatabaseRepo = new RanchDatabaseRepo();
+        billAmount = findViewById(R.id.bill_clientes_text);
 
         clients = new ArrayList<Client>();
         client = null;
@@ -51,6 +55,25 @@ public class ClientInformationActivity extends AppCompatActivity
         if (extras != null) {
             clientId = extras.getInt("clientId");
         }
+
+        billCount = ranchDatabaseRepo.getDoneBillCount(this, clientId);
+        String billMessage =  billMessage = String.valueOf(billCount);
+
+        if(billCount == 1) {
+            billMessage = billMessage + " factura vencida";
+        }
+
+        else if(billCount > 1){
+            billMessage = billMessage + " facturas vencidas";
+        }
+
+        else{
+            billAmount.setTextColor(Color.BLACK);
+            billMessage = " No tiene facturas vencidas";
+        }
+
+        billAmount.setText(billMessage);
+        billAmount.setVisibility(View.VISIBLE);
 
         client = ranchDatabaseRepo.getSingleClient(this, clientId);
 

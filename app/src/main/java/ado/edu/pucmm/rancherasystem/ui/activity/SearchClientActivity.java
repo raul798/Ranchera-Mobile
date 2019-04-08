@@ -34,6 +34,7 @@ public class SearchClientActivity extends AppCompatActivity {
     private ImageView billButton;
     private TextView billAmount;
     private RanchDatabaseRepo ranchDatabaseRepo;
+    private Bill bill;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,14 @@ public class SearchClientActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener onItemClickListener =
             (adapterView, view, i, l) -> {
                 billIcon.setVisibility(View.VISIBLE);
+                billButton.setVisibility(View.INVISIBLE);
                 client = (Client) adapterView.getItemAtPosition(i);
                 billCount = ranchDatabaseRepo.getDoneBillCount(this, client.getId());
+                //bill
+                //float payedAmount = ranchDatabaseRepo.getBillAmount(this, billId);
+                //float total = bill.getTotal();
+                //float owed = total - payedAmount;
+
                 String billMessage =  billMessage = String.valueOf(billCount);
 
                 if(billCount == 1) {
