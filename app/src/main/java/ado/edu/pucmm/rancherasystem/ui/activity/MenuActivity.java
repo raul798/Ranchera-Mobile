@@ -64,31 +64,36 @@ public class MenuActivity extends AppCompatActivity
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setEnabled(true);
-        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
-
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
-                bottomNavigationView.setEnabled(false);
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                //menuItem.//setEnabled(false);
+
                 switch (menuItem.getItemId())
                 {
                     case R.id.products:
                         intent = new Intent(MenuActivity.this, SearchProductActivity.class);
-                        startActivity(intent);
                         break;
                     case R.id.clients:
                         intent = new Intent(MenuActivity.this, SearchClientActivity.class);
-                        startActivity(intent);
                         break;
                     case R.id.inventory:
+                        //Provisional
+                        intent = new Intent(MenuActivity.this, MainActivity.class);
                         Toast.makeText(MenuActivity.this, "Rutas", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.order:
                         intent = new Intent(MenuActivity.this, SelectClientActivity.class);
-                        startActivity(intent);
                         break;
                 }
+                startActivity(intent);
+                menuItem.setEnabled(true);
+                return true;
             }
         });
+
+
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
