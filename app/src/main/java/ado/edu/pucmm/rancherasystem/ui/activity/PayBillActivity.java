@@ -130,4 +130,11 @@ public class PayBillActivity extends AppCompatActivity {
         Intent menuIntent = new Intent(PayBillActivity.this, MenuActivity.class);
         startActivity(menuIntent);
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, BillDetailActivity.class);
+        intent.putExtra("billId", billId);
+        startActivity(intent);
+    }
 }
