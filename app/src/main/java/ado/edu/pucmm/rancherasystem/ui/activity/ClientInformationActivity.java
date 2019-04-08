@@ -33,9 +33,9 @@ public class ClientInformationActivity extends AppCompatActivity
     private Client client;
     private Bill bill;
     private int clientId;
-    private Integer billCount;
     private TextView billAmount;
     private RanchDatabaseRepo ranchDatabaseRepo;
+    private List<Bill> bills;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class ClientInformationActivity extends AppCompatActivity
         billAmount = findViewById(R.id.bill_clientes_text);
 
         clients = new ArrayList<Client>();
+        bills = new ArrayList<Bill>();
         client = null;
 
         billViewModel = ViewModelProviders.of(this).get(BillViewModel.class);
@@ -56,14 +57,24 @@ public class ClientInformationActivity extends AppCompatActivity
             clientId = extras.getInt("clientId");
         }
 
-        billCount = ranchDatabaseRepo.getDoneBillCount(this, clientId);
-        String billMessage =  billMessage = String.valueOf(billCount);
+        bills = ranchDatabaseRepo.getDoneBills(this, clientId);
+        int cnt = 0;
+        float payedAmount;
+        float total;
+        float owed;
+        for(Bill bill : bills){
+            payedAmount = ranchDatabaseRepo.getBillAmount(this, bill.getId());
+            total = bill.getTotal();
+            owed = total - payedAmount;
+            if(owed != 0) cnt++;
+        }
+        String billMessage =  billMessage = String.valueOf(cnt);
 
-        if(billCount == 1) {
+        if(cnt == 1) {
             billMessage = billMessage + " factura vencida";
         }
 
-        else if(billCount > 1){
+        else if(cnt > 1){
             billMessage = billMessage + " facturas vencidas";
         }
 

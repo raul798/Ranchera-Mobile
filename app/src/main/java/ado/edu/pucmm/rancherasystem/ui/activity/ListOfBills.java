@@ -74,5 +74,10 @@ public class ListOfBills extends AppCompatActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ClientInformationActivity.class);
+        startActivity(intent);
+    }
 
 }

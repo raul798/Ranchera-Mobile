@@ -1,11 +1,9 @@
 package ado.edu.pucmm.rancherasystem.ui.activity;
 
 import android.app.Activity;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.view.inputmethod.InputMethodManager;
@@ -13,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,18 +20,16 @@ import ado.edu.pucmm.rancherasystem.adapters.ClientSearchAdapter;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
-import ado.edu.pucmm.rancherasystem.viewmodel.BillViewModel;
 
 public class SearchClientActivity extends AppCompatActivity {
 
     private List<Client> clients;
-    private Integer billCount;
     private Client client;
     private ImageView billIcon;
     private ImageView billButton;
     private TextView billAmount;
     private RanchDatabaseRepo ranchDatabaseRepo;
-    private Bill bill;
+    private List<Bill> bills;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +38,11 @@ public class SearchClientActivity extends AppCompatActivity {
 
         ranchDatabaseRepo = new RanchDatabaseRepo();
         clients = new ArrayList<Client>();
+        bills = new ArrayList<Bill>();
         client = null;
         billIcon = findViewById(R.id.bill_icon);
         billButton = findViewById(R.id.bill_button);
         billAmount = findViewById(R.id.bill_clientes_text);
-        //billIcon.setVisibility(R);
         AutoCompleteTextView clientAutoComplete = findViewById(R.id.search_cliente);
         ClientSearchAdapter adapter = new ClientSearchAdapter(this, R.layout.client_search_dropdown, clients);
         clientAutoComplete.setAdapter(adapter);
@@ -59,20 +54,25 @@ public class SearchClientActivity extends AppCompatActivity {
                 billIcon.setVisibility(View.VISIBLE);
                 billButton.setVisibility(View.INVISIBLE);
                 client = (Client) adapterView.getItemAtPosition(i);
-                billCount = ranchDatabaseRepo.getDoneBillCount(this, client.getId());
-                //bill
-                //float payedAmount = ranchDatabaseRepo.getBillAmount(this, billId);
-                //float total = bill.getTotal();
-                //float owed = total - payedAmount;
+                bills = ranchDatabaseRepo.getDoneBills(this, client.getId());
+                int cnt = 0;
+                float payedAmount;
+                float total;
+                float owed;
+                for(Bill bill : bills){
+                    payedAmount = ranchDatabaseRepo.getBillAmount(this, bill.getId());
+                    total = bill.getTotal();
+                    owed = total - payedAmount;
+                    if(owed != 0) cnt++;
+                }
+                String billMessage = String.valueOf(cnt);
 
-                String billMessage =  billMessage = String.valueOf(billCount);
-
-                if(billCount == 1) {
+                if(cnt == 1) {
                     billButton.setVisibility(View.VISIBLE);
                     billMessage = billMessage + " factura vencida";
                 }
 
-                else if(billCount > 1){
+                else if(cnt > 1){
                     billButton.setVisibility(View.VISIBLE);
                     billMessage = billMessage + " facturas vencidas";
                 }

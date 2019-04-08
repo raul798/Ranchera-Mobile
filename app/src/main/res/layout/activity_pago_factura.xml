@@ -88,7 +88,7 @@
         android:layout_marginBottom="1dp"
         android:gravity="center"
         android:padding="15dp"
-        android:src="@drawable/ic_radio_button_unchecked_24dp"
+        android:src="@drawable/ic_radio_button_checked_24dp"
         app:layout_constraintBottom_toTopOf="@+id/confirmacion_clientes_text3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.821"

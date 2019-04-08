@@ -35,6 +35,7 @@ public class SelectClientActivity extends AppCompatActivity
     private RanchDatabaseRepo ranchDatabaseRepo;
     private ImageView billIcon;
     private TextView billAmount;
+    private  List<Bill> bills;
 
 
     @Override
@@ -44,6 +45,7 @@ public class SelectClientActivity extends AppCompatActivity
 
         ranchDatabaseRepo = new RanchDatabaseRepo(getBaseContext());
         clients = new ArrayList<Client>();
+        bills = new ArrayList<Bill>();
         client = null;
                 //payedAmount = repo.getBillAmount(this,bill.getId());
 
@@ -65,15 +67,25 @@ public class SelectClientActivity extends AppCompatActivity
     private AdapterView.OnItemClickListener onItemClickListener =
             (adapterView, view, i, l) -> {
                 client = (Client) adapterView.getItemAtPosition(i);
-                Integer billCount = ranchDatabaseRepo.getDoneBillCount(this, client.getId());
+                bills = ranchDatabaseRepo.getDoneBills(this, client.getId());
+                int cnt = 0;
+                float payedAmount;
+                float total;
+                float owed;
+                for(Bill bill : bills){
+                    payedAmount = ranchDatabaseRepo.getBillAmount(this, bill.getId());
+                    total = bill.getTotal();
+                    owed = total - payedAmount;
+                    if(owed != 0) cnt++;
+                }
 
-                String billMessage = String.valueOf(billCount);
+                String billMessage = String.valueOf(cnt);
 
-                if(billCount == 1) {
+                if(cnt == 1) {
                     billMessage = billMessage + " factura vencida";
                 }
 
-                else if(billCount > 1){
+                else if(cnt > 1){
                     billMessage = billMessage + " facturas vencidas";
                 }
 
