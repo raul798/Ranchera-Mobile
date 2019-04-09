@@ -15,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +27,7 @@ import ado.edu.pucmm.rancherasystem.adapters.RouteRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.remote.SessionService;
 import ado.edu.pucmm.rancherasystem.viewmodel.RouteViewModel;
 
 public class MenuActivity extends AppCompatActivity
@@ -38,11 +41,14 @@ public class MenuActivity extends AppCompatActivity
     private int clientId;
     private RouteViewModel routeViewModel;
     private List<Integer> clientsIds;
-
+    private SessionService sessionService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sessionService = SessionService.getInstance(getBaseContext());
+
         rancheraDatabaseRepo = new RanchDatabaseRepo();
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -60,36 +66,46 @@ public class MenuActivity extends AppCompatActivity
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        TextView displayName = navigationView.getHeaderView(0).findViewById(R.id.display_name);
+        TextView email = navigationView.getHeaderView(0).findViewById(R.id.email);
+
+        navigationView.getHeaderView(0).findViewById(R.id.logout).setOnClickListener(v -> {
+            sessionService.logout();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            Toast.makeText(this, "Adios", Toast.LENGTH_SHORT).show();
+        });
+
+        displayName.setText(sessionService.getDisplay());
+        email.setText(sessionService.getEmail());
+
         navigationView.setNavigationItemSelectedListener(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setEnabled(true);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                //menuItem.//setEnabled(false);
+        bottomNavigationView.setOnNavigationItemSelectedListener(menuItem -> {
+            //menuItem.//setEnabled(false);
 
-                switch (menuItem.getItemId())
-                {
-                    case R.id.products:
-                        intent = new Intent(MenuActivity.this, SearchProductActivity.class);
-                        break;
-                    case R.id.clients:
-                        intent = new Intent(MenuActivity.this, SearchClientActivity.class);
-                        break;
-                    case R.id.inventory:
-                        //Provisional
-                        intent = new Intent(MenuActivity.this, MainActivity.class);
-                        Toast.makeText(MenuActivity.this, "Rutas", Toast.LENGTH_SHORT).show();
-                        break;
-                    case R.id.order:
-                        intent = new Intent(MenuActivity.this, SelectClientActivity.class);
-                        break;
-                }
-                startActivity(intent);
-                menuItem.setEnabled(true);
-                return true;
+            switch (menuItem.getItemId())
+            {
+                case R.id.products:
+                    intent = new Intent(MenuActivity.this, SearchProductActivity.class);
+                    break;
+                case R.id.clients:
+                    intent = new Intent(MenuActivity.this, SearchClientActivity.class);
+                    break;
+                case R.id.inventory:
+                    //Provisional
+                    intent = new Intent(MenuActivity.this, MainActivity.class);
+                    Toast.makeText(MenuActivity.this, "Rutas", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.order:
+                    intent = new Intent(MenuActivity.this, SelectClientActivity.class);
+                    break;
             }
+            startActivity(intent);
+            menuItem.setEnabled(true);
+            return true;
         });
 
 
