@@ -587,6 +587,42 @@ public class RanchDatabaseRepo {
             return null;
         }
     }
+    //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+
+    private static class updateQuantityAsyncTask extends AsyncTask<updateQuantityParams, Void, Void> {
+
+        private ProductDao asyncTaskDao;
+
+        updateQuantityAsyncTask(ProductDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final updateQuantityParams... params) {
+            asyncTaskDao.updateProductQuantity(params[0].id, params[0].quantity);
+            return null;
+        }
+    }
+
+    private static class updateQuantityParams {
+        int id;
+        int quantity;
+
+        updateQuantityParams(int id, int quantity) {
+            this.id = id;
+            this.quantity = quantity;
+        }
+    }
+
+    public void updateQuantity(Context context, Integer product_id, Integer quantity) {
+        if (productDao == null) {
+            productDao = RanchDatabaseRepo.getDb(context).getProductDao();
+        }
+
+        updateQuantityParams params = new updateQuantityParams(product_id, quantity);
+
+        new updateQuantityAsyncTask(productDao).execute(params);
+    }
 
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {
         public void onCreate(SupportSQLiteDatabase db) {

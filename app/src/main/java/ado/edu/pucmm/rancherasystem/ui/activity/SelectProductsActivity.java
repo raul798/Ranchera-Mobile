@@ -17,6 +17,7 @@ import java.util.List;
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.adapters.ProductRecyclerViewAdapter;
 import ado.edu.pucmm.rancherasystem.adapters.ProductSearchAdapter;
+import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Detail;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.viewmodel.DetailViewModel;
@@ -103,12 +104,17 @@ public class SelectProductsActivity extends AppCompatActivity
         }
 
         if(!isThere) {
-            products.add(product);
-            amounts.add(PRESET_AMOUNT);
-            max.add(PRESET_AMOUNT);
-            recyclerAdapter.setProducts(products);
-            recyclerAdapter.setAmounts(amounts);
-            recyclerAdapter.setMax(max);
+            if(product.getQuantity() > 0) {
+                products.add(product);
+                amounts.add(PRESET_AMOUNT);
+                max.add(PRESET_AMOUNT);
+                recyclerAdapter.setProducts(products);
+                recyclerAdapter.setAmounts(amounts);
+                recyclerAdapter.setMax(max);
+            }
+            else{
+                Toast.makeText(SelectProductsActivity.this, "Actualmente no hay " + product.getName() + " en inventario.", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

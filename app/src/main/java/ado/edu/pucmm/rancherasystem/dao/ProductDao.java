@@ -34,4 +34,7 @@ public interface ProductDao {
     @Query("SELECT * FROM Product WHERE name like :productName ")
     List<Product> getProducts(String productName);
 
+    @Query("UPDATE Product SET quantity = :quantity WHERE id = :id")
+    void updateProductQuantity(int id, float quantity);
+
 }

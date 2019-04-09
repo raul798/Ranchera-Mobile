@@ -19,11 +19,14 @@ import android.widget.TextView;
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.entity.Product;
 
 public class ConfirmOrderActivity extends AppCompatActivity {
 
@@ -38,11 +41,15 @@ public class ConfirmOrderActivity extends AppCompatActivity {
     private RanchDatabaseRepo ranchDatabaseRepo =  new RanchDatabaseRepo();
     private int bill_id;
     private Intent intent;
+    private List<Integer> products;
+    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirmacion_orden);
+
+        products = new ArrayList<Integer>();
 
         //set button unabled
         finishButton = (Button) findViewById(R.id.finish_button);
@@ -126,12 +133,18 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
         intent = new Intent(this, MenuActivity.class);
         intent.putExtra("clientId", client.getId());
-        //startActivity(intent);
+
+        //aiuda
+        products = ranchDatabaseRepo.getProductsFromDetail(this, bill_id);
+        int selectedQuantity;
+        for (Integer productId : products){
+            product = ranchDatabaseRepo.getOrderProduct(this, productId);
+            selectedQuantity = ranchDatabaseRepo.getSelectedProductAmount(this, productId, bill_id);
+            ranchDatabaseRepo.updateQuantity(this, productId, product.getQuantity() - selectedQuantity);
+        }
     }
 
     public void toDashboard(View view) {
-
-        //Intent intent = new Intent(this, MenuActivity.class);
         startActivity(intent);
     }
 
