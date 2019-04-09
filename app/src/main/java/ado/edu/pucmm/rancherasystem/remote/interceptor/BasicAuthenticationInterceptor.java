@@ -13,6 +13,7 @@ public class BasicAuthenticationInterceptor implements Interceptor {
     public BasicAuthenticationInterceptor(String user, String password) {
         this.credentials = user != null &&
                 password != null ? Credentials.basic(user, password) : null;
+
     }
 
     @Override
