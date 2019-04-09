@@ -94,11 +94,6 @@ public class MenuActivity extends AppCompatActivity
                 case R.id.clients:
                     intent = new Intent(MenuActivity.this, SearchClientActivity.class);
                     break;
-                case R.id.inventory:
-                    //Provisional
-                    intent = new Intent(MenuActivity.this, MainActivity.class);
-                    Toast.makeText(MenuActivity.this, "Rutas", Toast.LENGTH_SHORT).show();
-                    break;
                 case R.id.order:
                     intent = new Intent(MenuActivity.this, SelectClientActivity.class);
                     break;
