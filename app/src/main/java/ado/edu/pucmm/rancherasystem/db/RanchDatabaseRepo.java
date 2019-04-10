@@ -59,6 +59,34 @@ public class RanchDatabaseRepo {
         return ranchDb;
     }
 
+    public void insertClient(Context context, Client client) {
+        if (clientDao == null) {
+            clientDao = RanchDatabaseRepo.getDb(context).getClientDao();
+        }
+
+        try {
+           new InsertClientAsyncTask(clientDao).execute(client);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static class InsertClientAsyncTask extends AsyncTask<Client, Void, Void> {
+
+        private ClientDao clientDao;
+
+        InsertClientAsyncTask(ClientDao clientDao) {
+            this.clientDao = clientDao;
+        }
+
+        @Override
+        protected Void doInBackground(Client... clients) {
+            clientDao.insert(clients[0]);
+            return null;
+        }
+    }
+
     public void insert(Bill bill) {
         new InsertAsyncTask().execute(bill);
     }
@@ -341,6 +369,30 @@ public class RanchDatabaseRepo {
         @Override
         protected Product doInBackground(final Integer... params) {
             return asyncTaskDao.searchProductByID(params[0]);
+        }
+    }
+
+    public void eraseAllClients(Context context) {
+        clientDao = clientDao == null? RanchDatabaseRepo.getDb(context).getClientDao(): clientDao;
+        try {
+            new deleteClientAsyncTask(clientDao).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class deleteClientAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private ClientDao asyncTaskDao;
+
+        deleteClientAsyncTask(ClientDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            asyncTaskDao.eraseClients();
+            return null;
         }
     }
 

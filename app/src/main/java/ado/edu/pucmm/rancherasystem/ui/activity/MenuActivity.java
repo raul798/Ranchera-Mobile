@@ -64,10 +64,10 @@ public class MenuActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        recyclerAdapter = new RouteRecyclerViewAdapter(this);
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+//        recyclerAdapter = new RouteRecyclerViewAdapter(this);
+//        recyclerView.setAdapter(recyclerAdapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
@@ -121,10 +121,10 @@ public class MenuActivity extends AppCompatActivity
         routes = rancheraDatabaseRepo.getAllRoutes();
 
         for(Route route : routes) {
-            Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
-            clients.add(client);
+//            Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
+//            clients.add(client);
         }
-        recyclerAdapter.setClients(clients);
+        //recyclerAdapter.setClients(rancheraDatabaseRepo.getAllClients().getValue());
     }
 
     @Override
@@ -152,6 +152,7 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.helpButton) {
 
             dataBaseUpdater.updateCustomers(this);
+
        //     recyclerAdapter.;
 //            Intent intent = new Intent(this, SupportActivity.class);
   //          startActivity(intent);

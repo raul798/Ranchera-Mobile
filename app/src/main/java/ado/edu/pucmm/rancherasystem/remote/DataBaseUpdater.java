@@ -44,19 +44,20 @@ public class DataBaseUpdater {
              @Override
              public void onResponse(Call<List<CustomerEntity>> call, Response<List<CustomerEntity>> response) {
                  if(response.isSuccessful()) {
-                     ClientDao clientDao = RanchDatabaseRepo.getDb(context).getClientDao();
-                     clientDao.deleteAll();
+                    ranchDatabaseRepo.eraseAllClients(context);
                      List<CustomerEntity> customers = response.body();
 
-                     for(CustomerEntity customer : customers){
-                         int id = customer.getIdCustomer();
-                         String name = customer.getGivenName() + " " + customer.getFamilyName();
-                         String phone = customer.getPrimaryPhone().getFreeFormNumber();
-                         String email = customer.getPrimaryEmailAddr().getAddress();
-                         String address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
-                         Client client = new Client(id, name, phone, address, email);
-                         clientDao.insert(client);
-                     }
+                    if(customers != null) {
+                        for (CustomerEntity customer : customers) {
+                            int id = customer.getIdCustomer();
+                            String name = customer.getGivenName() + " " + customer.getFamilyName();
+                            String phone = customer.getPrimaryPhone().getFreeFormNumber();
+                            String email = customer.getPrimaryEmailAddr().getAddress();
+                            String address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
+                            Client client = new Client(id, name, phone, address, email);
+                            ranchDatabaseRepo.insertClient(context, client);
+                        }
+                    }
 
                  }
                  else{

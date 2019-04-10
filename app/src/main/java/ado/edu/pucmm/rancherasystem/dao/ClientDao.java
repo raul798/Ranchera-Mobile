@@ -28,6 +28,9 @@ public interface ClientDao {
     @Query("SELECT * from Client ORDER BY id ASC")
     LiveData<List<Client>> getAllClients();
 
+    @Query("DELETE FROM Client")
+    void eraseClients();
+
     @Query("SELECT * FROM Client WHERE name like :clientName ")
     List<Client> getClients(String clientName);
 
