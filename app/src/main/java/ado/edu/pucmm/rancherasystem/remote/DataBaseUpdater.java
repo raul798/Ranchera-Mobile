@@ -13,6 +13,7 @@ import ado.edu.pucmm.rancherasystem.dao.ClientDao;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 import ado.edu.pucmm.rancherasystem.remote.entity.CustomerEntity;
+import ado.edu.pucmm.rancherasystem.remote.entity.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +40,6 @@ public class DataBaseUpdater {
 
          Call<List<CustomerEntity>> customerCall = dataSource.getService().getCustomers();
 
-
          customerCall.enqueue(new Callback<List<CustomerEntity>>() {
              @Override
              public void onResponse(Call<List<CustomerEntity>> call, Response<List<CustomerEntity>> response) {
@@ -58,7 +58,8 @@ public class DataBaseUpdater {
                          clientDao.insert(client);
                      }
 
-                 } else{
+                 }
+                 else{
                      Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
                  }
              }

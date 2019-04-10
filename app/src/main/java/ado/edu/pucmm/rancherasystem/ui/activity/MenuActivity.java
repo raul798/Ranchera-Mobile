@@ -150,6 +150,7 @@ public class MenuActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.helpButton) {
+
             dataBaseUpdater.updateCustomers(this);
        //     recyclerAdapter.;
 //            Intent intent = new Intent(this, SupportActivity.class);
