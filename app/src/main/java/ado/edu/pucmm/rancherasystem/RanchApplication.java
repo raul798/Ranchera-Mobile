@@ -2,6 +2,8 @@ package ado.edu.pucmm.rancherasystem;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
+
 import ado.edu.pucmm.rancherasystem.entity.Faq;
 import ado.edu.pucmm.rancherasystem.viewmodel.FaqViewModel;
 
@@ -10,6 +12,7 @@ public class RanchApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Stetho.initializeWithDefaults(this);
 
         FaqViewModel faqViewModel = new FaqViewModel(this);
         faqViewModel.delete();

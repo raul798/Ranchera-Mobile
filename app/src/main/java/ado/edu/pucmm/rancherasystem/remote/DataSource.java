@@ -23,12 +23,10 @@ public class DataSource {
         this.sessionService = sessionService;
         this.context = context;
 
-        String username = sessionService.getUsername();
-        String password = sessionService.getPassword();
         String endpoint = "http:///ranchera.dfb.com.do";
 
         OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new BasicAuthenticationInterceptor(username, password))
+                .addInterceptor(new BasicAuthenticationInterceptor(context))
                 .addNetworkInterceptor(new StethoInterceptor())
                 .retryOnConnectionFailure(true)
                 .connectTimeout(5, TimeUnit.MINUTES)

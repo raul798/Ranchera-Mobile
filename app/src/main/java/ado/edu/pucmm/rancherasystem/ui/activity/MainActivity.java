@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     User user = response.body();
 
-                    sessionService.setPassword(username);
-                    sessionService.setUsername(password);
+                    sessionService.setPassword(password);
+                    sessionService.setUsername(username);
                     sessionService.setId(user.getId());
                     sessionService.setEmail(user.getPrimaryEmailAddr().getAddress());
                     sessionService.setDisplay(user.getDisplayName());
