@@ -35,6 +35,7 @@ public class RanchDatabaseRepo {
     private RouteDao routeDao;
     private static final Object LOCK = new Object();
     private LiveData<List<Product>> allProducts;
+    private LiveData<List<Client>> allClients;
     private List<Bill> listofbills;
 
     public RanchDatabaseRepo(Context context) {
@@ -189,6 +190,10 @@ public class RanchDatabaseRepo {
 
     public LiveData<List<Product>> getAllProducts() {
         return allProducts;
+    }
+
+    public LiveData<List<Client>> getAllClients() {
+        return allClients;
     }
 
     public List<Product> getProduct(Context context, String productStr) {

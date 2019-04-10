@@ -24,9 +24,11 @@ import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.R;
 import ado.edu.pucmm.rancherasystem.adapters.RouteRecyclerViewAdapter;
+import ado.edu.pucmm.rancherasystem.dao.ClientDao;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Client;
 import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.remote.DataBaseUpdater;
 import ado.edu.pucmm.rancherasystem.remote.SessionService;
 import ado.edu.pucmm.rancherasystem.viewmodel.RouteViewModel;
 
@@ -42,6 +44,7 @@ public class MenuActivity extends AppCompatActivity
     private RouteViewModel routeViewModel;
     private List<Integer> clientsIds;
     private SessionService sessionService;
+    private DataBaseUpdater dataBaseUpdater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MenuActivity extends AppCompatActivity
         sessionService = SessionService.getInstance(getBaseContext());
 
         rancheraDatabaseRepo = new RanchDatabaseRepo();
+        dataBaseUpdater = new DataBaseUpdater();
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -108,9 +112,6 @@ public class MenuActivity extends AppCompatActivity
             return true;
         });
 
-
-
-
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             clientId = extras.getInt("clientId");
@@ -123,15 +124,11 @@ public class MenuActivity extends AppCompatActivity
 
         rancheraDatabaseRepo.updateRouteStatus(this, true, clientId);
         routes = rancheraDatabaseRepo.getAllRoutes();
-        //client1 = rancheraDatabaseRepo.getSingleClient(this, 1);
-        //client2 = rancheraDatabaseRepo.getSingleClient(this, 2);
 
         for(Route route : routes) {
             Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
             clients.add(client);
         }
-
-        //Toast.makeText(MenuActivity.this, String.valueOf(client1.getId()), Toast.LENGTH_SHORT).show();
         recyclerAdapter.setClients(clients);
     }
 
@@ -158,8 +155,10 @@ public class MenuActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.helpButton) {
-            Intent intent = new Intent(this, SupportActivity.class);
-            startActivity(intent);
+            dataBaseUpdater.updateCustomers(this);
+       //     recyclerAdapter.;
+//            Intent intent = new Intent(this, SupportActivity.class);
+  //          startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
