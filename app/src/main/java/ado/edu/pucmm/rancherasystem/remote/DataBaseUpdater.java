@@ -50,10 +50,38 @@ public class DataBaseUpdater {
                     if(customers != null) {
                         for (CustomerEntity customer : customers) {
                             String id = customer.getId();
-                            String name = customer.getGivenName() + " " + customer.getFamilyName();
-                            String phone = customer.getPrimaryPhone().getFreeFormNumber();
-                            String email = customer.getPrimaryEmailAddr().getAddress();
-                            String address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
+                            String name = customer.getGivenName();
+
+                            if(customer.getFamilyName() != null) {
+                               name = name + " " +  customer.getFamilyName();
+                            }
+                            
+                            String phone;
+                            if(customer.getPrimaryPhone() != null) {
+                                phone = customer.getPrimaryPhone().getFreeFormNumber();
+                            }
+                            else{
+                                phone = "Número no registrado";
+                            }
+
+                            String email;
+
+                            if(customer.getPrimaryEmailAddr() != null) {
+                                email = customer.getPrimaryEmailAddr().getAddress();
+                            }
+                            else{
+                                email = "Correo no registrado";
+                            }
+
+                            String address;
+
+                            if(customer.getShipAddr() != null) {
+                                address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
+                            }
+                            else{
+                                address = "Dirección no registrada";
+                            }
+
                             Client client = new Client(Integer.valueOf(id), name, phone, address, email);
                             ranchDatabaseRepo.insertClient(context, client);
                         }

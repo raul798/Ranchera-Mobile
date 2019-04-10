@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class ShipAddr {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
+
     @SerializedName("line1")
     @Expose
     private String line1;
@@ -20,6 +24,8 @@ public class ShipAddr {
     public String getCity() {
         return city;
     }
+
+    public int getId(){ return id; }
 
     public void setLine1(String line1) {
         this.line1 = line1;
