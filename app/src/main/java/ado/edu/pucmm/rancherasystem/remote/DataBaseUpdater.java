@@ -49,12 +49,12 @@ public class DataBaseUpdater {
 
                     if(customers != null) {
                         for (CustomerEntity customer : customers) {
-                            int id = customer.getIdCustomer();
+                            String id = customer.getId();
                             String name = customer.getGivenName() + " " + customer.getFamilyName();
                             String phone = customer.getPrimaryPhone().getFreeFormNumber();
                             String email = customer.getPrimaryEmailAddr().getAddress();
                             String address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
-                            Client client = new Client(id, name, phone, address, email);
+                            Client client = new Client(Integer.valueOf(id), name, phone, address, email);
                             ranchDatabaseRepo.insertClient(context, client);
                         }
                     }
