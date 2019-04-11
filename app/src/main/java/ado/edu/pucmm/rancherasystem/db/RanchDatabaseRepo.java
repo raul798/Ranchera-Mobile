@@ -59,6 +59,35 @@ public class RanchDatabaseRepo {
         return ranchDb;
     }
 
+    public void deleteProducts(Context context) {
+        if (productDao == null) {
+            productDao = RanchDatabaseRepo.getDb(context).getProductDao();
+        }
+
+        try {
+            new DeleteProductsAsyncTask(productDao).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static class DeleteProductsAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private
+        ProductDao productDao;
+
+        DeleteProductsAsyncTask(ProductDao productDao) {
+            this.productDao = productDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            productDao.deleteAll();
+            return null;
+        }
+    }
+
     public void insertClient(Context context, Client client) {
         if (clientDao == null) {
             clientDao = RanchDatabaseRepo.getDb(context).getClientDao();
@@ -91,6 +120,7 @@ public class RanchDatabaseRepo {
         new InsertAsyncTask().execute(bill);
     }
 
+
     private class InsertAsyncTask extends AsyncTask<Bill, Void, Void> {
         @Override
         protected Void doInBackground(final Bill... params) {
@@ -98,6 +128,7 @@ public class RanchDatabaseRepo {
             return null;
         }
     }
+
 
     public List<Bill> getBills(Context context, Integer client_id) {
         if (billDao == null) {
@@ -218,6 +249,40 @@ public class RanchDatabaseRepo {
 
     public LiveData<List<Product>> getAllProducts() {
         return allProducts;
+    }
+
+    public void addProduct(Context context, Product product) {
+
+        productDao = productDao == null? RanchDatabaseRepo.getDb(context).getProductDao(): productDao;
+
+        try {
+            new InsertProductAsyncTask(productDao).execute(product);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class InsertProductAsyncTask extends AsyncTask<Product, Void, Void> {
+
+        private ProductDao asyncTaskDao;
+
+        InsertProductAsyncTask(ProductDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Product... products) {
+            asyncTaskDao.insert(products[0]);
+            return null;
+        }
+    }
+
+    //public void addProduct(Product product){allProducts.getValue().add(product);}
+
+    public void deleteAllProducts() {
+        if(allProducts.getValue() != null) {
+            allProducts.getValue().clear();
+        }
     }
 
     public LiveData<List<Client>> getAllClients() {
@@ -690,51 +755,51 @@ public class RanchDatabaseRepo {
             //delete existing data
             //db.execSQL("Delete From Client");
 
-            ContentValues client1 = new ContentValues();
-            client1.put("name", "Raul Test");
-            client1.put("phoneNumber", "809-123-4567");
-            client1.put("email", "raul.test@email.com");
-            client1.put("address", "Calle Sanabacoa, Santo Domingo");
-            db.insert("Client", OnConflictStrategy.ABORT, client1);
-
-            ContentValues client2 = new ContentValues();
-            client2.put("name", "Dante Fana");
-            client2.put("phoneNumber", "829-123-4567");
-            client2.put("email", "dante.test@email.com");
-            client2.put("address", "Calle Sanabacoa, Santo Domingo");
-            db.insert("Client", OnConflictStrategy.ABORT, client2);
-
-            //db.execSQL("Delete From Product");
-
-            ContentValues contentValuesProduct = new ContentValues();
-            contentValuesProduct.put("name", "Product#0001");
-            contentValuesProduct.put("quantity", 40);
-            contentValuesProduct.put("price", 500);
-            contentValuesProduct.put("description", "Producto de testing 1");
-            db.insert("Product", OnConflictStrategy.ABORT, contentValuesProduct);
-
-            contentValuesProduct = new ContentValues();
-            contentValuesProduct.put("name", "Product#0002");
-            contentValuesProduct.put("quantity", 30);
-            contentValuesProduct.put("price", 1000);
-            contentValuesProduct.put("description", "Producto de testing 2");
-            db.insert("Product", OnConflictStrategy.ABORT, contentValuesProduct);
-
-            //db.execSQL("Delete From Route");
-
-            ContentValues route1 = new ContentValues();
-            route1.put("clientID", 1);
-            route1.put("priority", 2);
-            route1.put("status", false);
-            route1.put("user", 1);
-            db.insert("Route", OnConflictStrategy.ABORT, route1);
-
-            ContentValues route2 = new ContentValues();
-            route2.put("clientID", 2);
-            route2.put("priority", 1);
-            route2.put("status", false);
-            route2.put("user", 1);
-            db.insert("Route", OnConflictStrategy.ABORT, route2);
+//            ContentValues client1 = new ContentValues();
+//            client1.put("name", "Raul Test");
+//            client1.put("phoneNumber", "809-123-4567");
+//            client1.put("email", "raul.test@email.com");
+//            client1.put("address", "Calle Sanabacoa, Santo Domingo");
+//            db.insert("Client", OnConflictStrategy.ABORT, client1);
+//
+//            ContentValues client2 = new ContentValues();
+//            client2.put("name", "Dante Fana");
+//            client2.put("phoneNumber", "829-123-4567");
+//            client2.put("email", "dante.test@email.com");
+//            client2.put("address", "Calle Sanabacoa, Santo Domingo");
+//            db.insert("Client", OnConflictStrategy.ABORT, client2);
+//
+//            //db.execSQL("Delete From Product");
+//
+//            ContentValues contentValuesProduct = new ContentValues();
+//            contentValuesProduct.put("name", "Product#0001");
+//            contentValuesProduct.put("quantity", 40);
+//            contentValuesProduct.put("price", 500);
+//            contentValuesProduct.put("description", "Producto de testing 1");
+//            db.insert("Product", OnConflictStrategy.ABORT, contentValuesProduct);
+//
+//            contentValuesProduct = new ContentValues();
+//            contentValuesProduct.put("name", "Product#0002");
+//            contentValuesProduct.put("quantity", 30);
+//            contentValuesProduct.put("price", 1000);
+//            contentValuesProduct.put("description", "Producto de testing 2");
+//            db.insert("Product", OnConflictStrategy.ABORT, contentValuesProduct);
+//
+//            //db.execSQL("Delete From Route");
+//
+//            ContentValues route1 = new ContentValues();
+//            route1.put("clientID", 1);
+//            route1.put("priority", 2);
+//            route1.put("status", false);
+//            route1.put("user", 1);
+//            db.insert("Route", OnConflictStrategy.ABORT, route1);
+//
+//            ContentValues route2 = new ContentValues();
+//            route2.put("clientID", 2);
+//            route2.put("priority", 1);
+//            route2.put("status", false);
+//            route2.put("user", 1);
+//            db.insert("Route", OnConflictStrategy.ABORT, route2);
 
         }
     };

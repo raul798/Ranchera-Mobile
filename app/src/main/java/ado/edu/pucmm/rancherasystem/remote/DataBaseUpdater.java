@@ -12,7 +12,9 @@ import java.util.List;
 import ado.edu.pucmm.rancherasystem.dao.ClientDao;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
 import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.remote.entity.CustomerEntity;
+import ado.edu.pucmm.rancherasystem.remote.entity.ItemEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,14 +31,76 @@ public class DataBaseUpdater {
 
      }
 
+     public void updateProducts(Context context){
+         this.context = context;
+         ranchDatabaseRepo = new RanchDatabaseRepo(context);
+         sessionService = SessionService.getInstance(context);
+         dataSource = DataSource.getInstance(context, sessionService);
+
+         Call<List<ItemEntity>> itemCall = dataSource.getService().getItems();
+
+         itemCall.enqueue(new Callback<List<ItemEntity>>(){
+             @Override
+             public void onResponse(Call<List<ItemEntity>> call, Response<List<ItemEntity>> response) {
+                 if(response.isSuccessful()){
+                     ranchDatabaseRepo.deleteProducts(context);
+                     List<ItemEntity> itemEntities = response.body();
+
+                     if(itemEntities != null){
+                         for(ItemEntity item : itemEntities){
+                              int idItem = Integer.valueOf(item.getId());
+
+                              String name = item.getName();
+                              if(name == null) {
+                                  name = "Nombre no registrado";
+                              }
+
+                              int quantity;
+
+                              if(item.getIncomeAccountRef().getValue() != null){
+                                  quantity = Integer.valueOf(item.getIncomeAccountRef().getValue());
+                              }
+                              else{
+                                  quantity = 0;
+                              }
+
+                              float price;
+                              if(item.getUnitPrice() != null){
+                                  price = Float.valueOf(item.getUnitPrice());
+                              }
+                              else{
+                                  price = 0.0f;
+                              }
+
+                              String description = item.getDescription();
+                              if(description == null){
+                                  description = "Descripción no registrada";
+                              }
+
+                              Product product = new Product(idItem,name,quantity,price,description);
+                              ranchDatabaseRepo.addProduct(context, product);
+
+                         }
+                     }
+                 }
+                 else{
+                     Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
+                 }
+             }
+
+             @Override
+             public void onFailure(Call<List<ItemEntity>> call, Throwable t) {
+
+             }
+         });
+     }
+
      public void updateCustomers(Context context){
 
          this.context = context;
          ranchDatabaseRepo = new RanchDatabaseRepo(context);
          sessionService = SessionService.getInstance(context);
          dataSource = DataSource.getInstance(context, sessionService);
-
-         List<CustomerEntity> customerList = new ArrayList<CustomerEntity>();
 
          Call<List<CustomerEntity>> customerCall = dataSource.getService().getCustomers();
 
@@ -55,7 +119,7 @@ public class DataBaseUpdater {
                             if(customer.getFamilyName() != null) {
                                name = name + " " +  customer.getFamilyName();
                             }
-                            
+
                             String phone;
                             if(customer.getPrimaryPhone() != null) {
                                 phone = customer.getPrimaryPhone().getFreeFormNumber();

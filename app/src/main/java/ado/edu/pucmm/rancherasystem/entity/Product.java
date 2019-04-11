@@ -18,6 +18,14 @@ public class Product {
 
     private String description;
 
+    public Product(int id, String name, int quantity, float price, String description) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return name;
