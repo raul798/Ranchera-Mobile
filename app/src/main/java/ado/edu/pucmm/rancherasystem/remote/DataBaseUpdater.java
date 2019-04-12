@@ -35,13 +35,14 @@ public class DataBaseUpdater {
     }
 
     //aaaaaaaaaaa
-
     public void updatePayments(Context context){
         this.processRefreshInvoicesIsRunning = true;
         this.context = context;
         ranchDatabaseRepo = new RanchDatabaseRepo(context);
         sessionService = SessionService.getInstance(context);
         dataSource = DataSource.getInstance(context, sessionService);
+
+        ranchDatabaseRepo.sendPayments(context,dataSource);
 
         Call<List<PaymentEntity>> paymentCall = dataSource.getService().getPayments();
 
@@ -50,15 +51,13 @@ public class DataBaseUpdater {
             public void onResponse(Call<List<PaymentEntity>> call, Response<List<PaymentEntity>> response) {
                 if(response.isSuccessful()){
                     List<PaymentEntity> paymentEntities = response.body();
-
                     if(paymentEntities != null) {
                         ranchDatabaseRepo.erasePayments(context);
                         for(PaymentEntity payment : paymentEntities) {
                             ranchDatabaseRepo.addPaymentFromRemote(context, payment);
                         }
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
                 }
                 processRefreshInvoicesIsRunning = false;
@@ -74,7 +73,6 @@ public class DataBaseUpdater {
     }
 
     //aaaaaaaaaaa
-
     public void updateRoutes(Context context){
         this.processRefreshInvoicesIsRunning = true;
         this.context = context;
@@ -120,15 +118,6 @@ public class DataBaseUpdater {
         dataSource = DataSource.getInstance(context, sessionService);
 
         ranchDatabaseRepo.sendBills(context,dataSource);
-//        List<Bill> bills = ranchDatabaseRepo.getAllBills(context);
-//
-//        for (Bill bill: bills) {
-//
-//           // List<Detail> details = ranchDatabaseRepo.get
-//
-//            //for()
-//            //InvoiceEntity()
-//        }
 
         Call<List<InvoiceEntity>> invoiceCall = dataSource.getService().getInvoices();
 
@@ -290,6 +279,7 @@ public class DataBaseUpdater {
             }
         });
     }
+
 
     public boolean isRunning(){
         return processRefreshCustomersIsRunning || processRefreshProductsIsRunning || processRefreshInvoicesIsRunning;
