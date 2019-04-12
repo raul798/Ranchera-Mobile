@@ -46,6 +46,8 @@ public class DataBaseUpdater {
         sessionService = SessionService.getInstance(context);
         dataSource = DataSource.getInstance(context, sessionService);
 
+        Bill bill;
+
         Call<List<InvoiceEntity>> invoiceCall = dataSource.getService().getInvoices();
 
         invoiceCall.enqueue(new Callback<List<InvoiceEntity>>() {
@@ -53,46 +55,10 @@ public class DataBaseUpdater {
             public void onResponse(Call<List<InvoiceEntity>> call, Response<List<InvoiceEntity>> response) {
                 if (response.isSuccessful()) {
                     ranchDatabaseRepo.eraseBills(context);
-
                     List<InvoiceEntity> invoiceEntities = response.body();
-
                     if (invoiceEntities != null) {
-
                         for (InvoiceEntity invoice : invoiceEntities) {
-
-                            String id = invoice.getId();
-
-                            int idInvoice = id == null ? -1 : Integer.valueOf(id);
-
-                            String client = invoice.getCustomerRef().getValue();
-
-                            int clientId = client == null ? -1 : Integer.valueOf(client);
-
-                            //revisar
-                            String description = "Done";
-
-
-                            if (idInvoice != -1 && clientId != -1) {
-                                Bill bill = new Bill(idInvoice, clientId, description);
-                                List<Line> lines = invoice.getLineList();
-
-                                for (Line line : lines) {
-
-                                    SalesItemLineDetail details = line.getSalesItemLineDetail();
-
-                                    String product = details == null ? null : details.getItemRef().getValue();
-
-                                    int idProduct = product == null ? -1 : Integer.valueOf(product);
-
-                                    float quantity = details == null ? -1 : details.getQty();
-
-                                    if (idProduct != -1 && quantity != -1) {
-                                        Detail detail = new Detail(bill.getId(), idProduct, (int) quantity);
-                                        ranchDatabaseRepo.addBill(context, bill);
-                                        ranchDatabaseRepo.addDetail(context, detail);
-                                    }
-                                }
-                            }
+                            ranchDatabaseRepo.addBillFromRemote(context, invoice);
                         }
                     }
                 } else {

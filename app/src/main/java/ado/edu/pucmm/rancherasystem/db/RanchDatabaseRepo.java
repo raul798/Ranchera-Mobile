@@ -24,6 +24,9 @@ import ado.edu.pucmm.rancherasystem.entity.Detail;
 import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
+import ado.edu.pucmm.rancherasystem.remote.entity.Line;
+import ado.edu.pucmm.rancherasystem.remote.entity.SalesItemLineDetail;
 
 public class RanchDatabaseRepo {
 
@@ -737,7 +740,7 @@ public class RanchDatabaseRepo {
             return null;
         }
     }
-    //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...
 
     private static class updateQuantityAsyncTask extends AsyncTask<updateQuantityParams, Void, Void> {
 
@@ -813,6 +816,75 @@ public class RanchDatabaseRepo {
         }
     }
 
+    public void addBillFromRemote(Context context, InvoiceEntity entity) {
+
+        billDao = billDao == null? RanchDatabaseRepo.getDb(context).getBillDao(): billDao;
+        detailDao = detailDao == null? RanchDatabaseRepo.getDb(context).getDetailDao(): detailDao;
+        productDao = productDao == null? RanchDatabaseRepo.getDb(context).getProductDao(): productDao;
+
+        try {
+            new InsertInvoiceEntityAsyncTask(billDao, detailDao, productDao).execute(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class InsertInvoiceEntityAsyncTask extends AsyncTask<InvoiceEntity, Void, Void> {
+
+        private BillDao billDao;
+        private ProductDao productDao;
+        private DetailDao asyncTaskDao;
+
+        InsertInvoiceEntityAsyncTask(BillDao dao, DetailDao detailDao, ProductDao itemDao) {
+            billDao = dao;
+            asyncTaskDao =  detailDao;
+            productDao = itemDao;
+        }
+
+        @Override
+        protected Void doInBackground(InvoiceEntity... InvoiceEntity) {
+            InvoiceEntity  invoice = InvoiceEntity[0];
+            String id = invoice.getId();
+
+            int idInvoice = id == null ? -1 : Integer.valueOf(id);
+
+            String client = invoice.getCustomerRef().getValue();
+
+            int clientId = client == null ? -1 : Integer.valueOf(client);
+
+            //revisar
+            String description = "Done";
+
+
+            if (idInvoice != -1 && clientId != -1) {
+                Bill bill = new Bill(idInvoice, clientId, description); //lo creo aqui
+                bill.setId(billDao.insert(bill).intValue());
+                List<Line> lines = invoice.getLineList();
+
+                for (Line line : lines) {
+
+                    SalesItemLineDetail details = line.getSalesItemLineDetail();
+
+                    String product = details == null ? null : details.getItemRef().getValue();
+
+                    int idProduct = product == null ? -1 : Integer.valueOf(product);
+
+                    float quantity = details == null ? -1 : details.getQty();
+
+                    if (idProduct != -1 && quantity != -1) {
+                        Detail detail = new Detail(bill.getId(), idProduct, (int) quantity);
+                        Product p = productDao.searchProductByID(idProduct);
+                        float total = p != null? p.getPrice():0;
+                        billDao.updateBillTotal(bill.getId(),total);
+                        asyncTaskDao.insert(detail);
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
+
     private static class InsertBillAsyncTask extends AsyncTask<Bill, Void, Void> {
 
         private BillDao asyncTaskDao;
@@ -823,7 +895,7 @@ public class RanchDatabaseRepo {
 
         @Override
         protected Void doInBackground(Bill... bills) {
-            asyncTaskDao.insert(bills[0]);
+            bills[0].setId(asyncTaskDao.insert(bills[0]).intValue());
             return null;
         }
     }
