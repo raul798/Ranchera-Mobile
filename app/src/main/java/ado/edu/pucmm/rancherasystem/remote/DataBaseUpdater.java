@@ -3,6 +3,7 @@ package ado.edu.pucmm.rancherasystem.remote;
 import android.content.Context;
 import android.content.Intent;
 import android.se.omapi.Session;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -11,10 +12,14 @@ import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.dao.ClientDao;
 import ado.edu.pucmm.rancherasystem.db.RanchDatabaseRepo;
+import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.entity.Detail;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.remote.entity.CustomerEntity;
+import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.ItemEntity;
+import ado.edu.pucmm.rancherasystem.remote.entity.Line;
 import ado.edu.pucmm.rancherasystem.remote.entity.User;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +35,74 @@ public class DataBaseUpdater {
      public DataBaseUpdater(){
 
      }
+
+    //aaaaaaaaaaaaaaaa
+    public void updateInvoice(Context context){
+        this.context = context;
+        ranchDatabaseRepo = new RanchDatabaseRepo(context);
+        sessionService = SessionService.getInstance(context);
+        dataSource = DataSource.getInstance(context, sessionService);
+
+        Call<List<InvoiceEntity>> invoiceCall = dataSource.getService().getInvoices();
+
+        invoiceCall.enqueue(new Callback<List<InvoiceEntity>>(){
+            @Override
+            public void onResponse(Call<List<InvoiceEntity>> call, Response<List<InvoiceEntity>> response) {
+                if(response.isSuccessful()){
+                    ranchDatabaseRepo.eraseBills(context);
+
+                    List<InvoiceEntity> invoiceEntities = response.body();
+                    Toast.makeText(context, "ENTREEEEE", Toast.LENGTH_SHORT).show();
+                    if(invoiceEntities != null){
+
+                        for(InvoiceEntity invoice : invoiceEntities){
+
+                            String id = invoice.getId();
+
+                            int idInvoice = id == null ? -1 : Integer.valueOf(id);
+
+                            String client = invoice.getCustomerRef().getValue();
+
+                            int clientId = client == null ? -1 : Integer.valueOf(client);
+
+                            //revisar
+                            String description = "Done";
+
+
+                            if(idInvoice != -1 && clientId != -1) {
+                                Bill bill = new Bill(idInvoice, clientId, description);
+                                List<Line> lines = invoice.getLineList();
+
+                                for (Line line : lines) {
+                                    String product = line.getSalesItemLineDetail().getItemRef().getValue();
+                                    int idProduct = product == null ? -1 : Integer.valueOf(product);
+
+                                    int quantity = line.getSalesItemLineDetail().getQty();
+
+                                    if(idProduct != -1 && quantity != -1) {
+                                        Detail detail = new Detail(bill.getId(), idProduct, quantity);
+                                        ranchDatabaseRepo.addBill(context, bill);
+                                        ranchDatabaseRepo.addDetail(context, detail);
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+                else{
+                    Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<InvoiceEntity>> call, Throwable t) {
+
+            }
+        });
+    }
+    //aaaaaaaaaaaaaaaa
+
 
      public void updateProducts(Context context){
          this.context = context;

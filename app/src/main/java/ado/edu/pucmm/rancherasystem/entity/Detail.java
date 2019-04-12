@@ -22,6 +22,7 @@ public class Detail {
         this.product = product;
     }
 
+
     public int getId() {
         return id;
     }

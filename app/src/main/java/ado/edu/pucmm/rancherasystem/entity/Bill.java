@@ -14,10 +14,18 @@ public class Bill {
     private int id;
     private String description;
     private int client;
+    private int externalId;
     private float total;
     private byte[] signature;
 
     public Bill(int client, String description) {
+        this.client = client;
+        this.description = description;
+    }
+
+    @Ignore
+    public Bill(int externalId, int client, String description){
+        this.externalId = externalId;
         this.client = client;
         this.description = description;
     }
@@ -29,6 +37,15 @@ public class Bill {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(int externalId) {
+        this.externalId = externalId;
+    }
+
 
     public String getDescription() {
         return description;

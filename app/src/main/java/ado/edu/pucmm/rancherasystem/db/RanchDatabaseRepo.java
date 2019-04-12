@@ -20,6 +20,7 @@ import ado.edu.pucmm.rancherasystem.dao.ProductDao;
 import ado.edu.pucmm.rancherasystem.dao.RouteDao;
 import ado.edu.pucmm.rancherasystem.entity.Bill;
 import ado.edu.pucmm.rancherasystem.entity.Client;
+import ado.edu.pucmm.rancherasystem.entity.Detail;
 import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
@@ -277,8 +278,6 @@ public class RanchDatabaseRepo {
         }
     }
 
-    //public void addProduct(Product product){allProducts.getValue().add(product);}
-
     public void deleteAllProducts() {
         if(allProducts.getValue() != null) {
             allProducts.getValue().clear();
@@ -457,6 +456,35 @@ public class RanchDatabaseRepo {
         @Override
         protected Void doInBackground(Void... voids) {
             asyncTaskDao.eraseClients();
+            return null;
+        }
+    }
+
+    public void eraseBills(Context context) {
+        billDao = billDao == null? RanchDatabaseRepo.getDb(context).getBillDao(): billDao;
+        detailDao = detailDao == null? RanchDatabaseRepo.getDb(context).getDetailDao(): detailDao;
+
+        try {
+            new DeleteBillsAsyncTask(billDao,detailDao).execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class DeleteBillsAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private BillDao billDao;
+        private DetailDao detailDao;
+
+        DeleteBillsAsyncTask(BillDao billDao, DetailDao detailDao) {
+            this.billDao = billDao;
+            this.detailDao = detailDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            detailDao.deleteAll();
+            billDao.deleteAll();
             return null;
         }
     }
@@ -744,6 +772,60 @@ public class RanchDatabaseRepo {
         updateQuantityParams params = new updateQuantityParams(product_id, quantity);
 
         new updateQuantityAsyncTask(productDao).execute(params);
+    }
+
+    //aaaaaaaaaaaaaaa
+
+    public void addDetail(Context context, Detail detail) {
+
+        detailDao = detailDao == null? RanchDatabaseRepo.getDb(context).getDetailDao(): detailDao;
+
+        try {
+            new InsertDetailAsyncTask(detailDao).execute(detail);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class InsertDetailAsyncTask extends AsyncTask<Detail, Void, Void> {
+
+        private DetailDao asyncTaskDao;
+
+        InsertDetailAsyncTask(DetailDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Detail... details) {
+            asyncTaskDao.insert(details[0]);
+            return null;
+        }
+    }
+
+    public void addBill(Context context, Bill bill) {
+
+        billDao = billDao == null? RanchDatabaseRepo.getDb(context).getBillDao(): billDao;
+
+        try {
+            new InsertBillAsyncTask(billDao).execute(bill);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static class InsertBillAsyncTask extends AsyncTask<Bill, Void, Void> {
+
+        private BillDao asyncTaskDao;
+
+        InsertBillAsyncTask(BillDao dao) {
+            asyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(Bill... bills) {
+            asyncTaskDao.insert(bills[0]);
+            return null;
+        }
     }
 
     private static RoomDatabase.Callback dbCallback = new RoomDatabase.Callback() {

@@ -119,12 +119,13 @@ public class MenuActivity extends AppCompatActivity
 
         rancheraDatabaseRepo.updateRouteStatus(this, true, clientId);
         routes = rancheraDatabaseRepo.getAllRoutes();
-
+/*
         for(Route route : routes) {
-//            Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
-//            clients.add(client);
+            Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
+            clients.add(client);
         }
-        //recyclerAdapter.setClients(rancheraDatabaseRepo.getAllClients().getValue());
+        recyclerAdapter.setClients(rancheraDatabaseRepo.getAllClients().getValue());
+        */
     }
 
     @Override
@@ -152,6 +153,7 @@ public class MenuActivity extends AppCompatActivity
         if (id == R.id.helpButton) {
             dataBaseUpdater.updateCustomers(this);
             dataBaseUpdater.updateProducts(this);
+            dataBaseUpdater.updateInvoice(this);
 
        //     recyclerAdapter.;
 //            Intent intent = new Intent(this, SupportActivity.class);
