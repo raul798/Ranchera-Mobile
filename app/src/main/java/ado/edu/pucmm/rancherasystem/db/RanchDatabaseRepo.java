@@ -26,7 +26,9 @@ import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.Line;
+import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.SalesItemLineDetail;
+import ado.edu.pucmm.rancherasystem.remote.entity.Stop;
 
 public class RanchDatabaseRepo {
 
@@ -805,6 +807,7 @@ public class RanchDatabaseRepo {
         }
     }
 
+
     public void addBill(Context context, Bill bill) {
 
         billDao = billDao == null? RanchDatabaseRepo.getDb(context).getBillDao(): billDao;
@@ -813,6 +816,49 @@ public class RanchDatabaseRepo {
             new InsertBillAsyncTask(billDao).execute(bill);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addRouteFromRemote(Context context, RouteEntity routeEntity){
+        routeDao = routeDao == null ? RanchDatabaseRepo.getDb(context).getRouteDao(): routeDao;
+
+        try{
+            new InsertRouteEntityTask(routeDao).execute(routeEntity);
+        }
+        catch (Exception e){
+            e.getStackTrace();
+        }
+    }
+
+
+    private static class InsertRouteEntityTask extends AsyncTask<RouteEntity, Void, Void> {
+        private RouteDao routeDao;
+
+        public InsertRouteEntityTask(RouteDao routeDao) {
+            this.routeDao = routeDao;
+        }
+
+        @Override
+        protected Void doInBackground(RouteEntity... routeEntities) {
+            routeDao.deleteAll();
+
+            int id = routeEntities[0].getId();
+            int user = routeEntities[0].getUser();
+            String name = routeEntities[0].getName();
+            List<Stop> stops = routeEntities[0].getStops();
+
+            for (Stop stop : stops) {
+                int stopId = stop.getStopId();
+                int stopPriority = stop.getStopPriority();
+                int clientId = stop.getClientId();
+                String stopAddress = stop.getRouteAddress();
+
+                //se van a volver a poner false cuando se borre
+                Route route = new Route(clientId, stopPriority, false, user);
+                routeDao.insert(route);
+            }
+
+            return null;
         }
     }
 

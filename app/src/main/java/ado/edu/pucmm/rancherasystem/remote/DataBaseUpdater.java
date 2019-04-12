@@ -20,6 +20,7 @@ import ado.edu.pucmm.rancherasystem.remote.entity.CustomerEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.ItemEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.Line;
+import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.SalesItemLineDetail;
 import ado.edu.pucmm.rancherasystem.remote.entity.User;
 import retrofit2.Call;
@@ -37,6 +38,40 @@ public class DataBaseUpdater {
     private Context context;
 
     public DataBaseUpdater() {
+    }
+
+    public void updateRoutes(Context context){
+        this.processRefreshInvoicesIsRunning = true;
+        this.context = context;
+        ranchDatabaseRepo = new RanchDatabaseRepo(context);
+        sessionService = SessionService.getInstance(context);
+        dataSource = DataSource.getInstance(context, sessionService);
+
+        Call<RouteEntity> routeCall = dataSource.getService().getRoutes();
+
+        routeCall.enqueue(new Callback<RouteEntity>() {
+            @Override
+            public void onResponse(Call<RouteEntity> call, Response<RouteEntity> response) {
+                if(response.isSuccessful()){
+                    RouteEntity routeEntities = response.body();
+
+                    if(routeEntities != null) {
+                        ranchDatabaseRepo.addRouteFromRemote(context, routeEntities);
+                    }
+                }
+                else{
+                    Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
+                }
+                processRefreshInvoicesIsRunning = false;
+            }
+
+            @Override
+            public void onFailure(Call<RouteEntity> call, Throwable throwable) {
+                throwable.printStackTrace();
+                Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
+                processRefreshInvoicesIsRunning = false;
+            }
+        });
     }
 
     public void updateInvoice(Context context) {

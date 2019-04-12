@@ -5,6 +5,7 @@ import java.util.List;
 import ado.edu.pucmm.rancherasystem.remote.entity.CustomerEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.ItemEntity;
+import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.User;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -23,4 +24,7 @@ public interface Service {
 
     @GET("/protected/items/")
     Call<List<ItemEntity>> getItems();
+
+    @GET("/protected/routes/")
+    Call<RouteEntity> getRoutes();
 }

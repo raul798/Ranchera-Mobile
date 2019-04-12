@@ -63,9 +63,7 @@ public class ListOfBills extends AppCompatActivity {
                 break;
             }
         }
-
         adapter.setBills(bills);
-
     }
 
     public void toSearchClient(View view){

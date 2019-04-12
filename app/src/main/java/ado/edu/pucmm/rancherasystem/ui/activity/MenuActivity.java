@@ -1,5 +1,6 @@
 package ado.edu.pucmm.rancherasystem.ui.activity;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,10 +65,10 @@ public class MenuActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-//        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-//        recyclerAdapter = new RouteRecyclerViewAdapter(this);
-//        recyclerView.setAdapter(recyclerAdapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerAdapter = new RouteRecyclerViewAdapter(this);
+        recyclerView.setAdapter(recyclerAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
@@ -119,13 +120,16 @@ public class MenuActivity extends AppCompatActivity
 
         rancheraDatabaseRepo.updateRouteStatus(this, true, clientId);
         routes = rancheraDatabaseRepo.getAllRoutes();
-/*
+
         for(Route route : routes) {
             Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
             clients.add(client);
         }
-        recyclerAdapter.setClients(rancheraDatabaseRepo.getAllClients().getValue());
-        */
+        LiveData<List<Client>> c = rancheraDatabaseRepo.getAllClients();
+        if(c != null) {
+            recyclerAdapter.setClients(c.getValue());
+        }
+
     }
 
     @Override
@@ -155,6 +159,7 @@ public class MenuActivity extends AppCompatActivity
             isProcessRunning = true;
             dataBaseUpdater.updateCustomers(this);
             dataBaseUpdater.updateProducts(this);
+            dataBaseUpdater.updateRoutes(this);
             dataBaseUpdater.updateInvoice(this);
             Toast.makeText(this, "Sincronizacion iniciada", Toast.LENGTH_SHORT).show();
         }else if(id == R.id.helpButton && isProcessRunning){
