@@ -19,7 +19,7 @@ public class Line {
 
     @SerializedName("amount")
     @Expose
-    private Integer amount;
+    private Float amount;
 
     @SerializedName("detailType")
     @Expose
@@ -53,11 +53,11 @@ public class Line {
         this.description = description;
     }
 
-    public Integer getAmount() {
+    public Float getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(Float amount) {
         this.amount = amount;
     }
 

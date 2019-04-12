@@ -54,6 +54,12 @@ public class MenuActivity extends AppCompatActivity
 
         rancheraDatabaseRepo = new RanchDatabaseRepo();
         dataBaseUpdater = new DataBaseUpdater();
+        dataBaseUpdater.setListener(new DataBaseUpdater.Listener() {
+            @Override
+            public void onFinish() {
+                isProcessRunning = false;
+            }
+        });
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -145,21 +151,21 @@ public class MenuActivity extends AppCompatActivity
         return true;
     }
 
+
+    boolean isProcessRunning = false;
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.helpButton) {
+        if (id == R.id.helpButton && !isProcessRunning) {
+            isProcessRunning = true;
             dataBaseUpdater.updateCustomers(this);
             dataBaseUpdater.updateProducts(this);
             dataBaseUpdater.updateInvoice(this);
-
-       //     recyclerAdapter.;
-//            Intent intent = new Intent(this, SupportActivity.class);
-  //          startActivity(intent);
+            Toast.makeText(this, "Sincronizacion en iniciada", Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.helpButton && isProcessRunning){
+            Toast.makeText(this, "Sincronizacion en proceso", Toast.LENGTH_SHORT).show();
         }
-
         return super.onOptionsItemSelected(item);
     }
 
