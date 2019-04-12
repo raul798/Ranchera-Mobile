@@ -7,11 +7,11 @@ public class ItemEntity {
 
     private Integer idItem;
     private String itemName;
-    private String quantity;
+    private Integer quantity;
     private Float price;
     private String itemDescription;
 
-    public ItemEntity(Integer idItem, String name, String quantity, float price, String description) {
+    public ItemEntity(Integer idItem, String name, Integer quantity, float price, String description) {
         this.idItem = idItem;
         this.itemName = name;
         this.quantity = quantity;
@@ -35,11 +35,11 @@ public class ItemEntity {
         this.itemName = name;
     }
 
-    public String getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -76,7 +76,12 @@ public class ItemEntity {
     private IncomeAccountRef incomeAccountRef;
 
     @SerializedName("name")
+    @Expose
     private String name;
+
+    @SerializedName("qtyOnHand")
+    @Expose
+    private Integer qtyOnHand;
 
     public String getId() {
         return id;
@@ -116,5 +121,13 @@ public class ItemEntity {
 
     public void setIncomeAccountRef(IncomeAccountRef incomeAccountRef) {
         this.incomeAccountRef = incomeAccountRef;
+    }
+
+    public Integer getQtyOnHand() {
+        return qtyOnHand;
+    }
+
+    public void setQtyOnHand(Integer qtyOnHand) {
+        this.qtyOnHand = qtyOnHand;
     }
 }

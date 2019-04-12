@@ -57,8 +57,8 @@ public class DataBaseUpdater {
 
                               int quantity;
 
-                              if(item.getIncomeAccountRef().getValue() != null){
-                                  quantity = Integer.valueOf(item.getIncomeAccountRef().getValue());
+                              if(item.getQtyOnHand() != null){
+                                  quantity = item.getQtyOnHand();
                               }
                               else{
                                   quantity = 0;
