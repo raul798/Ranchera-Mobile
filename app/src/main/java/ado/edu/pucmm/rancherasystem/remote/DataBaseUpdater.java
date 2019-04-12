@@ -1,13 +1,8 @@
 package ado.edu.pucmm.rancherasystem.remote;
 
 import android.content.Context;
-import android.content.Intent;
-import android.se.omapi.Session;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ado.edu.pucmm.rancherasystem.dao.ClientDao;
@@ -20,9 +15,8 @@ import ado.edu.pucmm.rancherasystem.remote.entity.CustomerEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.ItemEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.Line;
+import ado.edu.pucmm.rancherasystem.remote.entity.PaymentEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
-import ado.edu.pucmm.rancherasystem.remote.entity.SalesItemLineDetail;
-import ado.edu.pucmm.rancherasystem.remote.entity.User;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,6 +33,47 @@ public class DataBaseUpdater {
 
     public DataBaseUpdater() {
     }
+
+    //aaaaaaaaaaa
+
+    public void updatePayments(Context context){
+        this.processRefreshInvoicesIsRunning = true;
+        this.context = context;
+        ranchDatabaseRepo = new RanchDatabaseRepo(context);
+        sessionService = SessionService.getInstance(context);
+        dataSource = DataSource.getInstance(context, sessionService);
+
+        Call<List<PaymentEntity>> paymentCall = dataSource.getService().getPayments();
+
+        paymentCall.enqueue(new Callback<List<PaymentEntity>>() {
+            @Override
+            public void onResponse(Call<List<PaymentEntity>> call, Response<List<PaymentEntity>> response) {
+                if(response.isSuccessful()){
+                    List<PaymentEntity> paymentEntities = response.body();
+
+                    if(paymentEntities != null) {
+                        ranchDatabaseRepo.erasePayments(context);
+                        for(PaymentEntity payment : paymentEntities) {
+                            ranchDatabaseRepo.addPaymentFromRemote(context, payment);
+                        }
+                    }
+                }
+                else{
+                    Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
+                }
+                processRefreshInvoicesIsRunning = false;
+            }
+
+            @Override
+            public void onFailure(Call<List<PaymentEntity>> call, Throwable throwable) {
+                throwable.printStackTrace();
+                Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
+                processRefreshInvoicesIsRunning = false;
+            }
+        });
+    }
+
+    //aaaaaaaaaaa
 
     public void updateRoutes(Context context){
         this.processRefreshInvoicesIsRunning = true;

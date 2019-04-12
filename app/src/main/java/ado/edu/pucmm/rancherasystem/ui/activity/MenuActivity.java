@@ -168,6 +168,7 @@ public class MenuActivity extends AppCompatActivity
             dataBaseUpdater.updateProducts(this);
             dataBaseUpdater.updateRoutes(this);
             dataBaseUpdater.updateInvoice(this);
+            dataBaseUpdater.updatePayments(this);
 
             routes = rancheraDatabaseRepo.getAllRoutes(Integer.valueOf(sessionService.getId()));
             for(Route route : routes) {

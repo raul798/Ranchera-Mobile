@@ -27,6 +27,9 @@ import ado.edu.pucmm.rancherasystem.entity.Route;
 import ado.edu.pucmm.rancherasystem.remote.SessionService;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.Line;
+import ado.edu.pucmm.rancherasystem.remote.entity.LinePayment;
+import ado.edu.pucmm.rancherasystem.remote.entity.LinkedTxn;
+import ado.edu.pucmm.rancherasystem.remote.entity.PaymentEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.SalesItemLineDetail;
 import ado.edu.pucmm.rancherasystem.remote.entity.Stop;
@@ -963,6 +966,71 @@ public class RanchDatabaseRepo {
         @Override
         protected Void doInBackground(Bill... bills) {
             bills[0].setId(asyncTaskDao.insert(bills[0]).intValue());
+            return null;
+        }
+    }
+
+    public void erasePayments(Context context){
+        paymentDao = paymentDao == null ? RanchDatabaseRepo.getDb(context).getPaymentDao(): paymentDao;
+        try{
+            new ErasePaymentsAsyncTast(paymentDao);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private static class ErasePaymentsAsyncTast extends AsyncTask<Void,Void,Void>{
+        private PaymentDao paymentDao;
+
+        public ErasePaymentsAsyncTast(PaymentDao paymentDao) {
+            this.paymentDao = paymentDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... payments) {
+            paymentDao.deleteAll();
+            return null;
+        }
+    }
+
+    public void addPaymentFromRemote(Context context, PaymentEntity paymentEntity){
+        paymentDao = paymentDao == null ? RanchDatabaseRepo.getDb(context).getPaymentDao(): paymentDao;
+
+        try{
+            new InsertPaymentEntityTask(paymentDao).execute(paymentEntity);
+        }
+        catch (Exception e){
+            e.getStackTrace();
+        }
+    }
+
+
+    private static class InsertPaymentEntityTask extends AsyncTask<PaymentEntity, Void, Void> {
+        private PaymentDao paymentDao;
+
+        public InsertPaymentEntityTask(PaymentDao paymentDao) {
+            this.paymentDao = paymentDao;
+        }
+
+        @Override
+        protected Void doInBackground(PaymentEntity... paymentEntities) {
+
+            float amount = paymentEntities[0].getTotalAmt();
+            int client = Integer.valueOf(paymentEntities[0].getCustomerRef().getValue());
+            //int bill = Integer.valueOf(paymentEntities[0].getLine().get(0).getLinkedTxn().get(0).getTxnId());
+            List<LinePayment> linePayments = paymentEntities[0].getLine();
+            int bill = 0;
+            for (LinePayment linePayment : linePayments)
+            {
+                List<LinkedTxn> linkedTxns = linePayment.getLinkedTxn();
+                for (LinkedTxn linkedTxn : linkedTxns)
+                {
+                    bill = Integer.valueOf(linkedTxn.getTxnId());
+                }
+            }
+            Payment payment = new Payment(amount, bill, client);
+            paymentDao.insert(payment);
             return null;
         }
     }
