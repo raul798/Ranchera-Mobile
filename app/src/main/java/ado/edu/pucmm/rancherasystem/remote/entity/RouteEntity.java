@@ -9,12 +9,12 @@ public class RouteEntity {
 
     private int routeId;
     private int userId;
-    private List<Stop> stops;
+    private List<Stop> stopList;
 
     public RouteEntity(int routeId, int userId, List<Stop> stops) {
         this.routeId = routeId;
         this.userId = userId;
-        this.stops = stops;
+        this.stopList = stops;
     }
 
     public int getRouteId() {
@@ -33,12 +33,12 @@ public class RouteEntity {
         this.userId = userId;
     }
 
-    public List<Stop> getStops() {
-        return stops;
+    public List<Stop> getStopList() {
+        return stopList;
     }
 
-    public void setStops(List<Stop> stops) {
-        this.stops = stops;
+    public void setStopList(List<Stop> stops) {
+        this.stopList = stops;
     }
 
     @SerializedName("id")
@@ -55,7 +55,7 @@ public class RouteEntity {
 
     @SerializedName("stops")
     @Expose
-    private List<Stop> stopList;
+    private List<Stop> stops;
 
     public int getId() {
         return id;
@@ -81,11 +81,11 @@ public class RouteEntity {
         this.name = name;
     }
 
-    public List<Stop> getStopList() {
-        return stopList;
+    public List<Stop> getStops() {
+        return stops;
     }
 
-    public void setStopList(List<Stop> stopList) {
-        this.stopList = stopList;
+    public void setStops(List<Stop> stopList) {
+        stops = stopList;
     }
 }

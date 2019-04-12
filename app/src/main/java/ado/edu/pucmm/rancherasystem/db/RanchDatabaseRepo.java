@@ -24,6 +24,7 @@ import ado.edu.pucmm.rancherasystem.entity.Detail;
 import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.remote.SessionService;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.Line;
 import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
@@ -608,7 +609,7 @@ public class RanchDatabaseRepo {
         }
     }
 
-    public List<Route> getAllRoutes() {
+    public List<Route> getAllRoutes(Integer user) {
 
         if (routeDao == null) {
             routeDao = ranchDb.getRouteDao();
@@ -617,7 +618,7 @@ public class RanchDatabaseRepo {
         List<Route> routes = null;
 
         try {
-            routes = new AllRoutesAsyncTask(routeDao).execute().get();
+            routes = new AllRoutesAsyncTask(routeDao).execute(user).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -626,15 +627,15 @@ public class RanchDatabaseRepo {
     }
 
 
-    private class AllRoutesAsyncTask extends AsyncTask<Void, Void, List<Route>>{
+    private static class AllRoutesAsyncTask extends AsyncTask<Integer, Void, List<Route>>{
 
         RouteDao routeDao;
 
         public AllRoutesAsyncTask(RouteDao routeDao){this.routeDao = routeDao;}
 
         @Override
-        protected List<Route> doInBackground(Void... voids) {
-            return routeDao.getAllRoutes();
+        protected List<Route> doInBackground(Integer... integers) {
+            return routeDao.getAllRoutes(integers[0]);
         }
     }
 
@@ -840,18 +841,13 @@ public class RanchDatabaseRepo {
 
         @Override
         protected Void doInBackground(RouteEntity... routeEntities) {
-            routeDao.deleteAll();
 
-            int id = routeEntities[0].getId();
             int user = routeEntities[0].getUser();
-            String name = routeEntities[0].getName();
             List<Stop> stops = routeEntities[0].getStops();
 
             for (Stop stop : stops) {
-                int stopId = stop.getStopId();
                 int stopPriority = stop.getStopPriority();
                 int clientId = stop.getClientId();
-                String stopAddress = stop.getRouteAddress();
 
                 //se van a volver a poner false cuando se borre
                 Route route = new Route(clientId, stopPriority, false, user);
@@ -874,6 +870,7 @@ public class RanchDatabaseRepo {
             e.printStackTrace();
         }
     }
+
 
     private static class InsertInvoiceEntityAsyncTask extends AsyncTask<InvoiceEntity, Void, Void> {
 
@@ -926,6 +923,30 @@ public class RanchDatabaseRepo {
                     }
                 }
             }
+            return null;
+        }
+    }
+
+    public void eraseRoutes(Context context){
+        routeDao = routeDao == null ? RanchDatabaseRepo.getDb(context).getRouteDao(): routeDao;
+        try{
+            new EraseRoutesAsyncTast(routeDao);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private static class EraseRoutesAsyncTast extends AsyncTask<Void,Void,Void>{
+        private RouteDao routeDao;
+
+        public EraseRoutesAsyncTast(RouteDao routeDao) {
+            this.routeDao = routeDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... routes) {
+            routeDao.deleteAll();
             return null;
         }
     }

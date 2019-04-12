@@ -26,5 +26,5 @@ public interface Service {
     Call<List<ItemEntity>> getItems();
 
     @GET("/protected/routes/")
-    Call<RouteEntity> getRoutes();
+    Call<List<RouteEntity>> getRoutes();
 }

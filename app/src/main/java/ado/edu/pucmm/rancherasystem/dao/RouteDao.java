@@ -14,7 +14,7 @@ import ado.edu.pucmm.rancherasystem.entity.Route;
 @Dao
 public interface RouteDao {
 
-    @Insert(onConflict = OnConflictStrategy.FAIL)
+    @Insert()
     void insert(Route route);
 
     @Query("DELETE FROM Route")
@@ -23,8 +23,8 @@ public interface RouteDao {
     @Query("select * from Route where id = :id")
     Route searchRouteById(int id);
 
-    @Query("select * from Route ORDER BY status, priority ASC")
-    List<Route> getAllRoutes();
+    @Query("select * from Route WHERE user = :userId ORDER BY status, priority ASC")
+    List<Route> getAllRoutes(int userId);
 
     @Query("UPDATE Route SET status = :status WHERE clientId = :clientId")
     void updateStatus(boolean status, int clientId);

@@ -119,16 +119,21 @@ public class MenuActivity extends AppCompatActivity
         routeViewModel = ViewModelProviders.of(this).get(RouteViewModel.class);
 
         rancheraDatabaseRepo.updateRouteStatus(this, true, clientId);
-        routes = rancheraDatabaseRepo.getAllRoutes();
+        routes = rancheraDatabaseRepo.getAllRoutes(Integer.valueOf(sessionService.getId()));
+
 
         for(Route route : routes) {
             Client client = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
             clients.add(client);
         }
+        recyclerAdapter.setClients(clients);
+
+        /*
         LiveData<List<Client>> c = rancheraDatabaseRepo.getAllClients();
         if(c != null) {
             recyclerAdapter.setClients(c.getValue());
         }
+        */
 
     }
 
@@ -157,10 +162,26 @@ public class MenuActivity extends AppCompatActivity
 
         if (id == R.id.helpButton && !dataBaseUpdater.isRunning()) {
             isProcessRunning = true;
+            clients.clear();
+            recyclerAdapter.setClients(clients);
             dataBaseUpdater.updateCustomers(this);
             dataBaseUpdater.updateProducts(this);
             dataBaseUpdater.updateRoutes(this);
             dataBaseUpdater.updateInvoice(this);
+
+            routes = rancheraDatabaseRepo.getAllRoutes(Integer.valueOf(sessionService.getId()));
+            for(Route route : routes) {
+                Client client
+                        = rancheraDatabaseRepo.getSingleClient(this, route.getClientId());
+                clients.add(client);
+            }
+            recyclerAdapter.setClients(clients);
+            /*
+            LiveData<List<Client>> c = rancheraDatabaseRepo.getAllClients();
+            if(c != null) {
+                recyclerAdapter.setClients(c.getValue());
+            }
+            */
             Toast.makeText(this, "Sincronizacion iniciada", Toast.LENGTH_SHORT).show();
         }else if(id == R.id.helpButton && isProcessRunning){
             Toast.makeText(this, "Sincronizacion en proceso", Toast.LENGTH_SHORT).show();

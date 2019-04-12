@@ -47,16 +47,19 @@ public class DataBaseUpdater {
         sessionService = SessionService.getInstance(context);
         dataSource = DataSource.getInstance(context, sessionService);
 
-        Call<RouteEntity> routeCall = dataSource.getService().getRoutes();
+        Call<List<RouteEntity>> routeCall = dataSource.getService().getRoutes();
 
-        routeCall.enqueue(new Callback<RouteEntity>() {
+        routeCall.enqueue(new Callback<List<RouteEntity>>() {
             @Override
-            public void onResponse(Call<RouteEntity> call, Response<RouteEntity> response) {
+            public void onResponse(Call<List<RouteEntity>> call, Response<List<RouteEntity>> response) {
                 if(response.isSuccessful()){
-                    RouteEntity routeEntities = response.body();
+                    List<RouteEntity> routeEntities = response.body();
 
                     if(routeEntities != null) {
-                        ranchDatabaseRepo.addRouteFromRemote(context, routeEntities);
+                        ranchDatabaseRepo.eraseRoutes(context);
+                        for(RouteEntity route : routeEntities) {
+                            ranchDatabaseRepo.addRouteFromRemote(context, route);
+                        }
                     }
                 }
                 else{
@@ -66,7 +69,7 @@ public class DataBaseUpdater {
             }
 
             @Override
-            public void onFailure(Call<RouteEntity> call, Throwable throwable) {
+            public void onFailure(Call<List<RouteEntity>> call, Throwable throwable) {
                 throwable.printStackTrace();
                 Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
                 processRefreshInvoicesIsRunning = false;
@@ -220,7 +223,7 @@ public class DataBaseUpdater {
                             String address;
 
                             if (customer.getShipAddr() != null) {
-                                address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
+                                address = customer.getShipAddr().getLine1(); //+ ", " + customer.getShipAddr().getCity();
                             } else {
                                 address = "Dirección no registrada";
                             }
