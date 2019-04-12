@@ -6,15 +6,25 @@ import com.google.gson.annotations.SerializedName;
 public class SalesItemLineDetail {
 
     private ItemRef itemReference;
+    private float unitPricing;
     private float quantity;
     private ItemAccountRef itemAccountReference;
     private TaxCodeRef taxCodeReference;
 
-    public SalesItemLineDetail(ItemRef itemRef, float qty, ItemAccountRef itemAccountRef, TaxCodeRef taxCodeRef) {
+    public SalesItemLineDetail(ItemRef itemRef, float unitPricing, float qty, ItemAccountRef itemAccountRef, TaxCodeRef taxCodeRef) {
         this.itemReference = itemRef;
+        this.unitPricing = unitPricing;
         this.quantity = qty;
         this.itemAccountReference = itemAccountRef;
         this.taxCodeReference = taxCodeRef;
+    }
+
+    public float getUnitPricing() {
+        return unitPricing;
+    }
+
+    public void setUnitPricing(float unitPricing) {
+        this.unitPricing = unitPricing;
     }
 
     public ItemRef getItemReference() {

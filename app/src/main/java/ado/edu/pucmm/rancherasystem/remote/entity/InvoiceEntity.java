@@ -7,11 +7,38 @@ import java.util.List;
 
 public class InvoiceEntity {
 
-    public InvoiceEntity(String id, List<Line> lineList, CustomerRef customerRef, CustomerMemo customerMemo) {
-        this.id = id;
-        this.lineList = lineList;
-        this.customerRef = customerRef;
-        this.customerMemo = customerMemo;
+    private List<Line> lines;
+    private CustomerRef customerReference;
+    private CustomerMemo customerMem;
+
+    public InvoiceEntity(List<Line> line, CustomerRef customerReference, CustomerMemo customerMem) {
+        this.lines = line;
+        this.customerReference = customerReference;
+        this.customerMem = customerMem;
+    }
+
+    public List<Line> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<Line> line) {
+        this.lines = line;
+    }
+
+    public CustomerRef getCustomerReference() {
+        return customerReference;
+    }
+
+    public void setCustomerReference(CustomerRef customerReference) {
+        this.customerReference = customerReference;
+    }
+
+    public CustomerMemo getCustomerMem() {
+        return customerMem;
+    }
+
+    public void setCustomerMem(CustomerMemo customerMem) {
+        this.customerMem = customerMem;
     }
 
     @SerializedName("id")

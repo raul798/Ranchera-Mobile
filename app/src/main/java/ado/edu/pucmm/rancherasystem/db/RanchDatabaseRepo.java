@@ -983,14 +983,14 @@ public class RanchDatabaseRepo {
                         float quantity = detail.getQuantity();
                         ItemAccountRef itemAccountRef = new ItemAccountRef("79");
                         TaxCodeRef taxCodeRef = new TaxCodeRef("TAX");
-                        SalesItemLineDetail salesItemLineDetail = new SalesItemLineDetail(itemRef, product.getQuantity(), itemAccountRef, taxCodeRef);
+                        SalesItemLineDetail salesItemLineDetail = new SalesItemLineDetail(itemRef, product.getQuantity(), product.getPrice(),itemAccountRef, taxCodeRef);
                         Line line = new Line(detail.getId(), bill.getDescription(), quantity, "SALES_ITEM_LINE_DETAIL", salesItemLineDetail);
                         lines.add(line);
 
                     }
                     CustomerRef customerRef = new CustomerRef(String.valueOf(bill.getClient()));
                     CustomerMemo customerMemo = new CustomerMemo("Test");
-                    InvoiceEntity invoiceEntity = new InvoiceEntity(String.valueOf(bill.getId()), lines, customerRef, customerMemo);
+                    InvoiceEntity invoiceEntity = new InvoiceEntity(lines, customerRef, customerMemo);
                     Call<InvoiceEntity> invoiceCall = voids[0].getService().sendInvoice(invoiceEntity);
                     invoiceCall.enqueue(new Callback<InvoiceEntity>() {
                                             @Override
