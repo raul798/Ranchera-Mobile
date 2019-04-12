@@ -8,8 +8,10 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,8 @@ import ado.edu.pucmm.rancherasystem.ui.activity.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.facebook.stetho.inspector.network.ResponseHandlingInputStream.TAG;
 
 public class RanchDatabaseRepo {
 
@@ -996,10 +1000,16 @@ public class RanchDatabaseRepo {
                                             @Override
                                             public void onResponse(Call<InvoiceEntity> call, Response<InvoiceEntity> response) {
                                                 if(response.isSuccessful()){
-                                                    System.out.println("wii");
+                                                    System.out.println("wii");//usteds tan como loco
                                                     //Toast.makeTe, "Bienvenido", Toast.LENGTH_SHORT).show();
                                                 }
                                                 else{
+                                                    Log.wtf("something", response.message());
+                                                    try {
+                                                        System.out.println(response.errorBody().string());
+                                                    } catch (IOException e) {
+                                                        e.printStackTrace();
+                                                    }
                                                     System.out.println("buu");
                                                 }
                                             }
