@@ -990,18 +990,21 @@ public class RanchDatabaseRepo {
                     CustomerRef customerRef = new CustomerRef(String.valueOf(bill.getClient()));
                     CustomerMemo customerMemo = new CustomerMemo("Test");
                     InvoiceEntity invoiceEntity = new InvoiceEntity(String.valueOf(bill.getId()), lines, customerRef, customerMemo);
-                    Call<Void> invoiceCall = voids[0].getService().sendInvoice(invoiceEntity);
-                    invoiceCall.enqueue(new Callback<Void>() {
+                    Call<InvoiceEntity> invoiceCall = voids[0].getService().sendInvoice(invoiceEntity);
+                    invoiceCall.enqueue(new Callback<InvoiceEntity>() {
                                             @Override
-                                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                            public void onResponse(Call<InvoiceEntity> call, Response<InvoiceEntity> response) {
                                                 if(response.isSuccessful()){
-
+                                                    System.out.println("wii");
                                                     //Toast.makeTe, "Bienvenido", Toast.LENGTH_SHORT).show();
+                                                }
+                                                else{
+                                                    System.out.println("buu");
                                                 }
                                             }
 
                                             @Override
-                                            public void onFailure(Call<Void> call, Throwable throwable) {
+                                            public void onFailure(Call<InvoiceEntity> call, Throwable throwable) {
                                                 throwable.printStackTrace();
                                             }
                                         }
