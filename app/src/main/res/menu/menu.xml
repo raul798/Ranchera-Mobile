@@ -5,7 +5,7 @@
         android:id="@+id/helpButton"
         android:title=""
         app:showAsAction="always"
-        android:icon="@drawable/ic_action_name"
+        android:icon="@drawable/ic_refresh_black_24dp"
         app:theme="@style/AppTheme"
         app:itemIconTint="@color/colorWhite"
         />
