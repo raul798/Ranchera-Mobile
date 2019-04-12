@@ -11,11 +11,11 @@ public class SalesItemLineDetail {
 
     @SerializedName("unitPrice")
     @Expose
-    private Float unitPrice;
+    private float unitPrice;
 
     @SerializedName("qty")
     @Expose
-    private Float qty;
+    private float qty;
 
     @SerializedName("itemAccountRef")
     @Expose
@@ -33,19 +33,19 @@ public class SalesItemLineDetail {
         this.itemRef = itemRef;
     }
 
-    public Float getUnitPrice() {
+    public float getUnitPrice() {
         return unitPrice;
     }
 
-    public void setUnitPrice(Float unitPrice) {
+    public void setUnitPrice(float unitPrice) {
         this.unitPrice = unitPrice;
     }
 
-    public Float getQty() {
+    public float getQty() {
         return qty;
     }
 
-    public void setQty(Float qty) {
+    public void setQty(float qty) {
         this.qty = qty;
     }
 

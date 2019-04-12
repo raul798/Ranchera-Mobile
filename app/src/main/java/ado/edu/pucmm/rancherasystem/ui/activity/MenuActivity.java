@@ -54,12 +54,6 @@ public class MenuActivity extends AppCompatActivity
 
         rancheraDatabaseRepo = new RanchDatabaseRepo();
         dataBaseUpdater = new DataBaseUpdater();
-        dataBaseUpdater.setListener(new DataBaseUpdater.Listener() {
-            @Override
-            public void onFinish() {
-                isProcessRunning = false;
-            }
-        });
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -157,12 +151,12 @@ public class MenuActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.helpButton && !isProcessRunning) {
+        if (id == R.id.helpButton && !dataBaseUpdater.isRunning()) {
             isProcessRunning = true;
             dataBaseUpdater.updateCustomers(this);
             dataBaseUpdater.updateProducts(this);
             dataBaseUpdater.updateInvoice(this);
-            Toast.makeText(this, "Sincronizacion en iniciada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sincronizacion iniciada", Toast.LENGTH_SHORT).show();
         }else if(id == R.id.helpButton && isProcessRunning){
             Toast.makeText(this, "Sincronizacion en proceso", Toast.LENGTH_SHORT).show();
         }

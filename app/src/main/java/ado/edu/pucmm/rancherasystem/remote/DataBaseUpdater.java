@@ -31,24 +31,15 @@ public class DataBaseUpdater {
     private boolean processRefreshInvoicesIsRunning = false;
     private boolean processRefreshProductsIsRunning = false;
     private boolean processRefreshCustomersIsRunning = false;
-
-    public interface Listener{
-        void onFinish();
-    }
-
-    private Listener listener;
     private DataSource dataSource;
     private SessionService sessionService;
     private RanchDatabaseRepo ranchDatabaseRepo;
     private Context context;
 
-    public DataBaseUpdater(){}
-
-    public void setListener(Listener listener){
-     this.listener = listener;
+    public DataBaseUpdater() {
     }
 
-    public void updateInvoice(Context context){
+    public void updateInvoice(Context context) {
         this.processRefreshInvoicesIsRunning = true;
         this.context = context;
         ranchDatabaseRepo = new RanchDatabaseRepo(context);
@@ -57,17 +48,17 @@ public class DataBaseUpdater {
 
         Call<List<InvoiceEntity>> invoiceCall = dataSource.getService().getInvoices();
 
-        invoiceCall.enqueue(new Callback<List<InvoiceEntity>>(){
+        invoiceCall.enqueue(new Callback<List<InvoiceEntity>>() {
             @Override
             public void onResponse(Call<List<InvoiceEntity>> call, Response<List<InvoiceEntity>> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     ranchDatabaseRepo.eraseBills(context);
 
                     List<InvoiceEntity> invoiceEntities = response.body();
 
-                    if(invoiceEntities != null){
+                    if (invoiceEntities != null) {
 
-                        for(InvoiceEntity invoice : invoiceEntities){
+                        for (InvoiceEntity invoice : invoiceEntities) {
 
                             String id = invoice.getId();
 
@@ -81,7 +72,7 @@ public class DataBaseUpdater {
                             String description = "Done";
 
 
-                            if(idInvoice != -1 && clientId != -1) {
+                            if (idInvoice != -1 && clientId != -1) {
                                 Bill bill = new Bill(idInvoice, clientId, description);
                                 List<Line> lines = invoice.getLineList();
 
@@ -95,8 +86,8 @@ public class DataBaseUpdater {
 
                                     float quantity = details == null ? -1 : details.getQty();
 
-                                    if(idProduct != -1 && quantity != -1) {
-                                        Detail detail = new Detail(bill.getId(), idProduct, (int)quantity);
+                                    if (idProduct != -1 && quantity != -1) {
+                                        Detail detail = new Detail(bill.getId(), idProduct, (int) quantity);
                                         ranchDatabaseRepo.addBill(context, bill);
                                         ranchDatabaseRepo.addDetail(context, detail);
                                     }
@@ -104,17 +95,14 @@ public class DataBaseUpdater {
                             }
                         }
                     }
-                }
-                else{
+                } else {
                     Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
                 }
                 processRefreshInvoicesIsRunning = false;
-                listener.onFinish(); // llama eso en el ultimo proceso que llames asi se marcara como terminado
             }
 
             @Override
             public void onFailure(Call<List<InvoiceEntity>> call, Throwable t) {
-                listener.onFinish(); // llama eso en el ultimo proceso que llames asi se marcara como terminado
                 t.printStackTrace();
                 Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
                 processRefreshInvoicesIsRunning = false;
@@ -122,90 +110,88 @@ public class DataBaseUpdater {
         });
     }
 
-    public void updateProducts(Context context){
-        processRefreshInvoicesIsRunning = false;
+    public void updateProducts(Context context) {
+        processRefreshProductsIsRunning = false;
         this.context = context;
-     ranchDatabaseRepo = new RanchDatabaseRepo(context);
-     sessionService = SessionService.getInstance(context);
-     dataSource = DataSource.getInstance(context, sessionService);
+        ranchDatabaseRepo = new RanchDatabaseRepo(context);
+        sessionService = SessionService.getInstance(context);
+        dataSource = DataSource.getInstance(context, sessionService);
 
-     Call<List<ItemEntity>> itemCall = dataSource.getService().getItems();
+        Call<List<ItemEntity>> itemCall = dataSource.getService().getItems();
 
-     itemCall.enqueue(new Callback<List<ItemEntity>>(){
-         @Override
-         public void onResponse(Call<List<ItemEntity>> call, Response<List<ItemEntity>> response) {
-             if(response.isSuccessful()){
-                 ranchDatabaseRepo.deleteProducts(context);
-                 List<ItemEntity> itemEntities = response.body();
+        itemCall.enqueue(new Callback<List<ItemEntity>>() {
+            @Override
+            public void onResponse(Call<List<ItemEntity>> call, Response<List<ItemEntity>> response) {
+                if (response.isSuccessful()) {
+                    ranchDatabaseRepo.deleteProducts(context);
+                    List<ItemEntity> itemEntities = response.body();
 
-                 if(itemEntities != null){
-                     for(ItemEntity item : itemEntities){
-                          int idItem = Integer.valueOf(item.getId());
+                    if (itemEntities != null) {
+                        for (ItemEntity item : itemEntities) {
+                            int idItem = Integer.valueOf(item.getId());
 
-                          String name = item.getName();
-                          if(name == null) {
-                              name = "Nombre no registrado";
-                          }
+                            String name = item.getName();
+                            if (name == null) {
+                                name = "Nombre no registrado";
+                            }
 
-                          int quantity;
+                            int quantity;
 
-                          if(item.getQtyOnHand() != null){
-                              quantity = item.getQtyOnHand();
-                          }
-                          else{
-                              quantity = 0;
-                          }
+                            if (item.getQtyOnHand() != null) {
+                                quantity = item.getQtyOnHand();
+                            } else {
+                                quantity = 0;
+                            }
 
-                          float price;
-                          if(item.getUnitPrice() != null){
-                              price = Float.valueOf(item.getUnitPrice());
-                          }
-                          else{
-                              price = 0.0f;
-                          }
+                            float price;
+                            if (item.getUnitPrice() != null) {
+                                price = Float.valueOf(item.getUnitPrice());
+                            } else {
+                                price = 0.0f;
+                            }
 
-                          String description = item.getDescription();
-                          if(description == null){
-                              description = "Descripción no registrada";
-                          }
+                            String description = item.getDescription();
+                            if (description == null) {
+                                description = "Descripción no registrada";
+                            }
 
-                          Product product = new Product(idItem,name,quantity,price,description);
-                          ranchDatabaseRepo.addProduct(context, product);
+                            Product product = new Product(idItem, name, quantity, price, description);
+                            ranchDatabaseRepo.addProduct(context, product);
 
-                     }
-                 }
-             }
-             else{
-                 Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
-             }
-         }
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
+                }
+                processRefreshProductsIsRunning = false;
+            }
 
-         @Override
-         public void onFailure(Call<List<ItemEntity>> call, Throwable t) {
-
-         }
-     });
+            @Override
+            public void onFailure(Call<List<ItemEntity>> call, Throwable t) {
+                processRefreshProductsIsRunning = false;
+            }
+        });
     }
 
-    public void updateCustomers(Context context){
+    public void updateCustomers(Context context) {
+        processRefreshCustomersIsRunning = true;
+        this.context = context;
+        ranchDatabaseRepo = new RanchDatabaseRepo(context);
+        sessionService = SessionService.getInstance(context);
+        dataSource = DataSource.getInstance(context, sessionService);
 
-     this.context = context;
-     ranchDatabaseRepo = new RanchDatabaseRepo(context);
-     sessionService = SessionService.getInstance(context);
-     dataSource = DataSource.getInstance(context, sessionService);
+        Call<List<CustomerEntity>> customerCall = dataSource.getService().getCustomers();
 
-     Call<List<CustomerEntity>> customerCall = dataSource.getService().getCustomers();
+        customerCall.enqueue(new Callback<List<CustomerEntity>>() {
+            @Override
+            public void onResponse(Call<List<CustomerEntity>> call, Response<List<CustomerEntity>> response) {
+                if (response.isSuccessful()) {
+                    ranchDatabaseRepo.eraseAllClients(context);
+                    List<CustomerEntity> customers = response.body();
 
-     customerCall.enqueue(new Callback<List<CustomerEntity>>() {
-         @Override
-         public void onResponse(Call<List<CustomerEntity>> call, Response<List<CustomerEntity>> response) {
-             if(response.isSuccessful()) {
-                ranchDatabaseRepo.eraseAllClients(context);
-                 List<CustomerEntity> customers = response.body();
-
-                if(customers != null) {
-                    for (CustomerEntity customer : customers) {
-                        String id = customer.getId();
+                    if (customers != null) {
+                        for (CustomerEntity customer : customers) {
+                            String id = customer.getId();
                         /*
                         String name = customer.getGivenName();
 
@@ -213,50 +199,51 @@ public class DataBaseUpdater {
                            name = name + " " +  customer.getFamilyName();
                         }
                         */
-                        String name = customer.getFullyQualifiedName();
+                            String name = customer.getFullyQualifiedName();
 
-                        String phone;
-                        if(customer.getPrimaryPhone() != null) {
-                            phone = customer.getPrimaryPhone().getFreeFormNumber();
-                        }
-                        else{
-                            phone = "Número no registrado";
-                        }
+                            String phone;
+                            if (customer.getPrimaryPhone() != null) {
+                                phone = customer.getPrimaryPhone().getFreeFormNumber();
+                            } else {
+                                phone = "Número no registrado";
+                            }
 
-                        String email;
+                            String email;
 
-                        if(customer.getPrimaryEmailAddr() != null) {
-                            email = customer.getPrimaryEmailAddr().getAddress();
-                        }
-                        else{
-                            email = "Correo no registrado";
-                        }
+                            if (customer.getPrimaryEmailAddr() != null) {
+                                email = customer.getPrimaryEmailAddr().getAddress();
+                            } else {
+                                email = "Correo no registrado";
+                            }
 
-                        String address;
+                            String address;
 
-                        if(customer.getShipAddr() != null) {
-                            address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
-                        }
-                        else{
-                            address = "Dirección no registrada";
-                        }
+                            if (customer.getShipAddr() != null) {
+                                address = customer.getShipAddr().getLine1() + ", " + customer.getShipAddr().getCity();
+                            } else {
+                                address = "Dirección no registrada";
+                            }
 
-                        Client client = new Client(Integer.valueOf(id), name, phone, address, email);
-                        ranchDatabaseRepo.insertClient(context, client);
+                            Client client = new Client(Integer.valueOf(id), name, phone, address, email);
+                            ranchDatabaseRepo.insertClient(context, client);
+                        }
                     }
+
+                } else {
+                    Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
                 }
+                processRefreshCustomersIsRunning = false;
+            }
 
-             }
-             else{
-                 Toast.makeText(context, "Sincronizacion fallida", Toast.LENGTH_SHORT).show();
-             }
-         }
+            @Override
+            public void onFailure(Call<List<CustomerEntity>> call, Throwable t) {
+                // Toast.makeText(MainActivity.this, "Usuario y/o contraseña invalido", Toast.LENGTH_SHORT).show();
+                processRefreshCustomersIsRunning = false;
+            }
+        });
+    }
 
-         @Override
-         public void onFailure(Call<List<CustomerEntity>> call, Throwable t) {
-            // Toast.makeText(MainActivity.this, "Usuario y/o contraseña invalido", Toast.LENGTH_SHORT).show();
-
-         }
-     });
+    public boolean isRunning(){
+        return processRefreshCustomersIsRunning || processRefreshProductsIsRunning || processRefreshInvoicesIsRunning;
     }
 }
