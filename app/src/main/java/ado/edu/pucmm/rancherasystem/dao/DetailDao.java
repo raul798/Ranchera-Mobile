@@ -24,6 +24,9 @@ public interface DetailDao {
     @Query("SELECT product FROM Detail WHERE bill = :id_factura ")
     List<Integer> getBillProducts(int id_factura);
 
+    @Query("SELECT * FROM Detail WHERE bill = :id_factura ")
+    List<Detail> getBillDetails(int id_factura);
+
     @Query("SELECT quantity FROM Detail WHERE product = :id_producto and  bill = :billId")
     Integer getSelectedProductAmount(int id_producto, int billId);
 

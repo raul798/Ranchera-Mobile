@@ -973,9 +973,10 @@ public class RanchDatabaseRepo {
             List<Bill> bills = billDao.getAllBills();
 
             for(Bill bill : bills){
-                List<Detail> details = detailDao.getAllDetalles().getValue();
+                List<Detail> details = detailDao.getBillDetails(bill.getId());
                 List<Line> lines = new ArrayList<>();
-                if(bill.getExternalId() == -1 && details != null) {
+                int extid = bill.getExternalId();
+                if(extid == -1 && details != null) {
                     for (Detail detail : details) {
                         Product product = productDao.searchProductByID(detail.getProduct());
                         ItemRef itemRef = new ItemRef(String.valueOf(product.getId()));
