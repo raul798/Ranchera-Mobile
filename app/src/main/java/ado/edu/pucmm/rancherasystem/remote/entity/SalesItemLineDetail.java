@@ -3,61 +3,15 @@ package ado.edu.pucmm.rancherasystem.remote.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/*
+    "itemRef": {"value": "5" },
+    "unitPrice": 999,
+    "qty": 2,
+    "itemAccountRef": {"value": "79"},
+    "taxCodeRef": {"value": "TAX"}
+ */
 public class SalesItemLineDetail {
 
-    private ItemRef itemReference;
-    private float unitPricing;
-    private float quantity;
-    private ItemAccountRef itemAccountReference;
-    private TaxCodeRef taxCodeReference;
-
-    public SalesItemLineDetail(ItemRef itemRef, float unitPricing, float qty, ItemAccountRef itemAccountRef, TaxCodeRef taxCodeRef) {
-        this.itemReference = itemRef;
-        this.unitPricing = unitPricing;
-        this.quantity = qty;
-        this.itemAccountReference = itemAccountRef;
-        this.taxCodeReference = taxCodeRef;
-    }
-
-    public float getUnitPricing() {
-        return unitPricing;
-    }
-
-    public void setUnitPricing(float unitPricing) {
-        this.unitPricing = unitPricing;
-    }
-
-    public ItemRef getItemReference() {
-        return itemReference;
-    }
-
-    public void setItemReference(ItemRef itemReference) {
-        this.itemReference = itemReference;
-    }
-
-    public float getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(float quantity) {
-        this.quantity = quantity;
-    }
-
-    public ItemAccountRef getItemAccountReference() {
-        return itemAccountReference;
-    }
-
-    public void setItemAccountReference(ItemAccountRef itemAccountReference) {
-        this.itemAccountReference = itemAccountReference;
-    }
-
-    public TaxCodeRef getTaxCodeReference() {
-        return taxCodeReference;
-    }
-
-    public void setTaxCodeReference(TaxCodeRef taxCodeReference) {
-        this.taxCodeReference = taxCodeReference;
-    }
 
     @SerializedName("itemRef")
     @Expose
@@ -78,6 +32,14 @@ public class SalesItemLineDetail {
     @SerializedName("taxCodeRef")
     @Expose
     private TaxCodeRef taxCodeRef;
+
+    public SalesItemLineDetail(ItemRef itemRef, float unitPricing, float qty, ItemAccountRef itemAccountRef, TaxCodeRef taxCodeRef) {
+        this.itemRef = itemRef;
+        this.unitPrice = unitPricing;
+        this.qty = qty;
+        this.itemAccountRef = itemAccountRef;
+        this.taxCodeRef = taxCodeRef;
+    }
 
     public ItemRef getItemRef() {
         return itemRef;

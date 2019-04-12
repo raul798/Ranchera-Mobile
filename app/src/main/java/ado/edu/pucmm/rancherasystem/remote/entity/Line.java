@@ -3,62 +3,18 @@ package ado.edu.pucmm.rancherasystem.remote.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/*
+{
+    "lineNum": 1,
+    "description": "Test",
+    "amount": 1998,
+    "detailType": "SALES_ITEM_LINE_DETAIL",
+    "salesItemLineDetail": {
+       ...
+    }
+}
+ */
 public class Line {
-
-    private int lineNumber;
-    private String lineDescription;
-    private float lineAmount;
-    private String lineDetailType;
-    private SalesItemLineDetail lineSalesItemLineDetail;
-
-
-    public Line(int lineNum, String description, float amount, String detailType, SalesItemLineDetail salesItemLineDetail) {
-        this.lineNumber = lineNum;
-        this.lineDescription = description;
-        this.lineAmount = amount;
-        this.lineDetailType = detailType;
-        this.lineSalesItemLineDetail = salesItemLineDetail;
-    }
-
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-
-    public String getLineDescription() {
-        return lineDescription;
-    }
-
-    public void setLineDescription(String lineDescription) {
-        this.lineDescription = lineDescription;
-    }
-
-    public float getLineAmount() {
-        return lineAmount;
-    }
-
-    public void setLineAmount(float lineAmount) {
-        this.lineAmount = lineAmount;
-    }
-
-    public String getLineDetailType() {
-        return lineDetailType;
-    }
-
-    public void setLineDetailType(String lineDetailType) {
-        this.lineDetailType = lineDetailType;
-    }
-
-    public SalesItemLineDetail getLineSalesItemLineDetail() {
-        return lineSalesItemLineDetail;
-    }
-
-    public void setLineSalesItemLineDetail(SalesItemLineDetail lineSalesItemLineDetail) {
-        this.lineSalesItemLineDetail = lineSalesItemLineDetail;
-    }
 
     @SerializedName("id")
     @Expose
@@ -74,7 +30,7 @@ public class Line {
 
     @SerializedName("amount")
     @Expose
-    private Float amount;
+    private float amount;
 
     @SerializedName("detailType")
     @Expose
@@ -83,6 +39,14 @@ public class Line {
     @SerializedName("salesItemLineDetail")
     @Expose
     private SalesItemLineDetail salesItemLineDetail;
+
+    public Line(int lineNum, String description, float amount, String detailType, SalesItemLineDetail salesItemLineDetail) {
+        this.lineNum = lineNum;
+        this.description = description;
+        this.amount = amount;
+        this.detailType = detailType;
+        this.salesItemLineDetail = salesItemLineDetail;
+    }
 
     public String getId() {
         return id;

@@ -5,29 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class CustomerMemo {
 
-    private String customerMemoD;
-
-    public CustomerMemo(String customerMemoD){
-        this.customerMemoD = customerMemoD;
-    }
-
-    public String getCustomerMemoD() {
-        return customerMemoD;
-    }
-
-    public void setCustomerMemoD(String customerMemoD) {
-        this.customerMemoD = customerMemoD;
-    }
-
-    @SerializedName("customerMemo")
+    @SerializedName("value")
     @Expose
-    private String customerMemo;
+    private String value;
 
-    public String getCustomerMemo() {
-        return customerMemo;
+    public CustomerMemo(String customerMemo){
+        this.value = customerMemo;
     }
 
-    public void setCustomerMemo(String customerMemo) {
-        this.customerMemo = customerMemo;
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String customerMemo) {
+        this.value = customerMemo;
     }
 }

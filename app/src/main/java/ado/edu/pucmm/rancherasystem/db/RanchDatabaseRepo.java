@@ -921,7 +921,7 @@ public class RanchDatabaseRepo {
             if (idInvoice != -1 && clientId != -1) {
                 Bill bill = new Bill(idInvoice, clientId, description); //lo creo aqui
                 bill.setId(billDao.insert(bill).intValue());
-                List<Line> lines = invoice.getLineList();
+                List<Line> lines = invoice.getLines();
 
                 for (Line line : lines) {
 
@@ -972,6 +972,9 @@ public class RanchDatabaseRepo {
             this.productDao = productDao;
         }
 
+
+        public static final String TAG = RanchDatabaseRepo.class.getSimpleName();
+
         @Override
         protected Void doInBackground(DataSource... voids) {
             List<Bill> bills = billDao.getAllBills();
@@ -987,8 +990,8 @@ public class RanchDatabaseRepo {
                         float quantity = detail.getQuantity();
                         ItemAccountRef itemAccountRef = new ItemAccountRef("79");
                         TaxCodeRef taxCodeRef = new TaxCodeRef("TAX");
-                        SalesItemLineDetail salesItemLineDetail = new SalesItemLineDetail(itemRef, product.getQuantity(), product.getPrice(),itemAccountRef, taxCodeRef);
-                        Line line = new Line(detail.getId(), bill.getDescription(), quantity, "SALES_ITEM_LINE_DETAIL", salesItemLineDetail);
+                        SalesItemLineDetail salesItemLineDetail = new SalesItemLineDetail(itemRef, quantity, product.getPrice(),itemAccountRef, taxCodeRef);
+                        Line line = new Line(detail.getId(), bill.getDescription(), quantity*product.getPrice(), "SALES_ITEM_LINE_DETAIL", salesItemLineDetail);
                         lines.add(line);
 
                     }
@@ -1004,7 +1007,7 @@ public class RanchDatabaseRepo {
                                                     //Toast.makeTe, "Bienvenido", Toast.LENGTH_SHORT).show();
                                                 }
                                                 else{
-                                                    Log.wtf("something", response.message());
+                                                    Log.wtf(TAG, response.message());
                                                     try {
                                                         System.out.println(response.errorBody().string());
                                                     } catch (IOException e) {

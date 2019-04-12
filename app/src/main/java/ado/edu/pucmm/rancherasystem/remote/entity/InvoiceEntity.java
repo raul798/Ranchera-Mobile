@@ -5,42 +5,19 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/*
+{
+    "line": [
+        ...
+    ],
+    "customerRef": {"value": "24"},
+    "customerMemo": {
+        "value": "Test"
+    }
+}
+ */
+
 public class InvoiceEntity {
-
-    private List<Line> lines;
-    private CustomerRef customerReference;
-    private CustomerMemo customerMem;
-
-    public InvoiceEntity(List<Line> line, CustomerRef customerReference, CustomerMemo customerMem) {
-        this.lines = line;
-        this.customerReference = customerReference;
-        this.customerMem = customerMem;
-    }
-
-    public List<Line> getLines() {
-        return lines;
-    }
-
-    public void setLines(List<Line> line) {
-        this.lines = line;
-    }
-
-    public CustomerRef getCustomerReference() {
-        return customerReference;
-    }
-
-    public void setCustomerReference(CustomerRef customerReference) {
-        this.customerReference = customerReference;
-    }
-
-    public CustomerMemo getCustomerMem() {
-        return customerMem;
-    }
-
-    public void setCustomerMem(CustomerMemo customerMem) {
-        this.customerMem = customerMem;
-    }
-
     @SerializedName("id")
     @Expose
     private String id;
@@ -57,7 +34,35 @@ public class InvoiceEntity {
     @Expose
     private CustomerMemo customerMemo;
 
+    public InvoiceEntity(List<Line> line, CustomerRef customerReference, CustomerMemo customerMemo) {
+        this.lineList = line;
+        this.customerRef = customerReference;
+        this.customerMemo = customerMemo;
+    }
 
+    public List<Line> getLines() {
+        return lineList;
+    }
+
+    public void setLines(List<Line> line) {
+        this.lineList = line;
+    }
+
+    public CustomerRef getCustomerReference() {
+        return customerRef;
+    }
+
+    public void setCustomerReference(CustomerRef customerReference) {
+        this.customerRef = customerReference;
+    }
+
+    public CustomerMemo getCustomerMemo() {
+        return customerMemo;
+    }
+
+    public void setCustomerMemo(CustomerMemo customerMemo) {
+        this.customerMemo = customerMemo;
+    }
 
     public String getId() {
         return id;
@@ -65,14 +70,6 @@ public class InvoiceEntity {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public List<Line> getLineList() {
-        return lineList;
-    }
-
-    public void setLineList(List<Line> lineList) {
-        this.lineList = lineList;
     }
 
     public CustomerRef getCustomerRef() {
@@ -83,11 +80,4 @@ public class InvoiceEntity {
         this.customerRef = customerRef;
     }
 
-    public CustomerMemo getCustomerMemo() {
-        return customerMemo;
-    }
-
-    public void setCustomerMemo(CustomerMemo customerMemo) {
-        this.customerMemo = customerMemo;
-    }
 }
