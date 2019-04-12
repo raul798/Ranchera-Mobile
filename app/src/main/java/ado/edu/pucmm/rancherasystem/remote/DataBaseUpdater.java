@@ -114,11 +114,14 @@ public class DataBaseUpdater {
                     if(customers != null) {
                         for (CustomerEntity customer : customers) {
                             String id = customer.getId();
+                            /*
                             String name = customer.getGivenName();
 
                             if(customer.getFamilyName() != null) {
                                name = name + " " +  customer.getFamilyName();
                             }
+                            */
+                            String name = customer.getFullyQualifiedName();
 
                             String phone;
                             if(customer.getPrimaryPhone() != null) {

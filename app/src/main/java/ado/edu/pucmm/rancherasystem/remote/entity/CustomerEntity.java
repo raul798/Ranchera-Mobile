@@ -71,6 +71,10 @@ public class CustomerEntity {
     @Expose
     private String familyName;
 
+    @SerializedName("fullyQualifiedName")
+    @Expose
+    private String fullyQualifiedName;
+
     @SerializedName("primaryPhone")
     @Expose
     private PrimaryPhone primaryPhone;
@@ -129,5 +133,13 @@ public class CustomerEntity {
 
     public void setShipAddr(ShipAddr shipAddr) {
         this.shipAddr = shipAddr;
+    }
+
+    public String getFullyQualifiedName() {
+        return fullyQualifiedName;
+    }
+
+    public void setFullyQualifiedName(String fullyQualifiedName) {
+        this.fullyQualifiedName = fullyQualifiedName;
     }
 }
