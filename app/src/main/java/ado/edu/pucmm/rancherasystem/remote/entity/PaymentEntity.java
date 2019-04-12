@@ -5,6 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+
+/*
+{
+    "currencyRef": {"value": "USD"},
+    "line": [
+        ...
+    ],
+    "customerRef": {"value": "24"},
+    "totalAmt": 999
+}
+ */
 public class PaymentEntity {
 
     @SerializedName("id")

@@ -16,4 +16,10 @@ public class CurrencyRef {
     public void setValue(String value) {
         this.value = value;
     }
+
+    public CurrencyRef(String value) {
+        this.value = value;
+    }
+
+    public CurrencyRef() {}
 }

@@ -2,14 +2,11 @@ package ado.edu.pucmm.rancherasystem.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +25,7 @@ import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
 import ado.edu.pucmm.rancherasystem.remote.DataSource;
-import ado.edu.pucmm.rancherasystem.remote.SessionService;
+import ado.edu.pucmm.rancherasystem.remote.entity.CurrencyRef;
 import ado.edu.pucmm.rancherasystem.remote.entity.CustomerMemo;
 import ado.edu.pucmm.rancherasystem.remote.entity.CustomerRef;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
@@ -42,13 +39,9 @@ import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.SalesItemLineDetail;
 import ado.edu.pucmm.rancherasystem.remote.entity.Stop;
 import ado.edu.pucmm.rancherasystem.remote.entity.TaxCodeRef;
-import ado.edu.pucmm.rancherasystem.remote.entity.User;
-import ado.edu.pucmm.rancherasystem.ui.activity.MainActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static com.facebook.stetho.inspector.network.ResponseHandlingInputStream.TAG;
 
 public class RanchDatabaseRepo {
 
@@ -960,6 +953,20 @@ public class RanchDatabaseRepo {
 
     }
 
+
+    public void sendPayments(Context context, DataSource dataSource){
+        billDao = billDao == null? RanchDatabaseRepo.getDb(context).getBillDao(): billDao;
+        clientDao = clientDao == null? RanchDatabaseRepo.getDb(context).getClientDao(): clientDao;
+        paymentDao = paymentDao == null? RanchDatabaseRepo.getDb(context).getPaymentDao(): paymentDao;
+
+        try {
+            new SendPaymentsAsyncTask(paymentDao, billDao, clientDao).execute(dataSource);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     protected static class SendBillsAsyncTask extends AsyncTask<DataSource, Void, Void>{
 
         private BillDao billDao;
@@ -1027,7 +1034,84 @@ public class RanchDatabaseRepo {
                 }
 
             }
-            //billDao.deleteAll();
+            return null;
+        }
+    }
+
+    protected static class SendPaymentsAsyncTask extends AsyncTask<DataSource, Void, Void>{
+
+        private PaymentDao paymentDao;
+        private BillDao billDao;
+        private ClientDao clientDao;
+
+        public SendPaymentsAsyncTask(PaymentDao paymentDao, BillDao billDao, ClientDao clientDao) {
+            this.billDao = billDao;
+            this.paymentDao = paymentDao;
+            this.clientDao = clientDao;
+        }
+
+        public static final String TAG = RanchDatabaseRepo.class.getSimpleName();
+
+        @Override
+        protected Void doInBackground(DataSource... voids){
+            List<Payment> payments = paymentDao.getAllUnSynchronized();
+            for(Payment payment: payments){
+                PaymentEntity paymentEntity = new PaymentEntity();
+
+                Client client = clientDao.searchClientByID(payment.getClient());
+                Bill bill = billDao.searchBillByID(payment.getBill());
+
+                List<LinkedTxn> linkedTxns = new ArrayList<>();
+                linkedTxns.add(new LinkedTxn(String.valueOf(bill.getExternalId()),"Invoice"));
+                LinePayment line = new LinePayment(payment.getAmount(), linkedTxns);
+                List<LinePayment> linePayments = new ArrayList<>();
+                linePayments.add(line);
+                paymentEntity.setLine(linePayments);
+
+                CurrencyRef currencyRef = new CurrencyRef("USD");
+                paymentEntity.setCurrencyRef(currencyRef);
+
+                CustomerRef customerRef = new CustomerRef(String.valueOf(client.getId()));
+                paymentEntity.setCustomerRef(customerRef);
+
+                paymentEntity.setTotalAmt(payment.getAmount());
+
+                Call<PaymentEntity> invoiceCall = voids[0].getService().sendPayment(paymentEntity);
+                invoiceCall.enqueue(new Callback<PaymentEntity>() {
+                    @Override
+                    public void onResponse(Call<PaymentEntity> call, Response<PaymentEntity> response) {
+                        if(response.isSuccessful()){
+                            PaymentEntity entity = response.body();
+                            new UpdateExternalIdPayment(paymentDao, entity.getId(), payment.getId()).execute();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<PaymentEntity> call, Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
+            return null;
+        }
+    }
+
+
+    private static class UpdateExternalIdPayment extends AsyncTask<Void,Void,Void>{
+        private PaymentDao paymentDao;
+
+        private String externalId;
+        private int internalId;
+
+        public UpdateExternalIdPayment(PaymentDao paymentDao, String externalId, int internalId) {
+            this.paymentDao = paymentDao;
+            this.externalId = externalId;
+            this.internalId = internalId;
+        }
+
+        @Override
+        protected Void doInBackground(Void...voids) {
+            paymentDao.updateExternalID(internalId, externalId);
             return null;
         }
     }
@@ -1132,6 +1216,7 @@ public class RanchDatabaseRepo {
                 }
             }
             Payment payment = new Payment(amount, bill, client);
+            payment.setExternalID(paymentEntities[0].getId());
             paymentDao.insert(payment);
             return null;
         }

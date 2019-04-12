@@ -23,4 +23,11 @@ public interface PaymentDao {
     @Query("UPDATE Payment SET signature = :signature WHERE id = :id")
     void updatePaymentSignature(int id, byte[] signature);
 
+    @Query("UPDATE Payment SET externalID = :externalId WHERE id = :id")
+    void updateExternalID(int id, String externalId);
+
+    @Query("SELECT * FROM Payment where externalID IS NULL")
+    List<Payment> getAllUnSynchronized();
+
+
 }

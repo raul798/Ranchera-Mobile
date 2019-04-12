@@ -3,6 +3,12 @@ package ado.edu.pucmm.rancherasystem.remote.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/*
+{
+    "txnId": "152",
+    "txnType": "Invoice"
+}
+*/
 public class LinkedTxn {
 
 
@@ -28,6 +34,11 @@ public class LinkedTxn {
     }
 
     public void setTxnType(String txnType) {
+        this.txnType = txnType;
+    }
+
+    public LinkedTxn(String txnId, String txnType) {
+        this.txnId = txnId;
         this.txnType = txnType;
     }
 }

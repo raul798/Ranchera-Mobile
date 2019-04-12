@@ -5,6 +5,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/*
+{
+    "amount": 999,
+    "linkedTxn": [
+        ...
+    ]
+}
+ */
 public class LinePayment {
 
     @SerializedName("amount")
@@ -28,6 +36,14 @@ public class LinePayment {
     }
 
     public void setLinkedTxn(List<LinkedTxn> linkedTxn) {
+        this.linkedTxn = linkedTxn;
+    }
+
+    public LinePayment() {
+    }
+
+    public LinePayment(float amount, List<LinkedTxn> linkedTxn) {
+        this.amount = amount;
         this.linkedTxn = linkedTxn;
     }
 }
