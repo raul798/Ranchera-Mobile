@@ -31,4 +31,7 @@ public interface Service {
 
     @GET("/protected/payments/")
     Call<List<PaymentEntity>> getPayments();
+
+    @POST("/protected/invoices/")
+    Call<Void> sendInvoice(@Body InvoiceEntity invoiceEntity);
 }

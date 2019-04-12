@@ -5,6 +5,50 @@ import com.google.gson.annotations.SerializedName;
 
 public class SalesItemLineDetail {
 
+    private ItemRef itemReference;
+    private float quantity;
+    private ItemAccountRef itemAccountReference;
+    private TaxCodeRef taxCodeReference;
+
+    public SalesItemLineDetail(ItemRef itemRef, float qty, ItemAccountRef itemAccountRef, TaxCodeRef taxCodeRef) {
+        this.itemReference = itemRef;
+        this.quantity = qty;
+        this.itemAccountReference = itemAccountRef;
+        this.taxCodeReference = taxCodeRef;
+    }
+
+    public ItemRef getItemReference() {
+        return itemReference;
+    }
+
+    public void setItemReference(ItemRef itemReference) {
+        this.itemReference = itemReference;
+    }
+
+    public float getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(float quantity) {
+        this.quantity = quantity;
+    }
+
+    public ItemAccountRef getItemAccountReference() {
+        return itemAccountReference;
+    }
+
+    public void setItemAccountReference(ItemAccountRef itemAccountReference) {
+        this.itemAccountReference = itemAccountReference;
+    }
+
+    public TaxCodeRef getTaxCodeReference() {
+        return taxCodeReference;
+    }
+
+    public void setTaxCodeReference(TaxCodeRef taxCodeReference) {
+        this.taxCodeReference = taxCodeReference;
+    }
+
     @SerializedName("itemRef")
     @Expose
     private ItemRef itemRef;

@@ -119,7 +119,16 @@ public class DataBaseUpdater {
         sessionService = SessionService.getInstance(context);
         dataSource = DataSource.getInstance(context, sessionService);
 
-        Bill bill;
+        ranchDatabaseRepo.sendBills(context,dataSource);
+//        List<Bill> bills = ranchDatabaseRepo.getAllBills(context);
+//
+//        for (Bill bill: bills) {
+//
+//           // List<Detail> details = ranchDatabaseRepo.get
+//
+//            //for()
+//            //InvoiceEntity()
+//        }
 
         Call<List<InvoiceEntity>> invoiceCall = dataSource.getService().getInvoices();
 

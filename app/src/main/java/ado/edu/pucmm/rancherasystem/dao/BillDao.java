@@ -22,8 +22,8 @@ public interface BillDao {
     @Query("select * from Bill where id = :id")
     Bill searchBillByID(int id);
 
-    @Query("SELECT * from Bill ORDER BY id ASC")
-    LiveData<List<Bill>> getAllBills();
+    @Query("SELECT * from Bill WHERE description LIKE 'Done' ORDER BY id ASC")
+    List<Bill> getAllBills();
 
     @Query("SELECT  * FROM Bill where client like :clientId")
     List<Bill> getBills(Integer clientId );
@@ -50,7 +50,7 @@ public interface BillDao {
     void updateBillSignature(int id, byte[] signature);
 
     @Query("SELECT * FROM Bill")
-    LiveData<List<Bill>> getAllFacturas();
+    List<Bill> getAllFacturas();
 
 
 }

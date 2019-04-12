@@ -5,6 +5,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class CustomerRef {
 
+    private String customerId;
+
+    public CustomerRef(String customerId){
+        this.customerId = customerId;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
+    }
+
     @SerializedName("value")
     @Expose
     private String value;

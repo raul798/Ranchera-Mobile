@@ -7,6 +7,13 @@ import java.util.List;
 
 public class InvoiceEntity {
 
+    public InvoiceEntity(String id, List<Line> lineList, CustomerRef customerRef, CustomerMemo customerMemo) {
+        this.id = id;
+        this.lineList = lineList;
+        this.customerRef = customerRef;
+        this.customerMemo = customerMemo;
+    }
+
     @SerializedName("id")
     @Expose
     private String id;

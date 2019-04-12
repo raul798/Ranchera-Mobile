@@ -8,6 +8,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +25,13 @@ import ado.edu.pucmm.rancherasystem.entity.Detail;
 import ado.edu.pucmm.rancherasystem.entity.Payment;
 import ado.edu.pucmm.rancherasystem.entity.Product;
 import ado.edu.pucmm.rancherasystem.entity.Route;
+import ado.edu.pucmm.rancherasystem.remote.DataSource;
 import ado.edu.pucmm.rancherasystem.remote.SessionService;
+import ado.edu.pucmm.rancherasystem.remote.entity.CustomerMemo;
+import ado.edu.pucmm.rancherasystem.remote.entity.CustomerRef;
 import ado.edu.pucmm.rancherasystem.remote.entity.InvoiceEntity;
+import ado.edu.pucmm.rancherasystem.remote.entity.ItemAccountRef;
+import ado.edu.pucmm.rancherasystem.remote.entity.ItemRef;
 import ado.edu.pucmm.rancherasystem.remote.entity.Line;
 import ado.edu.pucmm.rancherasystem.remote.entity.LinePayment;
 import ado.edu.pucmm.rancherasystem.remote.entity.LinkedTxn;
@@ -33,6 +39,12 @@ import ado.edu.pucmm.rancherasystem.remote.entity.PaymentEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.RouteEntity;
 import ado.edu.pucmm.rancherasystem.remote.entity.SalesItemLineDetail;
 import ado.edu.pucmm.rancherasystem.remote.entity.Stop;
+import ado.edu.pucmm.rancherasystem.remote.entity.TaxCodeRef;
+import ado.edu.pucmm.rancherasystem.remote.entity.User;
+import ado.edu.pucmm.rancherasystem.ui.activity.MainActivity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RanchDatabaseRepo {
 
@@ -926,6 +938,79 @@ public class RanchDatabaseRepo {
                     }
                 }
             }
+            return null;
+        }
+    }
+
+    public void sendBills(Context context, DataSource dataSource){
+        billDao = billDao == null? RanchDatabaseRepo.getDb(context).getBillDao(): billDao;
+        detailDao = detailDao == null? RanchDatabaseRepo.getDb(context).getDetailDao(): detailDao;
+        productDao = productDao == null ? RanchDatabaseRepo.getDb(context).getProductDao():productDao;
+
+        List<Bill> bills = null;
+        try {
+            new SendBillsAsyncTask(billDao, detailDao, productDao).execute(dataSource);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    protected static class SendBillsAsyncTask extends AsyncTask<DataSource, Void, Void>{
+
+        private BillDao billDao;
+        private DetailDao detailDao;
+        private ProductDao productDao;
+
+        public SendBillsAsyncTask(BillDao billDao, DetailDao detailDao, ProductDao productDao) {
+            this.billDao = billDao;
+            this.detailDao = detailDao;
+            this.productDao = productDao;
+        }
+
+        @Override
+        protected Void doInBackground(DataSource... voids) {
+            List<Bill> bills = billDao.getAllBills();
+
+            for(Bill bill : bills){
+                List<Detail> details = detailDao.getAllDetalles().getValue();
+                List<Line> lines = new ArrayList<>();
+                if(bill.getExternalId() == -1 && details != null) {
+                    for (Detail detail : details) {
+                        Product product = productDao.searchProductByID(detail.getProduct());
+                        ItemRef itemRef = new ItemRef(String.valueOf(product.getId()));
+                        float quantity = detail.getQuantity();
+                        ItemAccountRef itemAccountRef = new ItemAccountRef("79");
+                        TaxCodeRef taxCodeRef = new TaxCodeRef("TAX");
+                        SalesItemLineDetail salesItemLineDetail = new SalesItemLineDetail(itemRef, product.getQuantity(), itemAccountRef, taxCodeRef);
+                        Line line = new Line(detail.getId(), bill.getDescription(), quantity, "SALES_ITEM_LINE_DETAIL", salesItemLineDetail);
+                        lines.add(line);
+
+                    }
+                    CustomerRef customerRef = new CustomerRef(String.valueOf(bill.getClient()));
+                    CustomerMemo customerMemo = new CustomerMemo("Test");
+                    InvoiceEntity invoiceEntity = new InvoiceEntity(String.valueOf(bill.getId()), lines, customerRef, customerMemo);
+                    Call<Void> invoiceCall = voids[0].getService().sendInvoice(invoiceEntity);
+                    invoiceCall.enqueue(new Callback<Void>() {
+                                            @Override
+                                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                                if(response.isSuccessful()){
+
+                                                    //Toast.makeTe, "Bienvenido", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Void> call, Throwable throwable) {
+                                                throwable.printStackTrace();
+                                            }
+                                        }
+
+                    );
+                }
+
+            }
+            //billDao.deleteAll();
             return null;
         }
     }

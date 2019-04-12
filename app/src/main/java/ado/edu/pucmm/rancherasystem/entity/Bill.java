@@ -21,6 +21,7 @@ public class Bill {
     public Bill(int client, String description) {
         this.client = client;
         this.description = description;
+        this.externalId = -1;
     }
 
     @Ignore

@@ -5,6 +5,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class CustomerMemo {
 
+    private String customerMemoD;
+
+    public CustomerMemo(String customerMemoD){
+        this.customerMemoD = customerMemoD;
+    }
+
+    public String getCustomerMemoD() {
+        return customerMemoD;
+    }
+
+    public void setCustomerMemoD(String customerMemoD) {
+        this.customerMemoD = customerMemoD;
+    }
+
     @SerializedName("customerMemo")
     @Expose
     private String customerMemo;
